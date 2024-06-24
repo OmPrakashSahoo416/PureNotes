@@ -8,7 +8,7 @@ function Header({hidden, setHidden}) {
     
   return (
     <>
-      <div className="header sticky mb-2 top-0 z-[999] bg-gray-700 flex items-center justify-between border-b border-slate-100 p-3">
+      <div  className="header sticky mb-2 top-0 z-[999] bg-gray-700 flex items-center justify-between border-b border-slate-100 p-3">
         {/* header left section  */}
         <div className="headerLeft flex items-center">
           {/* sidebar visibility button  */}
@@ -16,7 +16,7 @@ function Header({hidden, setHidden}) {
           {/* logo of app  */}
           <img
             src="https://shorturl.at/sXRcm"
-            className="!h-[36px] mr-2 ml-3 hover:cursor-pointer "
+            className="!h-[36px] mr-2 ml-3 hover:cursor-pointer object-contain"
             alt=""
           />
           <p className="text-md font-medium text-gray-200">NOTES</p>
