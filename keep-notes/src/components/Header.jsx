@@ -4,28 +4,33 @@ import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
 import IconButton from "./IconButton";
 
-function Header({hidden, setHidden}) {
+function Header({hidden, setHidden, forcedSideBarDisplay, setForcedSideBarDisplay}) {
     
   return (
     <>
-      <div  className="header sticky mb-2 top-0 z-[999] bg-gray-700 flex items-center justify-between border-b border-slate-100 p-3">
+      <div  className="header sticky mb-2 top-0 z-[900] bg-gray-800 flex items-center justify-between border-b border-amber-100 p-3">
         {/* header left section  */}
         <div className="headerLeft flex items-center">
           {/* sidebar visibility button  */}
+          <div onClick={() => setForcedSideBarDisplay(!forcedSideBarDisplay)}>
+
             <IconButton hidden={hidden} setHidden={setHidden} hideHandler={true} Icon={TableRowsRoundedIcon}></IconButton>
+          </div>
+
+
           {/* logo of app  */}
           <img
             src="https://shorturl.at/sXRcm"
             className="!h-[36px] mr-2 ml-3 hover:cursor-pointer object-contain"
             alt=""
           />
-          <p className="text-md font-medium text-gray-200">NOTES</p>
+          <p className="text-2xl font-medium text-amber-100 hidden md:block font-['Chiller']">NOTES</p>
         </div>
 
         {/* header center section  */}
-        <div className="headerCenter w-[50%]">
+        <div className="headerCenter !w-[50%]">
           {/* search bar */}
-          <div className="searchBar flex items-center p-3 rounded-md bg-gray-200 w-[100%]">
+          <div className="searchBar flex items-center p-3 rounded-md bg-gray-200 !w-[100%]">
             {/* search icon  */}
             <SearchRoundedIcon className="text-gray-500 mr-3" />
 
@@ -45,7 +50,7 @@ function Header({hidden, setHidden}) {
         {/* header right section  */}
         <div className="headerRight">
             <div className="headerRightLinks flex items-center">
-                <IconButton Icon={RefreshRoundedIcon} />
+                <button type="button" className='rounded-full' onClick={() => window.location.reload()}><IconButton Icon={RefreshRoundedIcon} /></button>
                 <IconButton Icon={ViewStreamRoundedIcon} />
                 <IconButton Icon={SettingsRoundedIcon} />
                 <IconButton avatar={"https://shorturl.at/V20Ev"} />
