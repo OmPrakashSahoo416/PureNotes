@@ -4,11 +4,11 @@ import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
 import IconButton from "./IconButton";
 
-function Header({hidden, setHidden, forcedSideBarDisplay, setForcedSideBarDisplay}) {
+function Header({hidden, setHidden, forcedSideBarDisplay, setForcedSideBarDisplay, setIsListView, isListView}) {
     
   return (
     <>
-      <div  className="header sticky mb-2 top-0 z-[900] bg-gray-800 flex items-center justify-between border-b border-amber-100 p-3">
+      <div  className="header sticky mb-2 top-0 z-[900] bg-amber-600 flex items-center justify-between border-b border-amber-100 p-3">
         {/* header left section  */}
         <div className="headerLeft flex items-center">
           {/* sidebar visibility button  */}
@@ -24,21 +24,21 @@ function Header({hidden, setHidden, forcedSideBarDisplay, setForcedSideBarDispla
             className="!h-[36px] mr-2 ml-3 hover:cursor-pointer object-contain"
             alt=""
           />
-          <p className="text-2xl font-medium text-amber-100 hidden md:block font-['Chiller']">NOTES</p>
+          <p className="text-2xl hover:cursor-pointer text-amber-900 hidden md:block font-bold font-['Gigi']">Notes</p>
         </div>
 
         {/* header center section  */}
         <div className="headerCenter !w-[50%]">
           {/* search bar */}
-          <div className="searchBar flex items-center p-3 rounded-md bg-gray-200 !w-[100%]">
+          <div className="searchBar drop-shadow-lg items-center p-3 md:flex hidden rounded-md bg-gradient-to-r from-amber-200 to-yellow-400 !w-[100%]">
             {/* search icon  */}
-            <SearchRoundedIcon className="text-gray-500 mr-3" />
+            <SearchRoundedIcon className="text-amber-700 mr-3" />
 
             {/* creating a form so that it could submit on enter  */}
             <form action="" className="w-[100%]">
               <input
                 type="text"
-                className="p-1 bg-gray-200 w-[100%] outline-none"
+                className="p-1 bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-700 text-amber-700 w-[100%] outline-none"
                 name=""
                 placeholder='Search...'
                 id=""
@@ -51,7 +51,8 @@ function Header({hidden, setHidden, forcedSideBarDisplay, setForcedSideBarDispla
         <div className="headerRight">
             <div className="headerRightLinks flex items-center">
                 <button type="button" className='rounded-full' onClick={() => window.location.reload()}><IconButton Icon={RefreshRoundedIcon} /></button>
-                <IconButton Icon={ViewStreamRoundedIcon} />
+                <button type="button" className='rounded-full' onClick={() => setIsListView(!isListView)}><IconButton Icon={ViewStreamRoundedIcon} /></button>
+                
                 <IconButton Icon={SettingsRoundedIcon} />
                 <IconButton avatar={"https://shorturl.at/V20Ev"} />
             </div>

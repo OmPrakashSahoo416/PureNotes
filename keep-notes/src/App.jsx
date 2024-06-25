@@ -9,23 +9,26 @@ function App() {
   const [isInputActive, setIsInputActive] = useState(false);
   const [forcedSideBarDisplay, setForcedSideBarDisplay] = useState(false);
   const [isPopUp, setIsPopUp] = useState(false);
+  const [selectedNote, setSelectedNote] = useState({});
+  const [isListView, setIsListView] = useState(false);
 
   return(
     <>
-    <PopUpScreen isPopUp={isPopUp} setIsPopUp={setIsPopUp} />
-    <div className="app !h-[100%] bg-amber-100">
+    <div className="app !h-[100%] bg-gradient-to-r from-fuchsia-500 to-cyan-500">
+      {/* screen that will appear on click of note to show its zoomed version on fullscreen  */}
+    <PopUpScreen selectedNote={selectedNote} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} />
 
       
 
       {/* header section   */}
-      <Header hidden={hidden} forcedSideBarDisplay={forcedSideBarDisplay} setForcedSideBarDisplay={setForcedSideBarDisplay} setHidden={setHidden}></Header>
+      <Header hidden={hidden} isListView={isListView} setIsListView={setIsListView} forcedSideBarDisplay={forcedSideBarDisplay} setForcedSideBarDisplay={setForcedSideBarDisplay} setHidden={setHidden}></Header>
 
-      <div className="appbody !h-[100%] flex ">
+      <div className="appbody !h-[100%] flex flex-col md:flex-row items-center md:items-start">
         {/* sidebar section  */}
       <SideBar hidden={hidden} setHidden={setHidden} forcedSideBarDisplay={forcedSideBarDisplay}></SideBar>
 
       {/* app main body with creating notes reminders etc.. and displaying them in a grid  */}
-      <MainBody isPopUp={isPopUp} setIsPopUp={setIsPopUp} isInputActive={isInputActive} setIsInputActive={setIsInputActive}></MainBody>
+      <MainBody isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} isInputActive={isInputActive} setIsInputActive={setIsInputActive}></MainBody>
 
       </div>
 

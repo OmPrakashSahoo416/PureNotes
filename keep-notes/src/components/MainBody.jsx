@@ -3,7 +3,7 @@ import Note from "./Note";
 import { db } from "../Firebase";
 import firebase from "firebase/compat/app";
 
-function MainBody({ isInputActive, setIsInputActive, isPopUp, setIsPopUp}) {
+function MainBody({ isInputActive, setSelectedNote, setIsInputActive, isPopUp, setIsPopUp, isListView}) {
   const [note, setNote] = useState([]);
   const [newTitle, setNewTitle] = useState("");
   const [inpTextNote, setInpTextNote] = useState("");
@@ -46,26 +46,26 @@ function MainBody({ isInputActive, setIsInputActive, isPopUp, setIsPopUp}) {
     <>
       <div className="mainBody rounded-md flex justify-center flex-col  w-full mr-2 ml-2 p-5 ">
         <div className="mainBodyInp rounded-md flex justify-center flex-col items-center  w-full mb-16 ">
-          <div className="noteCreater w-[50%] border-2 rounded-md  bg-gray-800 drop-shadow-2xl p-3 mb-16 border-amber-200">
+          <div className="noteCreater drop-shadow-lg w-[50%] border-2 rounded-md mt-24 md:mt-0  bg-gradient-to-r from-amber-200 to-yellow-400 p-3 mb-16 border-amber-200">
             <form action="" className="w-[100%] z-[950]">
               {!isInputActive ? (
                 <input
                   onClick={() => setIsInputActive(!isInputActive)}
                   type="text"
-                  className="w-[100%] outline-none bg-gray-800 text-slate-100"
+                  className="w-[100%] outline-none bg-gradient-to-r from-amber-200 to-yellow-400 text-amber-900 placeholder:text-amber-900 "
                   placeholder="Take a note ..."
                   name=""
                   id=""
                 />
               ) : (
-                <div className="max-w-full">
+                <div className="max-w-full ">
                   {/* enter title  */}
                   <input
                     onChange={(e) => setNewTitle(e.target.value)}
                     type="text"
                     placeholder="Title"
                     value={newTitle}
-                    className="w-[100%] mb-3 outline-none text-lg font-semibold bg-gray-800 text-slate-100"
+                    className="w-[100%] mb-3 outline-none text-lg font-semibold bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
                     name=""
                     id=""
                   />
@@ -77,7 +77,7 @@ function MainBody({ isInputActive, setIsInputActive, isPopUp, setIsPopUp}) {
                     onChange={(e) => setInpTextNote(e.target.value)}
                     type="text"
                     placeholder="Take a note ..."
-                    className="w-[100%] mb-5 text-sm outline-none bg-gray-800 text-slate-100"
+                    className="w-[100%] mb-5 text-sm outline-none bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
                     name=""
                     id=""
                     value={inpTextNote}
@@ -88,14 +88,14 @@ function MainBody({ isInputActive, setIsInputActive, isPopUp, setIsPopUp}) {
                     <button
                       type="submit"
                       onClick={onSubmitNoteHandler}
-                      className="w-[50%] mr-5 p-2 rounded-md hover:bg-blue-600 hover:text-slate-100 bg-slate-100"
+                      className="w-[50%] mr-5 p-2 rounded-md hover:bg-green-600 hover:text-slate-100 bg-slate-100"
                     >
                       Submit
                     </button>
                     <button
                       onClick={onCloseNoteHandler}
                       type="button"
-                      className="w-[50%] p-2 rounded-md hover:bg-red-500 hover:text-slate-100 bg-slate-100"
+                      className="w-[50%] p-2 rounded-md hover:bg-red-600 hover:text-slate-100 bg-slate-100"
                     >
                       Close
                     </button>
@@ -110,7 +110,7 @@ function MainBody({ isInputActive, setIsInputActive, isPopUp, setIsPopUp}) {
         <div className="notesList flex flex-wrap lg:justify-start justify-center gap-y-5">
           {
             note.map((eachNote) => (
-                <Note isPopUp={isPopUp} setIsPopUp={setIsPopUp} key={eachNote.id} title={eachNote.data.title} textBody={eachNote.data.content} />
+                <Note isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} key={eachNote.id} title={eachNote.data.title} textBody={eachNote.data.content} />
             ))
           }
         </div>
