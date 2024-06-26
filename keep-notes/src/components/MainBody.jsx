@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Note from "./Note";
 import { db } from "../Firebase";
 import firebase from "firebase/compat/app";
+import { Outlet, Link } from "react-router-dom";
 
 function MainBody({ isInputActive, setSelectedNote, setIsInputActive, isPopUp, setIsPopUp, isListView}) {
   const [note, setNote] = useState([]);
@@ -19,6 +20,8 @@ function MainBody({ isInputActive, setSelectedNote, setIsInputActive, isPopUp, s
         )))
     ))
   },[]);
+
+  
 
   function onSubmitNoteHandler(e) {
     // preventdefault is necessary to avoid a re render which would reset the contents of states
@@ -46,7 +49,7 @@ function MainBody({ isInputActive, setSelectedNote, setIsInputActive, isPopUp, s
     <>
       <div className="mainBody rounded-md flex justify-center flex-col  w-full mr-2 ml-2 p-5 ">
         <div className="mainBodyInp rounded-md flex justify-center flex-col items-center  w-full mb-16 ">
-          <div className="noteCreater drop-shadow-lg w-[50%] border-2 rounded-md mt-24 md:mt-0  bg-gradient-to-r from-amber-200 to-yellow-400 p-3 mb-16 border-amber-200">
+          <div className="noteCreater drop-shadow-lg w-[50%] rounded-md mt-24 md:mt-0  bg-gradient-to-r from-amber-200 to-yellow-400 p-3 mb-16 ">
             <form action="" className="w-[100%] z-[950]">
               {!isInputActive ? (
                 <input
@@ -105,12 +108,13 @@ function MainBody({ isInputActive, setSelectedNote, setIsInputActive, isPopUp, s
             </form>
           </div>
         </div>
+        <Outlet />
 
         {/* may be using display grid will be a better option here to try  */}
         <div className="notesList flex flex-wrap lg:justify-start justify-center gap-y-5">
           {
             note.map((eachNote) => (
-                <Note isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} key={eachNote.id} title={eachNote.data.title} textBody={eachNote.data.content} />
+                <Note isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} key={eachNote.id} docId={eachNote.id} title={eachNote.data.title} textBody={eachNote.data.content} />
             ))
           }
         </div>

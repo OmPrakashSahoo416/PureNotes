@@ -8,7 +8,7 @@ function Header({hidden, setHidden, forcedSideBarDisplay, setForcedSideBarDispla
     
   return (
     <>
-      <div  className="header sticky mb-2 top-0 z-[900] bg-amber-600 flex items-center justify-between border-b border-amber-100 p-3">
+      <div  className="header sticky mb-2 top-0 z-[900] bg-gradient-to-l from-amber-500 to-pink-500 flex items-center justify-between border-b border-amber-100 p-3">
         {/* header left section  */}
         <div className="headerLeft flex items-center">
           {/* sidebar visibility button  */}
@@ -19,18 +19,22 @@ function Header({hidden, setHidden, forcedSideBarDisplay, setForcedSideBarDispla
 
 
           {/* logo of app  */}
+          <div className='flex items-end'>
+
+          
           <img
             src="https://shorturl.at/sXRcm"
             className="!h-[36px] mr-2 ml-3 hover:cursor-pointer object-contain"
             alt=""
           />
-          <p className="text-2xl hover:cursor-pointer text-amber-900 hidden md:block font-bold font-['Gigi']">Notes</p>
+          <p className="text-2xl hover:cursor-pointer text-pink-200 hidden md:block font-bold font-['Calibri']">Note.om</p>
+          </div>
         </div>
 
         {/* header center section  */}
         <div className="headerCenter !w-[50%]">
           {/* search bar */}
-          <div className="searchBar drop-shadow-lg items-center p-3 md:flex hidden rounded-md bg-gradient-to-r from-amber-200 to-yellow-400 !w-[100%]">
+          <div className="searchBar drop-shadow-lg items-center p-2 md:flex hidden rounded-md bg-gradient-to-r from-amber-200 to-yellow-400 !w-[100%]">
             {/* search icon  */}
             <SearchRoundedIcon className="text-amber-700 mr-3" />
 

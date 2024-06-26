@@ -3,6 +3,7 @@ import Header from "./components/Header"
 import MainBody from "./components/MainBody"
 import SideBar from "./components/SideBar"
 import PopUpScreen from "./components/PopUpScreen";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [hidden, setHidden] = useState(true);
@@ -29,6 +30,7 @@ function App() {
 
       {/* app main body with creating notes reminders etc.. and displaying them in a grid  */}
       <MainBody isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} isInputActive={isInputActive} setIsInputActive={setIsInputActive}></MainBody>
+      {/* <Outlet></Outlet> */}
 
       </div>
 
