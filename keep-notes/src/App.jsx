@@ -1,11 +1,15 @@
 import { useState } from "react";
 import Header from "./components/Header"
-import MainBody from "./components/MainBody"
+// import MainBody from "./components/MainBody"
 import SideBar from "./components/SideBar"
 import PopUpScreen from "./components/PopUpScreen";
 import { Outlet } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function App() {
+  // this location helps to track the re routing 
+  const location = useLocation();
+  // console.log(location);
   const [hidden, setHidden] = useState(true);
   const [isInputActive, setIsInputActive] = useState(false);
   const [forcedSideBarDisplay, setForcedSideBarDisplay] = useState(false);
@@ -29,8 +33,11 @@ function App() {
       <SideBar hidden={hidden} setHidden={setHidden} forcedSideBarDisplay={forcedSideBarDisplay}></SideBar>
 
       {/* app main body with creating notes reminders etc.. and displaying them in a grid  */}
-      <MainBody isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} isInputActive={isInputActive} setIsInputActive={setIsInputActive}></MainBody>
-      {/* <Outlet></Outlet> */}
+
+      {/* added logic to show certain page on condition of routing  */}
+      {(location.pathname.startsWith("/notes")) && <Outlet context={{ isInputActive, setSelectedNote, setIsInputActive, isPopUp, setIsPopUp, isListView} }></Outlet>}
+
+      {location.pathname.startsWith("/reminder") && <Outlet context={{ setSelectedNote, isPopUp, setIsPopUp, isListView} }></Outlet>}
 
       </div>
 

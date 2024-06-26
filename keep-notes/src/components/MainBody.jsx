@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 import Note from "./Note";
 import { db } from "../Firebase";
 import firebase from "firebase/compat/app";
-import { Outlet, Link } from "react-router-dom";
+import { useOutletContext } from 'react-router-dom';
+// import { Outlet } from "react-router-dom";
 
-function MainBody({ isInputActive, setSelectedNote, setIsInputActive, isPopUp, setIsPopUp, isListView}) {
+function MainBody() {
+
+  const { isInputActive, setSelectedNote, setIsInputActive, isPopUp, setIsPopUp, isListView} = useOutletContext();
+
   const [note, setNote] = useState([]);
   const [newTitle, setNewTitle] = useState("");
   const [inpTextNote, setInpTextNote] = useState("");
@@ -108,10 +112,10 @@ function MainBody({ isInputActive, setSelectedNote, setIsInputActive, isPopUp, s
             </form>
           </div>
         </div>
-        <Outlet />
+        
 
         {/* may be using display grid will be a better option here to try  */}
-        <div className="notesList flex flex-wrap lg:justify-start justify-center gap-y-5">
+        <div className="notesList flex mb-[200px] flex-wrap lg:justify-start justify-center gap-y-5">
           {
             note.map((eachNote) => (
                 <Note isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} key={eachNote.id} docId={eachNote.id} title={eachNote.data.title} textBody={eachNote.data.content} />
