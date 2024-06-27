@@ -16,6 +16,7 @@ function App() {
   const [isPopUp, setIsPopUp] = useState(false);
   const [selectedNote, setSelectedNote] = useState({});
   const [isListView, setIsListView] = useState(false);
+  const [isReminder, setIsReminder] = useState(false);
 
   return(
     <>
@@ -35,7 +36,7 @@ function App() {
       {/* app main body with creating notes reminders etc.. and displaying them in a grid  */}
 
       {/* added logic to show certain page on condition of routing  */}
-      {(location.pathname.startsWith("/notes")) && <Outlet context={{ isInputActive, setSelectedNote, setIsInputActive, isPopUp, setIsPopUp, isListView} }></Outlet>}
+      {(location.pathname.startsWith("/notes")) && <Outlet context={{ isInputActive, isReminder, setIsReminder, setSelectedNote, setIsInputActive, isPopUp, setIsPopUp, isListView} }></Outlet>}
 
       {location.pathname.startsWith("/reminder") && <Outlet context={{ setSelectedNote, isPopUp, setIsPopUp, isListView} }></Outlet>}
 

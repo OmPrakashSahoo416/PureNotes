@@ -7,7 +7,7 @@ import { useOutletContext } from 'react-router-dom';
 
 function MainBody() {
 
-  const { isInputActive, setSelectedNote, setIsInputActive, isPopUp, setIsPopUp, isListView} = useOutletContext();
+  const { isInputActive, setSelectedNote, setIsInputActive, isPopUp,isReminder, setIsReminder, setIsPopUp, isListView} = useOutletContext();
 
   const [note, setNote] = useState([]);
   const [newTitle, setNewTitle] = useState("");
@@ -30,9 +30,11 @@ function MainBody() {
   function onSubmitNoteHandler(e) {
     // preventdefault is necessary to avoid a re render which would reset the contents of states
     e.preventDefault();
+
     db.collection("notes").add({
       title: newTitle,
       content: inpTextNote,
+      isReminder: false,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     });
     // const updatedNote = [...note,{title:newTitle,inpText:inpTextNote}] === previous code ===
@@ -77,8 +79,7 @@ function MainBody() {
                     id=""
                   />
 
-                  {/* enter content  */}
-                  {/* <span contentEditable role="input" className="inline-block w-[100%] mb-5 text-sm outline-none bg-gray-700 text-slate-100" /> */}
+                  
 
                   <input
                     onChange={(e) => setInpTextNote(e.target.value)}
@@ -118,7 +119,7 @@ function MainBody() {
         <div className="notesList flex mb-[200px] flex-wrap lg:justify-start justify-center gap-y-5">
           {
             note.map((eachNote) => (
-                <Note isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} key={eachNote.id} docId={eachNote.id} title={eachNote.data.title} textBody={eachNote.data.content} />
+                <Note isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} key={eachNote.id} docId={eachNote.id} isReminder={eachNote.data.isReminder} title={eachNote.data.title} textBody={eachNote.data.content} />
             ))
           }
         </div>

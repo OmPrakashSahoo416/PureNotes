@@ -1,11 +1,26 @@
 // import ZoomedNote from "./ZoomedNote";
+import firebase from 'firebase/compat/app';
 
 import IconButton from "./IconButton";
 import NotificationAddRoundedIcon from "@mui/icons-material/NotificationAddRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import "firebase/compat/firestore";
+
 import { db } from "../Firebase";
-import firebase from "firebase/compat/app";
-// import {NotificationManager} from 'react-notifications';
+// import firebase from "firebase/compat/app";
+import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
+
+// the notifications library and css file [required]
+// import { ToastContainer, toast, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import { useState } from "react";
+
+// const getField = async (docId) => {
+//   const docRef = db.collection("notes").doc(docId);
+//   const doc = await docRef.get();
+//   const isReminder = await doc.data().isReminder; 
+//   return isReminder;
+// };
 
 
 function Note({
@@ -16,18 +31,35 @@ function Note({
   setSelectedNote,
   isListView,
   docId,
+  isReminder
+  
 }) {
-  function onSubmitReminderHandler(e) {
-    
-    
 
+  
+
+  function onSubmitReminderHandler(e) {
     // preventdefault is necessary to avoid a re render which would reset the contents of states
     e.preventDefault();
-    db.collection("reminders").add({
-      title: title,
-      content: textBody,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    (!isReminder &&
+    db.collection("notes")
+      .doc(docId)
+      .update({
+        isReminder: true,
+      })
+      .catch(console.log("Error updating the value")));
+
+    // toast.success("Reminder added successfully!", {
+    //   position: "bottom-right",
+    //   autoClose: 3000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: false,
+    //   draggable: true,
+    //   progress: undefined,
+    //   theme: "light",
+    //   transition: Slide,
+    // });
+    // setIsReminder(true);
   }
 
   return (
@@ -59,12 +91,16 @@ function Note({
           {/* reminder button  */}
           <button
             onClick={(e) => onSubmitReminderHandler(e)}
-            className="absolute top-14 group-hover:block hidden z-[1100] rounded-full right-1 bg-blue-800"
+            className={(!isReminder ?  " bg-blue-600  ": " bg-green-800 ") +  " absolute top-14 group-hover:block hidden z-[1100] rounded-full right-1  "}
             type="button"
           >
             <IconButton
-              Icon={NotificationAddRoundedIcon}
-              color="text-blue-100"
+              Icon={
+                !isReminder
+                  ? NotificationAddRoundedIcon
+                  : DoneAllRoundedIcon
+              }
+              color={!isReminder?"text-blue-50" : "text-green-50"}
             ></IconButton>
           </button>
 
@@ -80,6 +116,19 @@ function Note({
           </button>
         </div>
       </div>
+      {/* <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+        transition:Slide
+      /> */}
     </>
   );
 }
