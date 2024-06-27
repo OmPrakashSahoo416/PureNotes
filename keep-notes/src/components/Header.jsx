@@ -8,7 +8,7 @@ function Header({hidden, setHidden, forcedSideBarDisplay, setForcedSideBarDispla
     
   return (
     <>
-      <div  className="header sticky mb-2 top-0 z-[900] bg-gradient-to-l from-amber-500 to-pink-500 flex items-center justify-between border-b border-amber-100 p-3">
+      <div  className="header sticky top-0 z-[900] bg-gradient-to-l from-amber-500 to-pink-500 flex items-center justify-between border-b border-amber-100 p-3">
         {/* header left section  */}
         <div className="headerLeft flex items-center">
           {/* sidebar visibility button  */}

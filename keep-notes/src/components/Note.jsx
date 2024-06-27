@@ -1,7 +1,9 @@
 // import ZoomedNote from "./ZoomedNote";
-import firebase from 'firebase/compat/app';
+// import firebase from 'firebase/compat/app';
 
 import IconButton from "./IconButton";
+import PushPinRoundedIcon from "@mui/icons-material/PushPinRounded";
+import { PushPinOutlined } from "@mui/icons-material";
 import NotificationAddRoundedIcon from "@mui/icons-material/NotificationAddRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import "firebase/compat/firestore";
@@ -11,17 +13,10 @@ import { db } from "../Firebase";
 import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
 
 // the notifications library and css file [required]
-// import { ToastContainer, toast, Slide } from "react-toastify";
+import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useLocation } from "react-router-dom";
 // import { useState } from "react";
-
-// const getField = async (docId) => {
-//   const docRef = db.collection("notes").doc(docId);
-//   const doc = await docRef.get();
-//   const isReminder = await doc.data().isReminder; 
-//   return isReminder;
-// };
-
 
 function Note({
   title,
@@ -31,35 +26,81 @@ function Note({
   setSelectedNote,
   isListView,
   docId,
-  isReminder
-  
+  isReminder,
+  imgUrl,
+  isPinned,
 }) {
-
-  
+  const location = useLocation();
 
   function onSubmitReminderHandler(e) {
     // preventdefault is necessary to avoid a re render which would reset the contents of states
     e.preventDefault();
-    (!isReminder &&
-    db.collection("notes")
-      .doc(docId)
-      .update({
-        isReminder: true,
-      })
-      .catch(console.log("Error updating the value")));
+    !isReminder &&
+      db
+        .collection("notes")
+        .doc(docId)
+        .update({
+          isReminder: true,
+        })
+        .catch(console.log("Error updating the value"));
 
-    // toast.success("Reminder added successfully!", {
-    //   position: "bottom-right",
-    //   autoClose: 3000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: false,
-    //   draggable: true,
-    //   progress: undefined,
-    //   theme: "light",
-    //   transition: Slide,
-    // });
+    !isReminder &&
+      toast.success("Reminder added successfully!", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
+    isReminder &&
+      toast("Reminder already added!", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
     // setIsReminder(true);
+  }
+  function onSubmitPinHandler(e) {
+    // preventdefault is necessary to avoid a re render which would reset the contents of states
+    e.preventDefault();
+    !isPinned &&
+      db
+        .collection("notes")
+        .doc(docId)
+        .update({
+          isPinned: true,
+        })
+        .catch(console.log("Error updating the value"));
+    isPinned &&
+      db
+        .collection("notes")
+        .doc(docId)
+        .update({
+          isPinned: false,
+        })
+        .catch(console.log("Error updating the value"));
+
+    // isPinned = !isPinned;
+  }
+
+  function onCloseNoteHandler() {
+    if (location.pathname.startsWith("/notes")) {
+      db.collection("notes").doc(docId).delete();
+    } else {
+      db.collection("notes").doc(docId).update({
+        isReminder: false,
+      });
+    }
   }
 
   return (
@@ -75,32 +116,54 @@ function Note({
         <div
           onClick={() => {
             setIsPopUp(!isPopUp);
-            setSelectedNote({ title: title, text: textBody });
+            setSelectedNote({
+              title: title,
+              text: textBody,
+              imgUrl: imgUrl,
+              docId: docId,
+            });
           }}
           className=" overflow-hidden w-full h-full "
         >
           <p className="mb-3 outline-none text-lg font-['Calibri'] font-semibold text-amber-800">
             {title}
           </p>
-          <p className="h-[90%] leading-9 text-md outline-none font-['Calibri'] text-slate-800">
+          <p className="h-[90%] mb-3 leading-9 text-md outline-none font-['Calibri'] text-slate-800">
             {textBody}
           </p>
+          <img src={imgUrl} alt="" className="overflow-auto mb-5" />
         </div>
 
         <div className="contextMenu">
-          {/* reminder button  */}
+          {/* pinning button to pin notes on top  */}
+          <button
+            onClick={(e) => onSubmitPinHandler(e)}
+            className={
+              (!isPinned ? " bg-fuchsia-600  " : " bg-white ") +
+              " absolute top-[100px] group-hover:block hidden z-[1100] rounded-full right-1  "
+            }
+            type="button"
+          >
+            <IconButton
+              Icon={!isPinned ? PushPinRoundedIcon : PushPinOutlined}
+              color={"text-black"}
+            ></IconButton>
+          </button>
+
+          {/* reminder button */}
           <button
             onClick={(e) => onSubmitReminderHandler(e)}
-            className={(!isReminder ?  " bg-blue-600  ": " bg-green-800 ") +  " absolute top-14 group-hover:block hidden z-[1100] rounded-full right-1  "}
+            className={
+              (!isReminder ? " bg-blue-600  " : " bg-green-800 ") +
+              " absolute top-[50px] group-hover:block hidden z-[1100] rounded-full right-1  "
+            }
             type="button"
           >
             <IconButton
               Icon={
-                !isReminder
-                  ? NotificationAddRoundedIcon
-                  : DoneAllRoundedIcon
+                !isReminder ? NotificationAddRoundedIcon : DoneAllRoundedIcon
               }
-              color={!isReminder?"text-blue-50" : "text-green-50"}
+              color={!isReminder ? "text-blue-50" : "text-green-50"}
             ></IconButton>
           </button>
 
@@ -108,17 +171,17 @@ function Note({
           {/* db.collection("notes").doc("0BNs1cv3iRzjUJRnY9YU").delete() ==> this thing
                 works on deleting a record */}
           <button
-            onClick={() => db.collection("notes").doc(docId).delete()}
+            onClick={onCloseNoteHandler}
             type="button"
-            className="rounded-full group-hover:block hidden absolute top-1 bg-red-500 z-[1100] right-1 text-slate-800"
+            className="rounded-full group-hover:block hidden absolute top-0 bg-red-500 z-[1100] right-1 text-slate-800"
           >
             <IconButton Icon={CloseRoundedIcon} />
           </button>
         </div>
       </div>
-      {/* <ToastContainer
+      <ToastContainer
         position="bottom-right"
-        autoClose={3000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -128,7 +191,7 @@ function Note({
         pauseOnHover={false}
         theme="light"
         transition:Slide
-      /> */}
+      />
     </>
   );
 }

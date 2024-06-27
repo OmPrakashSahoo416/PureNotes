@@ -34,7 +34,7 @@ function ReminderRoute() {
         <div
           className={
             (isListView ? "min-w-[100%] " : "min-w-[25%] overflow-auto  ") +
-            "flex flex-wrap justify-center gap-y-5"
+            "flex flex-wrap justify-center p-5 gap-y-5"
           }
         >
           {note.map(
@@ -50,6 +50,7 @@ function ReminderRoute() {
                   title={eachNote.data.title}
                   textBody={eachNote.data.content}
                   isReminder={eachNote.data.isReminder} 
+                  imgUrl={eachNote.data.imgUrl}
                 />
               )
           )}

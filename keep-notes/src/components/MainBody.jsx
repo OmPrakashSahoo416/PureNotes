@@ -7,11 +7,12 @@ import { useOutletContext } from 'react-router-dom';
 
 function MainBody() {
 
-  const { isInputActive, setSelectedNote, setIsInputActive, isPopUp,isReminder, setIsReminder, setIsPopUp, isListView} = useOutletContext();
+  const { isInputActive, setSelectedNote, setIsInputActive, isPopUp,setIsPopUp, isListView} = useOutletContext();
 
   const [note, setNote] = useState([]);
   const [newTitle, setNewTitle] = useState("");
   const [inpTextNote, setInpTextNote] = useState("");
+  const [ImgLink, setImgLink] = useState("");
 
   useEffect(() => {
     db.collection("notes").orderBy("timestamp","desc").onSnapshot((snap) => (
@@ -34,7 +35,9 @@ function MainBody() {
     db.collection("notes").add({
       title: newTitle,
       content: inpTextNote,
+      imgUrl: ImgLink,
       isReminder: false,
+      isPinned:false,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     });
     // const updatedNote = [...note,{title:newTitle,inpText:inpTextNote}] === previous code ===
@@ -49,6 +52,7 @@ function MainBody() {
     // resetting the note contents on close
     setNewTitle("");
     setInpTextNote("");
+    setImgLink("");
   }
 
   return (
@@ -85,10 +89,19 @@ function MainBody() {
                     onChange={(e) => setInpTextNote(e.target.value)}
                     type="text"
                     placeholder="Take a note ..."
-                    className="w-[100%] mb-5 text-sm outline-none bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
+                    className="w-[100%] mb-3 text-sm outline-none bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
                     name=""
                     id=""
                     value={inpTextNote}
+                  />
+                  <input
+                    onChange={(e) => setImgLink(e.target.value)}
+                    type="url"
+                    placeholder="Image link here ..."
+                    className="w-[100%] mb-5 text-sm outline-none bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
+                    name=""
+                    id=""
+                    value={ImgLink}
                   />
 
                   {/* submit note  */}
@@ -113,13 +126,31 @@ function MainBody() {
             </form>
           </div>
         </div>
+
+
+        <div className="m-auto lg:mb-4 lg:m-0 font-['Calibri] font-semibold text-gray-900 mb-4">Pinned</div>
+        
+        {/* The Pinned tagged notes here!  */}
+        <div className="notesPinnedList flex mb-[20px] flex-wrap lg:justify-start justify-center gap-y-5">
+          {
+            note.map((eachNote) => (
+                eachNote.data.isPinned && 
+                (<Note isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} key={eachNote.id} imgUrl = {eachNote.data.imgUrl} docId={eachNote.id} isPinned={eachNote.data.isPinned} isReminder={eachNote.data.isReminder} title={eachNote.data.title} textBody={eachNote.data.content} />)
+            ))
+          }
+        </div>
+
+        <div className="m-auto lg:mb-4 lg:m-0 font-['Calibri] font-semibold text-gray-900 mb-4">General</div>
         
 
         {/* may be using display grid will be a better option here to try  */}
         <div className="notesList flex mb-[200px] flex-wrap lg:justify-start justify-center gap-y-5">
+          
+          
           {
             note.map((eachNote) => (
-                <Note isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} key={eachNote.id} docId={eachNote.id} isReminder={eachNote.data.isReminder} title={eachNote.data.title} textBody={eachNote.data.content} />
+              !eachNote.data.isPinned && 
+               ( <Note isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} key={eachNote.id} imgUrl = {eachNote.data.imgUrl} isPinned={eachNote.data.isPinned} docId={eachNote.id} isReminder={eachNote.data.isReminder} title={eachNote.data.title} textBody={eachNote.data.content} />)
             ))
           }
         </div>

@@ -16,11 +16,10 @@ function App() {
   const [isPopUp, setIsPopUp] = useState(false);
   const [selectedNote, setSelectedNote] = useState({});
   const [isListView, setIsListView] = useState(false);
-  const [isReminder, setIsReminder] = useState(false);
 
   return(
     <>
-    <div className="app !h-[100%] bg-gradient-to-r from-fuchsia-500 to-cyan-500">
+    <div className="app h-screen w-screen bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-cyan-500">
       {/* screen that will appear on click of note to show its zoomed version on fullscreen  */}
     <PopUpScreen selectedNote={selectedNote} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} />
 
@@ -36,7 +35,7 @@ function App() {
       {/* app main body with creating notes reminders etc.. and displaying them in a grid  */}
 
       {/* added logic to show certain page on condition of routing  */}
-      {(location.pathname.startsWith("/notes")) && <Outlet context={{ isInputActive, isReminder, setIsReminder, setSelectedNote, setIsInputActive, isPopUp, setIsPopUp, isListView} }></Outlet>}
+      {(location.pathname.startsWith("/notes")) && <Outlet context={{ isInputActive, setSelectedNote, setIsInputActive, isPopUp, setIsPopUp, isListView} }></Outlet>}
 
       {location.pathname.startsWith("/reminder") && <Outlet context={{ setSelectedNote, isPopUp, setIsPopUp, isListView} }></Outlet>}
 
