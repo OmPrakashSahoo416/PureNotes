@@ -5,7 +5,7 @@ import { db } from "../Firebase";
 import { useOutletContext } from "react-router-dom";
 
 function ReminderRoute() {
-  const { setSelectedNote, isPopUp, setIsPopUp, isListView } =
+  const { setSelectedNote, isPopUp, setIsPopUp, isListView, searchText } =
     useOutletContext();
 
   const [note, setNote] = useState([]);
@@ -39,7 +39,13 @@ function ReminderRoute() {
         >
           {note.map(
             (eachNote) =>
-              eachNote.data.isReminder && (
+              eachNote.data.isReminder &&
+              (eachNote.data.title
+                .toLowerCase()
+                .indexOf(searchText.toLowerCase()) !== -1 ||
+                eachNote.data.content
+                  .toLowerCase()
+                  .indexOf(searchText.toLowerCase()) !== -1) && (
                 <Note
                   isListView={isListView}
                   setSelectedNote={setSelectedNote}
@@ -49,8 +55,9 @@ function ReminderRoute() {
                   docId={eachNote.id}
                   title={eachNote.data.title}
                   textBody={eachNote.data.content}
-                  isReminder={eachNote.data.isReminder} 
+                  isReminder={eachNote.data.isReminder}
                   imgUrl={eachNote.data.imgUrl}
+                  isPinned={eachNote.data.isPinned}
                 />
               )
           )}

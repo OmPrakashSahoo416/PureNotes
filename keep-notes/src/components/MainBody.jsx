@@ -2,12 +2,19 @@ import { useEffect, useState } from "react";
 import Note from "./Note";
 import { db } from "../Firebase";
 import firebase from "firebase/compat/app";
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from "react-router-dom";
 // import { Outlet } from "react-router-dom";
 
 function MainBody() {
-
-  const { isInputActive, setSelectedNote, setIsInputActive, isPopUp,setIsPopUp, isListView} = useOutletContext();
+  const {
+    isInputActive,
+    setSelectedNote,
+    setIsInputActive,
+    isPopUp,
+    setIsPopUp,
+    isListView,
+    searchText,
+  } = useOutletContext();
 
   const [note, setNote] = useState([]);
   const [newTitle, setNewTitle] = useState("");
@@ -15,18 +22,17 @@ function MainBody() {
   const [ImgLink, setImgLink] = useState("");
 
   useEffect(() => {
-    db.collection("notes").orderBy("timestamp","desc").onSnapshot((snap) => (
-        setNote(snap.docs.map((doc) => (
-            {
-                id: doc.id,
-                data: doc.data()
-
-            }
-        )))
-    ))
-  },[]);
-
-  
+    db.collection("notes")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snap) =>
+        setNote(
+          snap.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+  }, []);
 
   function onSubmitNoteHandler(e) {
     // preventdefault is necessary to avoid a re render which would reset the contents of states
@@ -37,8 +43,8 @@ function MainBody() {
       content: inpTextNote,
       imgUrl: ImgLink,
       isReminder: false,
-      isPinned:false,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      isPinned: false,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     // const updatedNote = [...note,{title:newTitle,inpText:inpTextNote}] === previous code ===
     // setNote(updatedNote);
@@ -83,8 +89,6 @@ function MainBody() {
                     id=""
                   />
 
-                  
-
                   <input
                     onChange={(e) => setInpTextNote(e.target.value)}
                     type="text"
@@ -127,32 +131,68 @@ function MainBody() {
           </div>
         </div>
 
-
-        <div className="m-auto lg:mb-4 lg:m-0 font-['Calibri] font-semibold text-gray-900 mb-4">Pinned</div>
-        
-        {/* The Pinned tagged notes here!  */}
-        <div className="notesPinnedList flex mb-[20px] flex-wrap lg:justify-start justify-center gap-y-5">
-          {
-            note.map((eachNote) => (
-                eachNote.data.isPinned && 
-                (<Note isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} key={eachNote.id} imgUrl = {eachNote.data.imgUrl} docId={eachNote.id} isPinned={eachNote.data.isPinned} isReminder={eachNote.data.isReminder} title={eachNote.data.title} textBody={eachNote.data.content} />)
-            ))
-          }
+        <div className="m-auto lg:mb-4 lg:ml-12 font-['Calibri] font-semibold text-slate-100 mb-4">
+          Pinned
         </div>
 
-        <div className="m-auto lg:mb-4 lg:m-0 font-['Calibri] font-semibold text-gray-900 mb-4">General</div>
-        
+        {/* The Pinned tagged notes here!  */}
+        <div className="notesPinnedList flex mb-[20px] lg:ml-12 flex-wrap lg:justify-start justify-center gap-y-5">
+          {note.map(
+            (eachNote) =>
+              eachNote.data.isPinned &&
+              (eachNote.data.title
+                .toLowerCase()
+                .indexOf(searchText.toLowerCase()) !== -1 ||
+                eachNote.data.content
+                  .toLowerCase()
+                  .indexOf(searchText.toLowerCase()) !== -1) && (
+                <Note
+                  isListView={isListView}
+                  setSelectedNote={setSelectedNote}
+                  isPopUp={isPopUp}
+                  setIsPopUp={setIsPopUp}
+                  key={eachNote.id}
+                  imgUrl={eachNote.data.imgUrl}
+                  docId={eachNote.id}
+                  isPinned={eachNote.data.isPinned}
+                  isReminder={eachNote.data.isReminder}
+                  title={eachNote.data.title}
+                  textBody={eachNote.data.content}
+                />
+              )
+          )}
+        </div>
+
+        <div className="m-auto lg:mb-4 lg:ml-12 font-['Calibri] font-semibold text-slate-100 mb-4">
+          General
+        </div>
 
         {/* may be using display grid will be a better option here to try  */}
-        <div className="notesList flex mb-[200px] flex-wrap lg:justify-start justify-center gap-y-5">
-          
-          
-          {
-            note.map((eachNote) => (
-              !eachNote.data.isPinned && 
-               ( <Note isListView={isListView} setSelectedNote={setSelectedNote} isPopUp={isPopUp} setIsPopUp={setIsPopUp} key={eachNote.id} imgUrl = {eachNote.data.imgUrl} isPinned={eachNote.data.isPinned} docId={eachNote.id} isReminder={eachNote.data.isReminder} title={eachNote.data.title} textBody={eachNote.data.content} />)
-            ))
-          }
+        <div className="notesList flex mb-[200px] lg:ml-12 flex-wrap lg:justify-start justify-center gap-y-5">
+          {note.map(
+            (eachNote) =>
+              !eachNote.data.isPinned &&
+              (eachNote.data.title
+                .toLowerCase()
+                .indexOf(searchText.toLowerCase()) !== -1 ||
+                eachNote.data.content
+                  .toLowerCase()
+                  .indexOf(searchText.toLowerCase()) !== -1) && (
+                <Note
+                  isListView={isListView}
+                  setSelectedNote={setSelectedNote}
+                  isPopUp={isPopUp}
+                  setIsPopUp={setIsPopUp}
+                  key={eachNote.id}
+                  imgUrl={eachNote.data.imgUrl}
+                  isPinned={eachNote.data.isPinned}
+                  docId={eachNote.id}
+                  isReminder={eachNote.data.isReminder}
+                  title={eachNote.data.title}
+                  textBody={eachNote.data.content}
+                />
+              )
+          )}
         </div>
       </div>
     </>

@@ -44,35 +44,53 @@ function Note({
         })
         .catch(console.log("Error updating the value"));
 
-    !isReminder &&
-      toast.success("Reminder added successfully!", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        theme: "light",
-        transition: Slide,
-      });
-    isReminder &&
-      toast("Reminder already added!", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        theme: "light",
-        transition: Slide,
-      });
+    // BUG:extra reminder remains after adding and it just breaks the code
+
+    !isReminder
+      ? toast("Reminder added successfully!", {
+          toastId: "suc1",
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "light",
+          transition: Slide,
+        })
+      : toast("Reminder already added!", {
+          toastId: "suc2",
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "light",
+          transition: Slide,
+        });
     // setIsReminder(true);
   }
   function onSubmitPinHandler(e) {
     // preventdefault is necessary to avoid a re render which would reset the contents of states
     e.preventDefault();
+    if (location.pathname.startsWith("/reminder")) {
+      toast("Can't pin/unpin here!", {
+        toastId: "suc3",
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+      });
+      return;
+    }
     !isPinned &&
       db
         .collection("notes")
@@ -108,6 +126,7 @@ function Note({
     <>
       <div
         draggable
+        onDragOver={(e) => e.preventDefault()}
         className={
           (isListView ? "min-w-[100%] " : "min-w-[25%] ") +
           "note  border-[1px] mr-3 bg-amber-100 drop-shadow-xl  border-gray-800 rounded-lg p-4 max-w-[200px] group max-h-[250px] "
