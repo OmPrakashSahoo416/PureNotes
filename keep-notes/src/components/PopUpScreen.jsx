@@ -15,7 +15,7 @@ function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote }) {
           "popUpScreen  bg-gradient-to-r from-teal-400 to-yellow-200 flex items-center justify-center fixed top-0 inset-0 z-[1100] h-[100vh]"
         }
       >
-        <div className="w-[500px] drop-shadow-2xl flex group items-center rounded-lg flex-col p-5 justify-between h-[500px] bg-slate-100 z-[1000]">
+        <div className="w-[600px] drop-shadow-2xl flex group items-center rounded-lg flex-col p-5 justify-between h-[600px] bg-slate-100 z-[1000]">
           {/* change this to one which is clicked on main page to show !!! TODO  */}
 
           <div className="w-full overflow-auto h-full">
@@ -24,6 +24,7 @@ function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote }) {
               textBody={selectedNote.text}
               imgUrl={selectedNote.imgUrl}
               docId={selectedNote.docId}
+              isPopUp={isPopUp}
             />
           </div>
 

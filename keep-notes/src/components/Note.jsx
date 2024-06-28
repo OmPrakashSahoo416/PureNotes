@@ -16,6 +16,7 @@ import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
+// import { getStorage, ref } from "firebase/storage";
 // import { useState } from "react";
 
 function Note({
@@ -119,6 +120,8 @@ function Note({
         isReminder: false,
       });
     }
+
+    
   }
 
   return (

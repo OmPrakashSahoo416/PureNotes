@@ -3,6 +3,8 @@ import Note from "./Note";
 import { db } from "../Firebase";
 import firebase from "firebase/compat/app";
 import { useOutletContext } from "react-router-dom";
+import UploadImage from "./UploadImage";
+// import Canvas from "./Canvas";
 // import { Outlet } from "react-router-dom";
 
 function MainBody() {
@@ -20,6 +22,7 @@ function MainBody() {
   const [newTitle, setNewTitle] = useState("");
   const [inpTextNote, setInpTextNote] = useState("");
   const [ImgLink, setImgLink] = useState("");
+  const [isImgInpTypeLink, setIsImgInpTypeLink] = useState(false);
 
   useEffect(() => {
     db.collection("notes")
@@ -63,6 +66,7 @@ function MainBody() {
 
   return (
     <>
+    {/* <Canvas></Canvas> */}
       <div className="mainBody rounded-md flex justify-center flex-col  w-full mr-2 ml-2 p-5 ">
         <div className="mainBodyInp rounded-md flex justify-center flex-col items-center  w-full mb-16 ">
           <div className="noteCreater drop-shadow-lg w-[50%] rounded-md mt-24 md:mt-0  bg-gradient-to-r from-amber-200 to-yellow-400 p-3 mb-16 ">
@@ -98,15 +102,22 @@ function MainBody() {
                     id=""
                     value={inpTextNote}
                   />
-                  <input
+                  <label htmlFor="" className="text-sm text-center p-2 text-yellow-800">
+                  <input type="checkbox" className="mr-3" value={isImgInpTypeLink} onChange={(e) => setIsImgInpTypeLink(e.target.checked)} />
+                  Check this if you want to upload an image via link
+                  </label>
+
+                  {isImgInpTypeLink ? <input
                     onChange={(e) => setImgLink(e.target.value)}
                     type="url"
                     placeholder="Image link here ..."
-                    className="w-[100%] mb-5 text-sm outline-none bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
+                    className="w-[100%] mb-5 mt-5 p-3 rounded-sm border-2 border-amber-800 text-sm outline-none bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
                     name=""
                     id=""
                     value={ImgLink}
-                  />
+                  /> : <UploadImage setImgLink={setImgLink} />}
+                  
+                  
 
                   {/* submit note  */}
                   <div className="flex justify-center">

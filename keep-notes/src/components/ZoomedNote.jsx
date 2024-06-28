@@ -1,6 +1,8 @@
 import { db } from "../Firebase";
+import Canvas from "./Canvas";
+// import UploadImage from "./UploadImage";
 
-function ZoomedNote({ title, textBody, imgUrl, docId }) {
+function ZoomedNote({ title, textBody, imgUrl, docId, isPopUp }) {
   function handleOnChangeText(e) {
     // target inner text gives only the text and not html tags and whitespace no wrap dont add spaces if
     // we change lines it just preserves those
@@ -43,6 +45,9 @@ function ZoomedNote({ title, textBody, imgUrl, docId }) {
           {textBody}
         </p>
         <img src={imgUrl} alt="" className="overflow-auto mb-5" />
+        <Canvas isPopUp={isPopUp} />
+        {/* <UploadImage /> */}
+        
       </div>
     </>
   );
