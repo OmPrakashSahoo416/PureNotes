@@ -34,7 +34,7 @@ function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote }) {
               setSelectedNote({});
             }}
             type="button"
-            className="rounded-full group-hover:block hidden absolute top-[-25px] m-auto bg-red-600 text-slate-800  hover:text-slate-100 border-red-600 border-2"
+            className="rounded-full group-hover:block md:hidden absolute top-[-25px] m-auto bg-red-600 text-slate-800  hover:text-slate-100 border-red-600 border-2"
           >
             <IconButton Icon={CloseRoundedIcon} />
           </button>

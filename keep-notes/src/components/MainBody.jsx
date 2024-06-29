@@ -4,7 +4,7 @@ import { db } from "../Firebase";
 import firebase from "firebase/compat/app";
 import { useOutletContext } from "react-router-dom";
 import UploadImage from "./UploadImage";
-import CheckList from "./CheckList";
+import CheckedListItem from "./CheckListItem";
 // import Canvas from "./Canvas";
 // import { Outlet } from "react-router-dom";
 
@@ -17,6 +17,10 @@ function MainBody() {
     setIsPopUp,
     isListView,
     searchText,
+    listContent,
+    setListContent,
+    listChecked,
+    setListChecked,
   } = useOutletContext();
 
   const [note, setNote] = useState([]);
@@ -24,7 +28,7 @@ function MainBody() {
   const [inpTextNote, setInpTextNote] = useState("");
   const [ImgLink, setImgLink] = useState("");
   const [isImgInpTypeLink, setIsImgInpTypeLink] = useState(false);
-
+  const [checkListItems, setCheckListItems] = useState([]);
 
   useEffect(() => {
     db.collection("notes")
@@ -38,6 +42,8 @@ function MainBody() {
         )
       );
   }, []);
+
+  
 
   function onSubmitNoteHandler(e) {
     // preventdefault is necessary to avoid a re render which would reset the contents of states
@@ -65,6 +71,7 @@ function MainBody() {
     setInpTextNote("");
     setImgLink("");
     setIsImgInpTypeLink(false);
+    setCheckListItems([]);
   }
 
   return (
@@ -106,8 +113,47 @@ function MainBody() {
                   value={inpTextNote}
                 />
 
-              <CheckList></CheckList>
+                {/* <CheckList
+              listContent = {listContent}
+                setListContent = {setListContent}
+                listChecked = {listChecked}
+                setListChecked = {setListChecked} ></CheckList> */}
 
+                <div className="checkList rounded-md border-2 mb-3 border-amber-900 p-3">
+                  TO-DO :
+                  {checkListItems.map((eachItem, index) => (
+                    <CheckedListItem
+                      key={index}
+                      setListContent={setListContent}
+                      setCheckListItems={setCheckListItems}
+                      checkListItems={checkListItems}
+                      setListChecked={setListChecked}
+                      listContent={listContent}
+                      listChecked={listChecked}
+                      listContentVal={checkListItems.length > 0 ? checkListItems[index].text: ""}
+                      listCheckedVal={checkListItems.length > 0 ? checkListItems[index].checked: false}
+                      isInput = {false}
+                    />
+                  ))}
+                  <div
+                    
+                    className="addToList p-2 text-sm border-t-2 mt-40 border-black"  >
+                    <CheckedListItem
+                      setListContent={setListContent}
+                      setCheckListItems={setCheckListItems}
+                      checkListItems={checkListItems}
+                      setListChecked={setListChecked}
+                      listContent={listContent}
+                      listChecked={listChecked}
+                      listContentVal={"Add your label ..."}
+                      listCheckedVal={false}
+                      isInput = {true}
+                    />
+                  
+                 
+                    
+                  </div>
+                </div>
 
                 <label htmlFor="" className="text-sm block p-2 text-yellow-800">
                   <input

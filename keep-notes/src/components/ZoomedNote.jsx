@@ -1,6 +1,6 @@
 import { db } from "../Firebase";
 import Canvas from "./Canvas";
-import CheckList from "./CheckList";
+// import CheckList from "./CheckList";
 // import UploadImage from "./UploadImage";
 
 function ZoomedNote({ title, textBody, imgUrl, docId, isPopUp }) {
@@ -45,7 +45,7 @@ function ZoomedNote({ title, textBody, imgUrl, docId, isPopUp }) {
         >
           {textBody}
         </p>
-        <CheckList></CheckList>
+        {/* <CheckList></CheckList> */}
         <img src={imgUrl} alt="" className="overflow-auto mb-5" />
         <Canvas isPopUp={isPopUp} />
         {/* <UploadImage /> */}

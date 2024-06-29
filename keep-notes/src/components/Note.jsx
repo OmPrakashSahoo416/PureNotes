@@ -164,7 +164,7 @@ function Note({
             onClick={(e) => onSubmitPinHandler(e)}
             className={
               (!isPinned ? " bg-fuchsia-600  " : " bg-white ") +
-              " absolute top-[100px] group-hover:block hidden z-[1100] rounded-full right-1  "
+              " absolute top-[100px] group-hover:block md:hidden z-[1100] rounded-full right-1  "
             }
             type="button"
           >
@@ -179,7 +179,7 @@ function Note({
             onClick={(e) => onSubmitReminderHandler(e)}
             className={
               (!isReminder ? " bg-blue-600  " : " bg-green-800 ") +
-              " absolute top-[50px] group-hover:block hidden z-[1100] rounded-full right-1  "
+              " absolute top-[50px] group-hover:block md:hidden z-[1100] rounded-full right-1  "
             }
             type="button"
           >
@@ -197,7 +197,7 @@ function Note({
           <button
             onClick={onCloseNoteHandler}
             type="button"
-            className="rounded-full group-hover:block hidden absolute top-0 bg-red-500 z-[1100] right-1 text-slate-800"
+            className="rounded-full group-hover:block md:hidden absolute top-0 bg-red-500 z-[1100] right-1 text-slate-800"
           >
             <IconButton Icon={CloseRoundedIcon} />
           </button>

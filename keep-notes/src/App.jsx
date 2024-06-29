@@ -18,6 +18,8 @@ function App() {
   const [selectedNote, setSelectedNote] = useState({});
   const [isListView, setIsListView] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [listContent, setListContent] = useState("Add your label ...");
+  const [listChecked, setListChecked] = useState(false);
 
   return (
     <>
@@ -53,6 +55,11 @@ function App() {
             <Outlet
               context={{
                 isInputActive,
+                listContent,
+                setListContent,
+                listChecked,
+                setListChecked,
+                
                 setSelectedNote,
                 setIsInputActive,
                 isPopUp,
