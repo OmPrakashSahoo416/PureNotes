@@ -1,5 +1,6 @@
 import { db } from "../Firebase";
 import Canvas from "./Canvas";
+import CheckList from "./CheckList";
 // import UploadImage from "./UploadImage";
 
 function ZoomedNote({ title, textBody, imgUrl, docId, isPopUp }) {
@@ -32,7 +33,7 @@ function ZoomedNote({ title, textBody, imgUrl, docId, isPopUp }) {
           onInput={handleOnChangeTitle}
           contentEditable
           suppressContentEditableWarning
-          className="mb-3 font-['Calibri'] whitespace-pre-wrap outline-none text-lg font-semibold text-amber-700"
+          className="mb-3 font-['Calibri'] focus:border-2 focus:border-slate-900 p-1 whitespace-pre-wrap outline-none text-lg font-semibold text-amber-700"
         >
           {title}
         </p>
@@ -40,10 +41,11 @@ function ZoomedNote({ title, textBody, imgUrl, docId, isPopUp }) {
           onInput={handleOnChangeText}
           contentEditable
           suppressContentEditableWarning
-          className="leading-relaxed whitespace-pre-wrap font-['Calibri'] overflow-x-hidden text-md mb-3 outline-none  text-slate-800"
+          className="leading-relaxed whitespace-pre-wrap focus:border-2 focus:border-slate-900 p-1 font-['Calibri'] overflow-x-hidden text-md mb-3 outline-none  text-slate-800"
         >
           {textBody}
         </p>
+        <CheckList></CheckList>
         <img src={imgUrl} alt="" className="overflow-auto mb-5" />
         <Canvas isPopUp={isPopUp} />
         {/* <UploadImage /> */}

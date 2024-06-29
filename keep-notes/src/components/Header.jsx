@@ -1,4 +1,3 @@
-import TableRowsRoundedIcon from "@mui/icons-material/TableRowsRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ViewStreamRoundedIcon from "@mui/icons-material/ViewStreamRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
@@ -6,10 +5,6 @@ import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 import IconButton from "./IconButton";
 
 function Header({
-  hidden,
-  setHidden,
-  forcedSideBarDisplay,
-  setForcedSideBarDisplay,
   setIsListView,
   isListView,
   searchText,
@@ -17,20 +12,11 @@ function Header({
 }) {
   return (
     <>
-      <div className="header sticky top-0 z-[900] bg-gradient-to-l from-amber-500 to-pink-500 flex items-center justify-between drop-shadow-2xl p-3">
+      <div className="header sticky top-0 z-[1000] bg-gradient-to-l from-amber-500 to-pink-500 flex items-center justify-between drop-shadow-2xl p-3">
         {/* header left section  */}
         <div className="headerLeft flex items-center">
           {/* sidebar visibility button  */}
-          <div onClick={() => setForcedSideBarDisplay(!forcedSideBarDisplay)}>
-            <div className="hidden md:block">
-              <IconButton
-                hidden={hidden}
-                setHidden={setHidden}
-                hideHandler={true}
-                Icon={TableRowsRoundedIcon}
-              ></IconButton>
-            </div>
-          </div>
+          
 
           {/* logo of app  */}
           <div className="flex items-end">

@@ -14,7 +14,6 @@ function App() {
 
   const [hidden, setHidden] = useState(true);
   const [isInputActive, setIsInputActive] = useState(false);
-  const [forcedSideBarDisplay, setForcedSideBarDisplay] = useState(false);
   const [isPopUp, setIsPopUp] = useState(false);
   const [selectedNote, setSelectedNote] = useState({});
   const [isListView, setIsListView] = useState(false);
@@ -35,12 +34,8 @@ function App() {
         <Header
           searchText={searchText}
           setSearchText={setSearchText}
-          hidden={hidden}
           isListView={isListView}
           setIsListView={setIsListView}
-          forcedSideBarDisplay={forcedSideBarDisplay}
-          setForcedSideBarDisplay={setForcedSideBarDisplay}
-          setHidden={setHidden}
         ></Header>
 
         <div className="appbody !h-[100%] flex flex-col md:flex-row items-center md:items-start">
@@ -48,7 +43,7 @@ function App() {
           <SideBar
             hidden={hidden}
             setHidden={setHidden}
-            forcedSideBarDisplay={forcedSideBarDisplay}
+            
           ></SideBar>
 
           {/* app main body with creating notes reminders etc.. and displaying them in a grid  */}

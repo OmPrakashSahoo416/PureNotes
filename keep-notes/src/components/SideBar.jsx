@@ -4,12 +4,12 @@ import IconButton from './IconButton';
 import { Link } from 'react-router-dom';
 
 
-function SideBar({hidden, setHidden, forcedSideBarDisplay}) {
+function SideBar({hidden, setHidden}) {
     
 
     return(
         <>
-        <div onMouseEnter={() => !forcedSideBarDisplay && setHidden(!hidden)} onMouseLeave={() => !forcedSideBarDisplay && setHidden(!hidden)} className="sideBar p-3 md:flex-col flex items-center fixed z-[1000] w-fit h-fit rounded-md bg-gradient-to-r from-amber-500 to-pink-500">
+        <div onMouseEnter={() => setHidden(!hidden)} onMouseLeave={() => setHidden(!hidden)} className="sideBar p-3 md:flex-col flex items-center fixed z-[1000] w-fit h-fit rounded-md bg-gradient-to-r from-amber-500 to-pink-500">
             <Link to={"/notes"}>
             <IconButton hidden={hidden} setHidden={setHidden} Icon={LightbulbCircleRoundedIcon} text={"Notes"}></IconButton>
             </Link>

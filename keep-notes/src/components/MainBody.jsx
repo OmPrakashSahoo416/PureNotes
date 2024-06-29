@@ -4,6 +4,7 @@ import { db } from "../Firebase";
 import firebase from "firebase/compat/app";
 import { useOutletContext } from "react-router-dom";
 import UploadImage from "./UploadImage";
+import CheckList from "./CheckList";
 // import Canvas from "./Canvas";
 // import { Outlet } from "react-router-dom";
 
@@ -23,6 +24,7 @@ function MainBody() {
   const [inpTextNote, setInpTextNote] = useState("");
   const [ImgLink, setImgLink] = useState("");
   const [isImgInpTypeLink, setIsImgInpTypeLink] = useState(false);
+
 
   useEffect(() => {
     db.collection("notes")
@@ -62,52 +64,63 @@ function MainBody() {
     setNewTitle("");
     setInpTextNote("");
     setImgLink("");
+    setIsImgInpTypeLink(false);
   }
 
   return (
     <>
-    {/* <Canvas></Canvas> */}
+      {/* <Canvas></Canvas> */}
       <div className="mainBody rounded-md flex justify-center flex-col  w-full mr-2 ml-2 p-5 ">
         <div className="mainBodyInp rounded-md flex justify-center flex-col items-center  w-full mb-16 ">
-          <div className="noteCreater drop-shadow-lg w-[50%] rounded-md mt-24 md:mt-0  bg-gradient-to-r from-amber-200 to-yellow-400 p-3 mb-16 ">
-            <form action="" className="w-[100%] z-[950]">
-              {!isInputActive ? (
+          <div className="noteCreater drop-shadow-lg w-[50%] z-[950] rounded-md mt-24 md:mt-0  bg-gradient-to-r from-amber-200 to-yellow-400 p-3 mb-16 ">
+            {/* <form action="" className="w-[100%] z-[950]"> */}
+            {!isInputActive ? (
+              <input
+                onClick={() => setIsInputActive(!isInputActive)}
+                type="text"
+                className="w-[100%] outline-none bg-gradient-to-r from-amber-200 to-yellow-400 text-amber-900 placeholder:text-amber-900 "
+                placeholder="Take a note ..."
+                name=""
+                id=""
+              />
+            ) : (
+              <div className="max-w-full ">
+                {/* enter title  */}
                 <input
-                  onClick={() => setIsInputActive(!isInputActive)}
+                  onChange={(e) => setNewTitle(e.target.value)}
                   type="text"
-                  className="w-[100%] outline-none bg-gradient-to-r from-amber-200 to-yellow-400 text-amber-900 placeholder:text-amber-900 "
-                  placeholder="Take a note ..."
+                  placeholder="Title"
+                  value={newTitle}
+                  className="w-[100%] mb-3 outline-none text-lg font-semibold bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
                   name=""
                   id=""
                 />
-              ) : (
-                <div className="max-w-full ">
-                  {/* enter title  */}
-                  <input
-                    onChange={(e) => setNewTitle(e.target.value)}
-                    type="text"
-                    placeholder="Title"
-                    value={newTitle}
-                    className="w-[100%] mb-3 outline-none text-lg font-semibold bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
-                    name=""
-                    id=""
-                  />
 
+                <input
+                  onChange={(e) => setInpTextNote(e.target.value)}
+                  type="text"
+                  placeholder="Take a note ..."
+                  className="w-[100%] mb-3 text-sm outline-none bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
+                  name=""
+                  id=""
+                  value={inpTextNote}
+                />
+
+              <CheckList></CheckList>
+
+
+                <label htmlFor="" className="text-sm block p-2 text-yellow-800">
                   <input
-                    onChange={(e) => setInpTextNote(e.target.value)}
-                    type="text"
-                    placeholder="Take a note ..."
-                    className="w-[100%] mb-3 text-sm outline-none bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
-                    name=""
-                    id=""
-                    value={inpTextNote}
+                    type="checkbox"
+                    className="mr-3"
+                    value={isImgInpTypeLink}
+                    onChange={(e) => setIsImgInpTypeLink(e.target.checked)}
                   />
-                  <label htmlFor="" className="text-sm text-center p-2 text-yellow-800">
-                  <input type="checkbox" className="mr-3" value={isImgInpTypeLink} onChange={(e) => setIsImgInpTypeLink(e.target.checked)} />
                   Check this if you want to upload an image via link
-                  </label>
+                </label>
 
-                  {isImgInpTypeLink ? <input
+                {isImgInpTypeLink ? (
+                  <input
                     onChange={(e) => setImgLink(e.target.value)}
                     type="url"
                     placeholder="Image link here ..."
@@ -115,30 +128,32 @@ function MainBody() {
                     name=""
                     id=""
                     value={ImgLink}
-                  /> : <UploadImage setImgLink={setImgLink} />}
-                  
-                  
+                  />
+                ) : (
+                  <UploadImage setImgLink={setImgLink} />
+                )}
+                <img src={ImgLink} alt="" className="overflow-auto mb-5" />
 
-                  {/* submit note  */}
-                  <div className="flex justify-center">
-                    <button
-                      type="submit"
-                      onClick={onSubmitNoteHandler}
-                      className="w-[50%] mr-5 p-2 rounded-md hover:bg-green-600 hover:text-slate-100 bg-slate-100"
-                    >
-                      Submit
-                    </button>
-                    <button
-                      onClick={onCloseNoteHandler}
-                      type="button"
-                      className="w-[50%] p-2 rounded-md hover:bg-red-600 hover:text-slate-100 bg-slate-100"
-                    >
-                      Close
-                    </button>
-                  </div>
+                {/* submit note  */}
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    onClick={onSubmitNoteHandler}
+                    className="w-[50%] mr-5 p-2 rounded-md hover:bg-green-600 hover:text-slate-100 bg-slate-100"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    onClick={onCloseNoteHandler}
+                    type="button"
+                    className="w-[50%] p-2 rounded-md hover:bg-red-600 hover:text-slate-100 bg-slate-100"
+                  >
+                    Close
+                  </button>
                 </div>
-              )}
-            </form>
+              </div>
+            )}
+            {/* </form> */}
           </div>
         </div>
 

@@ -16,6 +16,7 @@ import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
+// import CheckList from "./CheckList";
 // import { getStorage, ref } from "firebase/storage";
 // import { useState } from "react";
 
@@ -153,6 +154,7 @@ function Note({
           <p className="h-[90%] mb-3 leading-9 text-md outline-none font-['Calibri'] text-slate-800">
             {textBody}
           </p>
+          
           <img src={imgUrl} alt="" className="overflow-auto mb-5" />
         </div>
 
