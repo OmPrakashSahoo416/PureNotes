@@ -43,8 +43,6 @@ function MainBody() {
       );
   }, []);
 
-  
-
   function onSubmitNoteHandler(e) {
     // preventdefault is necessary to avoid a re render which would reset the contents of states
     e.preventDefault();
@@ -55,6 +53,7 @@ function MainBody() {
       imgUrl: ImgLink,
       isReminder: false,
       isPinned: false,
+      tasks: checkListItems,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     // const updatedNote = [...note,{title:newTitle,inpText:inpTextNote}] === previous code ===
@@ -72,6 +71,8 @@ function MainBody() {
     setImgLink("");
     setIsImgInpTypeLink(false);
     setCheckListItems([]);
+    setListChecked(false);
+    setListContent("Add your label ...");
   }
 
   return (
@@ -119,8 +120,8 @@ function MainBody() {
                 listChecked = {listChecked}
                 setListChecked = {setListChecked} ></CheckList> */}
 
-                <div className="checkList rounded-md border-2 mb-3 border-amber-900 p-3">
-                  TO-DO :
+                <div className="checkList rounded-md font-semibold border-2 mb-3 border-amber-900 p-3">
+                  TASKS :
                   {checkListItems.map((eachItem, index) => (
                     <CheckedListItem
                       key={index}
@@ -130,14 +131,20 @@ function MainBody() {
                       setListChecked={setListChecked}
                       listContent={listContent}
                       listChecked={listChecked}
-                      listContentVal={checkListItems.length > 0 ? checkListItems[index].text: ""}
-                      listCheckedVal={checkListItems.length > 0 ? checkListItems[index].checked: false}
-                      isInput = {false}
+                      listContentVal={
+                        checkListItems.length > 0
+                          ? checkListItems[index].text
+                          : ""
+                      }
+                      listCheckedVal={
+                        checkListItems.length > 0
+                          ? checkListItems[index].checked
+                          : false
+                      }
+                      isInput={false}
                     />
                   ))}
-                  <div
-                    
-                    className="addToList p-2 text-sm border-t-2 mt-40 border-black"  >
+                  <div className="addToList p-2 text-sm border-t-2 mt-40 border-black">
                     <CheckedListItem
                       setListContent={setListContent}
                       setCheckListItems={setCheckListItems}
@@ -147,11 +154,8 @@ function MainBody() {
                       listChecked={listChecked}
                       listContentVal={"Add your label ..."}
                       listCheckedVal={false}
-                      isInput = {true}
+                      isInput={true}
                     />
-                  
-                 
-                    
                   </div>
                 </div>
 
@@ -206,6 +210,7 @@ function MainBody() {
         <div className="m-auto lg:mb-4 lg:ml-12 font-['Calibri] font-semibold text-slate-100 mb-4">
           Pinned
         </div>
+        <hr className="w-full mb-2" />
 
         {/* The Pinned tagged notes here!  */}
         <div className="notesPinnedList flex mb-[20px] lg:ml-12 flex-wrap lg:justify-start justify-center gap-y-5">
@@ -229,6 +234,7 @@ function MainBody() {
                   isPinned={eachNote.data.isPinned}
                   isReminder={eachNote.data.isReminder}
                   title={eachNote.data.title}
+                  tasks={eachNote.data.tasks}
                   textBody={eachNote.data.content}
                 />
               )
@@ -238,8 +244,10 @@ function MainBody() {
         <div className="m-auto lg:mb-4 lg:ml-12 font-['Calibri] font-semibold text-slate-100 mb-4">
           General
         </div>
+        <hr className="w-full mb-2" />
 
         {/* may be using display grid will be a better option here to try  */}
+        {/* General all notes display here  */}
         <div className="notesList flex mb-[200px] lg:ml-12 flex-wrap lg:justify-start justify-center gap-y-5">
           {note.map(
             (eachNote) =>
@@ -261,6 +269,7 @@ function MainBody() {
                   docId={eachNote.id}
                   isReminder={eachNote.data.isReminder}
                   title={eachNote.data.title}
+                  tasks={eachNote.data.tasks}
                   textBody={eachNote.data.content}
                 />
               )

@@ -6,13 +6,15 @@ import ZoomedNote from "./ZoomedNote";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 // import { db } from "../Firebase";
 
-function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote }) {
+// bg-gradient-to-r from-teal-400 to-yellow-200 ==> crazy color scheme ...
+
+function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote, setListContent, setListChecked }) {
   return (
     <>
       <div
         className={
           (!isPopUp && "hidden ") +
-          "popUpScreen  bg-gradient-to-r from-teal-400 to-yellow-200 flex items-center justify-center fixed top-0 inset-0 z-[1100] h-[100vh]"
+          "popUpScreen bg-opacity-80  bg-slate-800 flex items-center justify-center fixed top-0 inset-0 z-[1100] h-[100vh]"
         }
       >
         <div className="w-[600px] drop-shadow-2xl flex group items-center rounded-lg flex-col p-5 justify-between h-[600px] bg-slate-100 z-[1000]">
@@ -24,7 +26,10 @@ function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote }) {
               textBody={selectedNote.text}
               imgUrl={selectedNote.imgUrl}
               docId={selectedNote.docId}
+              tasks={selectedNote.tasks}
               isPopUp={isPopUp}
+              setListContent={setListContent}
+              setListChecked={setListChecked}
             />
           </div>
 
@@ -32,6 +37,8 @@ function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote }) {
             onClick={() => {
               setIsPopUp(!isPopUp);
               setSelectedNote({});
+              setListContent("Add your label ...");
+              setListChecked(false);
             }}
             type="button"
             className="rounded-full group-hover:block md:hidden absolute top-[-25px] m-auto bg-red-600 text-slate-800  hover:text-slate-100 border-red-600 border-2"

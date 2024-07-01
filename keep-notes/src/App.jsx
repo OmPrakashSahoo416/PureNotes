@@ -30,6 +30,8 @@ function App() {
           setSelectedNote={setSelectedNote}
           isPopUp={isPopUp}
           setIsPopUp={setIsPopUp}
+          setListContent={setListContent}
+          setListChecked={setListChecked}
         />
 
         {/* header section   */}

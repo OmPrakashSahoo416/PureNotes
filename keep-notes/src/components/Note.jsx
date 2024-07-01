@@ -16,6 +16,7 @@ import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
+import CheckedListItem from "./CheckListItem";
 // import CheckList from "./CheckList";
 // import { getStorage, ref } from "firebase/storage";
 // import { useState } from "react";
@@ -30,6 +31,7 @@ function Note({
   docId,
   isReminder,
   imgUrl,
+  tasks,
   isPinned,
 }) {
   const location = useLocation();
@@ -121,8 +123,6 @@ function Note({
         isReminder: false,
       });
     }
-
-    
   }
 
   return (
@@ -130,31 +130,49 @@ function Note({
     <>
       <div
         draggable
+        onClick={() => setIsPopUp(!isPopUp)}
         onDragOver={(e) => e.preventDefault()}
         className={
           (isListView ? "min-w-[100%] " : "min-w-[25%] ") +
-          "note  border-[1px] mr-3 bg-amber-100 drop-shadow-xl  border-gray-800 rounded-lg p-4 max-w-[200px] group max-h-[250px] "
+          "note  border-[1px] mr-3 bg-amber-100 drop-shadow-xl  border-gray-800 rounded-lg p-4  max-w-[200px] group max-h-[250px] "
         }
       >
         <div
           onClick={() => {
-            setIsPopUp(!isPopUp);
+            
             setSelectedNote({
               title: title,
               text: textBody,
               imgUrl: imgUrl,
               docId: docId,
+              tasks: tasks,
             });
           }}
           className=" overflow-hidden w-full h-full "
         >
-          <p className="mb-3 outline-none text-lg font-['Calibri'] font-semibold text-amber-800">
+          {/* title of note  */}
+          <p className="mb-3 rounded-md outline-none text-lg font-['Calibri'] border-[1px] hover:border-amber-800 font-semibold text-amber-800">
             {title}
           </p>
-          <p className="h-[90%] mb-3 leading-9 text-md outline-none font-['Calibri'] text-slate-800">
+
+          {/* paragraph of note  */}
+          <p className=" mb-3 leading-9 border-[1px] hover:border-amber-800 rounded-md text-md outline-none font-['Calibri'] text-slate-800">
             {textBody}
           </p>
-          
+          {/* tasks list here  */}
+          <div className="rounded-md font-semibold border-2 mb-3 border-amber-900 p-3">
+            TASKS :
+            {tasks.map((eachItem, index) => (
+              <CheckedListItem
+                key={index}
+                listContentVal={tasks.length > 0 ? eachItem.text : ""}
+                listCheckedVal={tasks.length > 0 ? eachItem.checked : false}
+                isInput={true}
+              />
+            ))}
+          </div>
+
+          {/* image here  */}
           <img src={imgUrl} alt="" className="overflow-auto mb-5" />
         </div>
 

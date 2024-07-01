@@ -17,6 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/notes",
+        index:true,
         element: <MainBody />,
         errorElement: <ErrorPage />,
       },

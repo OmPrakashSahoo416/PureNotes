@@ -43,7 +43,7 @@ function Header({
             {/* <form action="" className="w-[100%]"> */}
             <input
               type="text"
-              className="p-1 bg-gradient-to-r rounded-lg from-amber-200 to-yellow-400 placeholder:text-amber-700 text-amber-700 w-[100%] outline-none"
+              className="p-1 bg-transparent placeholder:text-amber-700 text-amber-700 w-[100%] outline-none"
               name=""
               placeholder="Search..."
               id=""
