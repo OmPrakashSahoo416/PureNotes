@@ -59,6 +59,7 @@ function ReminderRoute() {
                   imgUrl={eachNote.data.imgUrl}
                   isPinned={eachNote.data.isPinned}
                   tasks={eachNote.data.tasks}
+                  canvasUrl={eachNote.data.canvasUrl}
                 />
               )
           )}

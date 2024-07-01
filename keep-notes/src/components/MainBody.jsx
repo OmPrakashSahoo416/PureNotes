@@ -6,6 +6,7 @@ import { useOutletContext } from "react-router-dom";
 import UploadImage from "./UploadImage";
 import CheckedListItem from "./CheckListItem";
 // import Canvas from "./Canvas";
+// import Canvas from "./Canvas";
 // import { Outlet } from "react-router-dom";
 
 function MainBody() {
@@ -21,12 +22,14 @@ function MainBody() {
     setListContent,
     listChecked,
     setListChecked,
+    
   } = useOutletContext();
 
   const [note, setNote] = useState([]);
   const [newTitle, setNewTitle] = useState("");
   const [inpTextNote, setInpTextNote] = useState("");
   const [ImgLink, setImgLink] = useState("");
+  
   const [isImgInpTypeLink, setIsImgInpTypeLink] = useState(false);
   const [checkListItems, setCheckListItems] = useState([]);
 
@@ -54,6 +57,7 @@ function MainBody() {
       isReminder: false,
       isPinned: false,
       tasks: checkListItems,
+      canvasUrl: "",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     // const updatedNote = [...note,{title:newTitle,inpText:inpTextNote}] === previous code ===
@@ -121,7 +125,7 @@ function MainBody() {
                 setListChecked = {setListChecked} ></CheckList> */}
 
                 <div className="checkList rounded-md font-semibold border-2 mb-3 border-amber-900 p-3">
-                  TASKS :
+                  LIST :
                   {checkListItems.map((eachItem, index) => (
                     <CheckedListItem
                       key={index}
@@ -184,6 +188,8 @@ function MainBody() {
                 )}
                 <img src={ImgLink} alt="" className="overflow-auto mb-5" />
 
+
+
                 {/* submit note  */}
                 <div className="flex justify-center">
                   <button
@@ -236,6 +242,7 @@ function MainBody() {
                   title={eachNote.data.title}
                   tasks={eachNote.data.tasks}
                   textBody={eachNote.data.content}
+                  canvasUrl={eachNote.data.canvasUrl}
                 />
               )
           )}
@@ -271,6 +278,7 @@ function MainBody() {
                   title={eachNote.data.title}
                   tasks={eachNote.data.tasks}
                   textBody={eachNote.data.content}
+                  canvasUrl={eachNote.data.canvasUrl}
                 />
               )
           )}

@@ -8,7 +8,8 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 // bg-gradient-to-r from-teal-400 to-yellow-200 ==> crazy color scheme ...
 
-function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote, setListContent, setListChecked }) {
+function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote, setListContent, setListChecked
+}) {
   return (
     <>
       <div
@@ -30,6 +31,8 @@ function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote, setLi
               isPopUp={isPopUp}
               setListContent={setListContent}
               setListChecked={setListChecked}
+              canvasUrl={selectedNote.canvasUrl}
+              
             />
           </div>
 
@@ -39,6 +42,7 @@ function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote, setLi
               setSelectedNote({});
               setListContent("Add your label ...");
               setListChecked(false);
+              
             }}
             type="button"
             className="rounded-full group-hover:block md:hidden absolute top-[-25px] m-auto bg-red-600 text-slate-800  hover:text-slate-100 border-red-600 border-2"

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { db, storage } from "../Firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
-function Canvas({ isPopUp }) {
+function Canvas({ isPopUp, docId}) {
   const [isDrawing, setIsDrawing] = useState(false);
   const canvasRef = useRef(null);
 
@@ -48,7 +50,7 @@ function Canvas({ isPopUp }) {
 
   function downloadCanvas(e) {
     const link = e.currentTarget;
-    link.setAttribute("download", "yourCanvas.png");
+    link.setAttribute("download", docId + "_Canvas.png");
     let img = canvasRef.current.toDataURL("image/png");
     link.setAttribute("href", img);
   }
@@ -56,6 +58,45 @@ function Canvas({ isPopUp }) {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  function saveCanvas() {
+    const canvas = canvasRef.current;
+    // const context = canvas.getContext("2d");
+
+    canvas.toBlob((blob) => {
+      const storageRef = ref(storage, `images/${docId}`);
+      
+      const uploadTask = uploadBytesResumable(storageRef, blob);
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          // setProgress(Math.round (progress));
+          console.log('Upload is ' + progress + '% done');
+        },
+        (error) => {
+          console.error('Upload failed', error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            // console.log('File available at', downloadURL);
+            // setImgLink(downloadURL);
+            // setCanvasLink(downloadURL);
+        db
+        .collection("notes")
+        .doc(docId)
+        .update({
+          canvasUrl: downloadURL,
+        })
+        .catch(console.log("Error updating the value"));
+          });
+        }
+      );
+
+    });
+
+    
+    
   }
 
   return (
@@ -79,7 +120,7 @@ function Canvas({ isPopUp }) {
             className=" mt-1 p-2 bg-blue-500 text-slate-100 hover:drop-shadow-xl rounded-md "
           >
             <a onClick={(e) => downloadCanvas(e)} href="downloadImg">
-              Get your beautiful creation!
+              Download
             </a>
           </button>
 
@@ -88,7 +129,18 @@ function Canvas({ isPopUp }) {
             onClick={(e) => clearCanvas(e)}
             type="button"
             className=" mt-1 p-2 ml-5 bg-blue-500 text-slate-100 hover:drop-shadow-xl rounded-md "
-          >Clear</button>
+          >
+            Clear
+          </button>
+
+          {/* save to firebase  */}
+          <button
+            onClick={(e) => saveCanvas(e)}
+            type="button"
+            className=" mt-1 p-2 ml-5 bg-blue-500 text-slate-100 hover:drop-shadow-xl rounded-md "
+          >
+            Save
+          </button>
         </div>
       </div>
     </>

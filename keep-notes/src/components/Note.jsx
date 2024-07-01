@@ -16,7 +16,7 @@ import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
-import CheckedListItem from "./CheckListItem";
+// import CheckedListItem from "./CheckListItem";
 // import CheckList from "./CheckList";
 // import { getStorage, ref } from "firebase/storage";
 // import { useState } from "react";
@@ -33,6 +33,7 @@ function Note({
   imgUrl,
   tasks,
   isPinned,
+  canvasUrl,
 }) {
   const location = useLocation();
 
@@ -130,7 +131,7 @@ function Note({
     <>
       <div
         draggable
-        onClick={() => setIsPopUp(!isPopUp)}
+        
         onDragOver={(e) => e.preventDefault()}
         className={
           (isListView ? "min-w-[100%] " : "min-w-[25%] ") +
@@ -139,41 +140,31 @@ function Note({
       >
         <div
           onClick={() => {
-            
+            setIsPopUp(!isPopUp)
             setSelectedNote({
               title: title,
               text: textBody,
               imgUrl: imgUrl,
               docId: docId,
               tasks: tasks,
+              canvasUrl: canvasUrl,
             });
           }}
           className=" overflow-hidden w-full h-full "
         >
           {/* title of note  */}
-          <p className="mb-3 rounded-md outline-none text-lg font-['Calibri'] border-[1px] hover:border-amber-800 font-semibold text-amber-800">
+          <p className="mb-3 rounded-md outline-none text-lg font-['Calibri'] border-[1px] border-amber-800 font-semibold text-amber-800">
             {title}
           </p>
 
           {/* paragraph of note  */}
-          <p className=" mb-3 leading-9 border-[1px] hover:border-amber-800 rounded-md text-md outline-none font-['Calibri'] text-slate-800">
+          <p className=" mb-3 leading-9 border-[1px] border-amber-800 rounded-md text-md outline-none font-['Calibri'] text-slate-800">
             {textBody}
           </p>
-          {/* tasks list here  */}
-          <div className="rounded-md font-semibold border-2 mb-3 border-amber-900 p-3">
-            TASKS :
-            {tasks.map((eachItem, index) => (
-              <CheckedListItem
-                key={index}
-                listContentVal={tasks.length > 0 ? eachItem.text : ""}
-                listCheckedVal={tasks.length > 0 ? eachItem.checked : false}
-                isInput={true}
-              />
-            ))}
-          </div>
 
           {/* image here  */}
           <img src={imgUrl} alt="" className="overflow-auto mb-5" />
+          <img src={canvasUrl} alt="" className="overflow-auto mb-5" />
         </div>
 
         <div className="contextMenu">

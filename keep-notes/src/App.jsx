@@ -32,6 +32,7 @@ function App() {
           setIsPopUp={setIsPopUp}
           setListContent={setListContent}
           setListChecked={setListChecked}
+          
         />
 
         {/* header section   */}
@@ -68,6 +69,7 @@ function App() {
                 setIsPopUp,
                 isListView,
                 searchText,
+                
               }}
             ></Outlet>
           )}
@@ -80,6 +82,7 @@ function App() {
                 setIsPopUp,
                 isListView,
                 searchText,
+                
               }}
             ></Outlet>
           )}
