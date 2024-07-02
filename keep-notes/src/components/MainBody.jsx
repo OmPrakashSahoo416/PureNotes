@@ -13,9 +13,9 @@ import CheckedListItem from "./CheckListItem";
 
 
 // drag and drop requirements 
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDrop } from "react-dnd";
+// import { DndProvider } from "react-dnd";
+// import { HTML5Backend } from "react-dnd-html5-backend";
+// import { useDrop } from "react-dnd";
 
 // import { DragDropContext } from "react-beautiful-dnd"; // Gets all the component tree features like the usecontext api
 
@@ -37,27 +37,27 @@ function MainBody() {
     
   } = useOutletContext();
 
-  function onDropHandler({title, textBody, imgUrl, tasks, isPinned, canvasUrl, isReminder, timestamp}) {
-    console.log(title)
-    // db.collection("notes").add({
-    //   title: title,
-    //   content: textBody,
-    //   imgUrl: imgUrl,
-    //   isReminder: isReminder,
-    //   isPinned: isPinned,
-    //   tasks: tasks,
-    //   canvasUrl: canvasUrl,
-    //   timestamp: timestamp,
-    // });
+  // function onDropHandler({title, textBody, imgUrl, tasks, isPinned, canvasUrl, isReminder, timestamp}) {
+  //   console.log(title)
+  //   // db.collection("notes").add({
+  //   //   title: title,
+  //   //   content: textBody,
+  //   //   imgUrl: imgUrl,
+  //   //   isReminder: isReminder,
+  //   //   isPinned: isPinned,
+  //   //   tasks: tasks,
+  //   //   canvasUrl: canvasUrl,
+  //   //   timestamp: timestamp,
+  //   // });
 
-  }
-  const [{isOver}, drop] = useDrop(() =>({
-    accept:"note",
-    drop: (item) => onDropHandler(item),
-    collect:(monitor) => ({
-      isOver:!!monitor.isOver(),
-    }),
-  }));
+  // }
+  // const [{isOver}, drop] = useDrop(() =>({
+  //   accept:"note",
+  //   drop: (item) => onDropHandler(item),
+  //   collect:(monitor) => ({
+  //     isOver:!!monitor.isOver(),
+  //   }),
+  // }));
 
 
 
@@ -70,7 +70,7 @@ function MainBody() {
   const [checkListItems, setCheckListItems] = useState([]);
 
   useEffect(() => {
-    db.collection("notes").orderBy("index","desc")
+    db.collection("notes").orderBy("index", "desc")
       .onSnapshot((snap) =>
         setNote(
           snap.docs.map((doc) => ({
@@ -79,7 +79,9 @@ function MainBody() {
           }))
         )
       );
+      
   }, []);
+
 
   function onSubmitNoteHandler(e) {
     // preventdefault is necessary to avoid a re render which would reset the contents of states
@@ -257,6 +259,7 @@ function MainBody() {
         <hr className="w-full mb-2" />
 
         {/* The Pinned tagged notes here!  */}
+        {/* <DndProvider backend={HTML5Backend}> */}
         <div className="notesPinnedList flex mb-[20px] lg:ml-12 flex-wrap lg:justify-start justify-center gap-y-5">
           {note.map(
             (eachNote) =>
@@ -281,10 +284,13 @@ function MainBody() {
                   tasks={eachNote.data.tasks}
                   textBody={eachNote.data.content}
                   canvasUrl={eachNote.data.canvasUrl}
+                  index={eachNote.data.index}
+                 
                 />
               )
           )}
         </div>
+        {/* </DndProvider> */}
 
         <div className="m-auto lg:mb-4 lg:ml-12 font-['Calibri] font-semibold text-slate-100 mb-4">
           General
@@ -300,7 +306,7 @@ function MainBody() {
         {/* General all notes display here  */}
         {/* <DragDropContext> */}
         {/* <DndProvider backend={HTML5Backend}> */}
-        <div ref={drop} className={"notesGeneralList border-[1px] border-black flex mb-[200px] lg:ml-12 flex-wrap lg:justify-start justify-center gap-y-5 "}>
+        <div className={"notesGeneralList flex mb-[200px] lg:ml-12 flex-wrap lg:justify-start justify-center gap-y-5 "}>
           {note.map(
             (eachNote) =>
               !eachNote.data.isPinned &&
@@ -325,8 +331,7 @@ function MainBody() {
                   textBody={eachNote.data.content}
                   canvasUrl={eachNote.data.canvasUrl}
                   index={eachNote.data.index}
-                  setNote={setNote}
-                  note={note}
+                  
                 />
               )
           )}

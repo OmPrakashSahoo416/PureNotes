@@ -16,13 +16,63 @@ import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
-import firebase from "firebase/compat/app";
+// import firebase from "firebase/compat/app";
 
-import { useDrag, useDrop } from "react-dnd";
+// import { useDrag, useDrop } from "react-dnd";
 // import CheckedListItem from "./CheckListItem";
 // import CheckList from "./CheckList";
 // import { getStorage, ref } from "firebase/storage";
 // import { useState } from "react";
+
+
+
+// const updateIndexes = async () => {
+//   try {
+//     // Step 1: Fetch all documents in the collection
+//     const snapshot = await db.collection('notes').orderBy('index').get();
+    
+//     // Step 2: Start a batch
+//     const batch = db.batch();
+
+//     // Step 3: Loop through the documents and update the index field
+//     snapshot.docs.forEach((doc, index) => {
+//       const docRef = db.collection('notes').doc(doc.id);
+//       batch.update(docRef, { index: index });
+//     });
+
+//     // Step 4: Commit the batch
+//     await batch.commit();
+
+//     console.log('Indexes updated successfully');
+//   } catch (error) {
+//     console.error('Error updating indexes: ', error);
+//   }
+// };
+// const updateIndexesOnDrop = async (x) => {
+//   try {
+//     // Step 1: Fetch all documents in the collection
+//     const snapshot = await db.collection('notes').orderBy('index',"desc").get();
+    
+//     // Step 2: Start a batch
+//     const batch = db.batch();
+
+//     // Step 3: Loop through the documents and update the index field
+//     snapshot.docs.forEach((doc, index) => {
+//       const docRef = db.collection('notes').doc(doc.id);
+//       batch.update(docRef, { index: x[index] });
+//     });
+
+//     // Step 4: Commit the batch
+//     await batch.commit();
+
+//     console.log('Indexes updated successfully');
+//   } catch (error) {
+//     console.error('Error updating indexes: ', error);
+//   }
+// };
+
+// Call the function to update indexes
+
 
 function Note({
   title,
@@ -38,44 +88,58 @@ function Note({
   isPinned,
   canvasUrl,
   index,
-  setNote,
-  note
+
 }) {
 
-  function moveNote(fromIndex, toIndex) {
+  
 
-    const updatedNotes = [note];
-    const [movedNote] = updatedNotes.splice(fromIndex, 1);
-    updatedNotes.splice(toIndex, 0, movedNote);
-    setNote(updatedNotes);
-  }
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: "note",
-    item: {
-      title,
-      textBody,
-      imgUrl,
-      tasks,
-      isPinned,
-      canvasUrl,
-      isReminder,
-      index,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }));
 
-  const [{isOver}, drop] = useDrop(() =>({
-    accept:"note",
-    hover: (draggedItem) => {
-      if(draggedItem.index !== index) {
-        moveNote(draggedItem.index, index);
+  // function moveNote(fromIndex, toIndex) {
 
-      }
-    }
-  }));
+  //   const updatedNotes = [...note];
+
+  //   // i got the notes list and updated in on hover and dnd functionality then extracted the updated notes index order 
+  //   // then accordingly updated the db with the note order then useeffect on main body re render the new list according to 
+  //   // decreasing index value of note
+
+    
+    
+    
+  //   const [movedNote] = updatedNotes.splice(fromIndex, 1);
+  //   updatedNotes.splice(toIndex, 0, movedNote);
+  //   setNote(updatedNotes);
+  //   let x = [];
+  //   updatedNotes.forEach((eachNote) =>(x.push(eachNote.data.index)))
+  //   console.log(x);
+  //   updateIndexesOnDrop(x);
+  //   updateIndexes();
+  //   console.log(updatedNotes);
+  // }
+
+
+  // const [{ isDragging }, drag] = useDrag(() => ({
+  //   type: "note",
+    
+  //   item: {
+  //     index,
+  //   },
+  //   collect: (monitor) => ({
+  //     isDragging: !!monitor.isDragging(),
+  //   }),
+    
+    
+  // }));
+
+  // const [, drop] = useDrop(() =>({
+  //   accept:"note",
+  //   hover: (draggedItem) => {
+  //     if(draggedItem.index !== index) {
+  //       moveNote(draggedItem.index, index);
+
+  //     }
+  //   }
+    
+  // }));
 
   const location = useLocation();
 
@@ -161,24 +225,24 @@ function Note({
   function onCloseNoteHandler() {
     if (location.pathname.startsWith("/notes")) {
       db.collection("notes").doc(docId).delete();
-      // updateNotesIndex();
+      // updateIndexes();
     } else {
       db.collection("notes").doc(docId).update({
         isReminder: false,
       });
     }
   }
-
+  // ref={(node) => (!isPinned && drag(drop(node)))}
   return (
     // next implement the on click zoom of note on a pop up screen
     <>
       <div
-        ref={drag}
+        
         
         className={
           (isListView ? "min-w-[100%] " : "min-w-[18%] ") +
-          "note  border-[1px] mr-5 bg-amber-100 drop-shadow-xl  border-gray-800 rounded-lg p-4  max-w-[200px] group max-h-[250px] " +
-          (isDragging ? " hidden " : " ")
+          "note  border-[1px] mr-5 bg-amber-100 drop-shadow-xl  border-gray-800 rounded-lg p-4  max-w-[200px] group max-h-[250px] " 
+          
         }
       >
         <div
