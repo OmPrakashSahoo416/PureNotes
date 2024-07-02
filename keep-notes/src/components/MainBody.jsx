@@ -9,6 +9,16 @@ import CheckedListItem from "./CheckListItem";
 // import Canvas from "./Canvas";
 // import { Outlet } from "react-router-dom";
 
+// import { DndContext } from "@dnd-kit/core";
+
+
+// drag and drop requirements 
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { useDrop } from "react-dnd";
+
+// import { DragDropContext } from "react-beautiful-dnd"; // Gets all the component tree features like the usecontext api
+
 function MainBody() {
   const {
     isInputActive,
@@ -22,8 +32,34 @@ function MainBody() {
     setListContent,
     listChecked,
     setListChecked,
+    setIndexMaxCount,
+    indexMaxCount,
     
   } = useOutletContext();
+
+  function onDropHandler({title, textBody, imgUrl, tasks, isPinned, canvasUrl, isReminder, timestamp}) {
+    console.log(title)
+    // db.collection("notes").add({
+    //   title: title,
+    //   content: textBody,
+    //   imgUrl: imgUrl,
+    //   isReminder: isReminder,
+    //   isPinned: isPinned,
+    //   tasks: tasks,
+    //   canvasUrl: canvasUrl,
+    //   timestamp: timestamp,
+    // });
+
+  }
+  const [{isOver}, drop] = useDrop(() =>({
+    accept:"note",
+    drop: (item) => onDropHandler(item),
+    collect:(monitor) => ({
+      isOver:!!monitor.isOver(),
+    }),
+  }));
+
+
 
   const [note, setNote] = useState([]);
   const [newTitle, setNewTitle] = useState("");
@@ -34,8 +70,7 @@ function MainBody() {
   const [checkListItems, setCheckListItems] = useState([]);
 
   useEffect(() => {
-    db.collection("notes")
-      .orderBy("timestamp", "desc")
+    db.collection("notes").orderBy("index","desc")
       .onSnapshot((snap) =>
         setNote(
           snap.docs.map((doc) => ({
@@ -58,8 +93,10 @@ function MainBody() {
       isPinned: false,
       tasks: checkListItems,
       canvasUrl: "",
+      index:indexMaxCount,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
+    setIndexMaxCount(indexMaxCount + 1);
     // const updatedNote = [...note,{title:newTitle,inpText:inpTextNote}] === previous code ===
     // setNote(updatedNote);
     onCloseNoteHandler(e);
@@ -101,6 +138,7 @@ function MainBody() {
                 <input
                   onChange={(e) => setNewTitle(e.target.value)}
                   type="text"
+                  autoFocus={true}
                   placeholder="Title"
                   value={newTitle}
                   className="w-[100%] mb-3 outline-none text-lg font-semibold bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
@@ -112,7 +150,7 @@ function MainBody() {
                   onChange={(e) => setInpTextNote(e.target.value)}
                   type="text"
                   placeholder="Take a note ..."
-                  className="w-[100%] mb-3 text-sm outline-none bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
+                  className="w-full mb-3 text-sm outline-none bg-gradient-to-r from-amber-200 to-yellow-400 placeholder:text-amber-900 text-amber-900"
                   name=""
                   id=""
                   value={inpTextNote}
@@ -253,9 +291,16 @@ function MainBody() {
         </div>
         <hr className="w-full mb-2" />
 
+
+
+
+
+        
         {/* may be using display grid will be a better option here to try  */}
         {/* General all notes display here  */}
-        <div className="notesList flex mb-[200px] lg:ml-12 flex-wrap lg:justify-start justify-center gap-y-5">
+        {/* <DragDropContext> */}
+        {/* <DndProvider backend={HTML5Backend}> */}
+        <div ref={drop} className={"notesGeneralList border-[1px] border-black flex mb-[200px] lg:ml-12 flex-wrap lg:justify-start justify-center gap-y-5 "}>
           {note.map(
             (eachNote) =>
               !eachNote.data.isPinned &&
@@ -279,10 +324,15 @@ function MainBody() {
                   tasks={eachNote.data.tasks}
                   textBody={eachNote.data.content}
                   canvasUrl={eachNote.data.canvasUrl}
+                  index={eachNote.data.index}
+                  setNote={setNote}
+                  note={note}
                 />
               )
           )}
         </div>
+        {/* </DndProvider> */}
+        {/* </DragDropContext> */}
       </div>
     </>
   );

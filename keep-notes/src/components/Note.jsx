@@ -16,6 +16,9 @@ import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
+import firebase from "firebase/compat/app";
+
+import { useDrag, useDrop } from "react-dnd";
 // import CheckedListItem from "./CheckListItem";
 // import CheckList from "./CheckList";
 // import { getStorage, ref } from "firebase/storage";
@@ -34,7 +37,46 @@ function Note({
   tasks,
   isPinned,
   canvasUrl,
+  index,
+  setNote,
+  note
 }) {
+
+  function moveNote(fromIndex, toIndex) {
+
+    const updatedNotes = [note];
+    const [movedNote] = updatedNotes.splice(fromIndex, 1);
+    updatedNotes.splice(toIndex, 0, movedNote);
+    setNote(updatedNotes);
+  }
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "note",
+    item: {
+      title,
+      textBody,
+      imgUrl,
+      tasks,
+      isPinned,
+      canvasUrl,
+      isReminder,
+      index,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
+  const [{isOver}, drop] = useDrop(() =>({
+    accept:"note",
+    hover: (draggedItem) => {
+      if(draggedItem.index !== index) {
+        moveNote(draggedItem.index, index);
+
+      }
+    }
+  }));
+
   const location = useLocation();
 
   function onSubmitReminderHandler(e) {
@@ -119,6 +161,7 @@ function Note({
   function onCloseNoteHandler() {
     if (location.pathname.startsWith("/notes")) {
       db.collection("notes").doc(docId).delete();
+      // updateNotesIndex();
     } else {
       db.collection("notes").doc(docId).update({
         isReminder: false,
@@ -130,17 +173,17 @@ function Note({
     // next implement the on click zoom of note on a pop up screen
     <>
       <div
-        draggable
+        ref={drag}
         
-        onDragOver={(e) => e.preventDefault()}
         className={
-          (isListView ? "min-w-[100%] " : "min-w-[25%] ") +
-          "note  border-[1px] mr-3 bg-amber-100 drop-shadow-xl  border-gray-800 rounded-lg p-4  max-w-[200px] group max-h-[250px] "
+          (isListView ? "min-w-[100%] " : "min-w-[18%] ") +
+          "note  border-[1px] mr-5 bg-amber-100 drop-shadow-xl  border-gray-800 rounded-lg p-4  max-w-[200px] group max-h-[250px] " +
+          (isDragging ? " hidden " : " ")
         }
       >
         <div
           onClick={() => {
-            setIsPopUp(!isPopUp)
+            setIsPopUp(!isPopUp);
             setSelectedNote({
               title: title,
               text: textBody,

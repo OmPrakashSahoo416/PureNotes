@@ -20,6 +20,7 @@ function App() {
   const [searchText, setSearchText] = useState("");
   const [listContent, setListContent] = useState("Add your label ...");
   const [listChecked, setListChecked] = useState(false);
+  const [indexMaxCount, setIndexMaxCount] = useState(1);
 
   return (
     <>
@@ -62,6 +63,8 @@ function App() {
                 setListContent,
                 listChecked,
                 setListChecked,
+                indexMaxCount,
+                setIndexMaxCount,
                 
                 setSelectedNote,
                 setIsInputActive,
