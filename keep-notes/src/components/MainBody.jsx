@@ -34,6 +34,7 @@ function MainBody() {
     setListChecked,
     setIndexMaxCount,
     indexMaxCount,
+    setIsFocus,
     
   } = useOutletContext();
 
@@ -70,7 +71,7 @@ function MainBody() {
   const [checkListItems, setCheckListItems] = useState([]);
 
   useEffect(() => {
-    db.collection("notes").orderBy("index", "desc")
+    db.collection("notes").orderBy("timestamp", "desc")
       .onSnapshot((snap) =>
         setNote(
           snap.docs.map((doc) => ({
@@ -121,6 +122,7 @@ function MainBody() {
   return (
     <>
       {/* <Canvas></Canvas> */}
+      {setIsFocus(false)}
       <div className="mainBody rounded-md flex justify-center flex-col  w-full mr-2 ml-2 p-5 ">
         <div className="mainBodyInp rounded-md flex justify-center flex-col items-center  w-full mb-16 ">
           <div className="noteCreater drop-shadow-lg w-[50%] z-[950] rounded-md mt-24 md:mt-0  bg-gradient-to-r from-amber-200 to-yellow-400 p-3 mb-16 ">

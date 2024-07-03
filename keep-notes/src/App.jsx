@@ -21,6 +21,12 @@ function App() {
   const [listContent, setListContent] = useState("Add your label ...");
   const [listChecked, setListChecked] = useState(false);
   const [indexMaxCount, setIndexMaxCount] = useState(0);
+  const [isFocus, setIsFocus] = useState(false);
+
+  // states for the timer
+  const [hour, setHour] = useState(0);
+  const [minute, setMinute] = useState(50);
+  const [second, setSecond] = useState(0);
 
   return (
     <>
@@ -33,7 +39,6 @@ function App() {
           setIsPopUp={setIsPopUp}
           setListContent={setListContent}
           setListChecked={setListChecked}
-          
         />
 
         {/* header section   */}
@@ -42,15 +47,27 @@ function App() {
           setSearchText={setSearchText}
           isListView={isListView}
           setIsListView={setIsListView}
+          isFocus={isFocus}
+          setIsFocus={setIsFocus}
         ></Header>
+
+        {location.pathname.startsWith("/focus") && (
+          <Outlet
+            context={{
+              setIsFocus,
+              hour,
+              setHour,
+              minute,
+              setMinute,
+              second,
+              setSecond,
+            }}
+          ></Outlet>
+        )}
 
         <div className="appbody !h-[100%] flex flex-col md:flex-row items-center md:items-start">
           {/* sidebar section  */}
-          <SideBar
-            hidden={hidden}
-            setHidden={setHidden}
-            
-          ></SideBar>
+          <SideBar hidden={hidden} setHidden={setHidden}></SideBar>
 
           {/* app main body with creating notes reminders etc.. and displaying them in a grid  */}
 
@@ -65,14 +82,14 @@ function App() {
                 setListChecked,
                 indexMaxCount,
                 setIndexMaxCount,
-                
+
                 setSelectedNote,
                 setIsInputActive,
                 isPopUp,
                 setIsPopUp,
                 isListView,
                 searchText,
-                
+                setIsFocus,
               }}
             ></Outlet>
           )}
@@ -85,7 +102,7 @@ function App() {
                 setIsPopUp,
                 isListView,
                 searchText,
-                
+                setIsFocus,
               }}
             ></Outlet>
           )}

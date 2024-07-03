@@ -1,5 +1,6 @@
 import LightbulbCircleRoundedIcon from '@mui/icons-material/LightbulbCircleRounded';
 import CircleNotificationsRoundedIcon from '@mui/icons-material/CircleNotificationsRounded';
+import PlayCircleFilledRoundedIcon from '@mui/icons-material/PlayCircleFilledRounded';
 import IconButton from './IconButton';
 import { Link } from 'react-router-dom';
 
@@ -18,6 +19,9 @@ function SideBar({hidden, setHidden}) {
             <IconButton hidden={hidden} setHidden={setHidden} Icon={CircleNotificationsRoundedIcon} text={"Reminders"}></IconButton>
             </Link>            
 
+            <Link to={"/focus"}>
+            <IconButton hidden={hidden} setHidden={setHidden} Icon={PlayCircleFilledRoundedIcon} text={"Focus Mode"}></IconButton>
+            </Link>            
 
         </div>
         </>

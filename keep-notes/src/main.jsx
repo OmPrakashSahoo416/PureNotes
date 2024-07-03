@@ -10,6 +10,7 @@ import "./index.css";
 import "../node_modules/tailwindcss/tailwind.css";
 import MainBody from "./components/MainBody.jsx";
 import ReminderRoute from "./components/ReminderRoute.jsx";
+import FocusMode from "./components/FocusMode.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
       {
         path: "/reminder",
         element: <ReminderRoute />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/focus",
+        element: <FocusMode />,
         errorElement: <ErrorPage />,
       },
     ],

@@ -5,7 +5,7 @@ import { db } from "../Firebase";
 import { useOutletContext } from "react-router-dom";
 
 function ReminderRoute() {
-  const { setSelectedNote, isPopUp, setIsPopUp, isListView, searchText } =
+  const { setSelectedNote, isPopUp, setIsPopUp, isListView, searchText,setIsFocus } =
     useOutletContext();
 
   const [note, setNote] = useState([]);
@@ -25,6 +25,7 @@ function ReminderRoute() {
 
   return (
     <>
+    {setIsFocus(false)}
       <div
         className={
           (isListView ? "w-full " : " ") +

@@ -3,16 +3,22 @@ import ViewStreamRoundedIcon from "@mui/icons-material/ViewStreamRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 import IconButton from "./IconButton";
+import { useEffect } from "react";
 
 function Header({
   setIsListView,
   isListView,
   searchText,
   setSearchText,
-}) {
+  isFocus,
+  setIsFocus
+})
+{
+
+
   return (
     <>
-      <div className="header sticky top-0 z-[1000] bg-gradient-to-l from-amber-500 to-pink-500 flex items-center justify-between drop-shadow-2xl p-3">
+      <div className={(isFocus && " hidden ") + "header sticky top-0 z-[1000] bg-gradient-to-l from-amber-500 to-pink-500 flex items-center justify-between drop-shadow-2xl p-3"}>
         {/* header left section  */}
         <div className="headerLeft flex items-center">
           {/* sidebar visibility button  */}
