@@ -24,9 +24,7 @@ function App() {
   const [isFocus, setIsFocus] = useState(false);
 
   // states for the timer
-  const [hour, setHour] = useState(0);
-  const [minute, setMinute] = useState(50);
-  const [second, setSecond] = useState(0);
+  
 
   return (
     <>
@@ -55,12 +53,7 @@ function App() {
           <Outlet
             context={{
               setIsFocus,
-              hour,
-              setHour,
-              minute,
-              setMinute,
-              second,
-              setSecond,
+              
             }}
           ></Outlet>
         )}
