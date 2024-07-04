@@ -6,7 +6,7 @@ import { PlayCircleFilledRounded } from "@mui/icons-material";
 import { PauseCircleFilledRounded } from "@mui/icons-material";
 import { db } from "../Firebase";
 
-function Timer({ setIsTimerRunning, isTimerRunning }) {
+function Timer({ setIsTimerRunning, isTimerRunning, setGifVid }) {
   const timerRef = useRef(null);
 
   const [defaultTime, setDefaultTime] = useState(50 * 60 * 1000);
@@ -79,21 +79,21 @@ function Timer({ setIsTimerRunning, isTimerRunning }) {
         <button
           className="border-2  focus:bg-white mr-5 rounded-full p-3 text-white border-white focus:text-slate-800"
           type="button"
-          onClick={() => (setDefaultTime(50 * 60 * 1000), setMinute(50))}
+          onClick={() => (setDefaultTime(50 * 60 * 1000), setMinute(50), setGifVid('https://i.gifer.com/61I.gif'))}
         >
           Pomodoro
         </button>
         <button
           className="border-2 mr-5 rounded-full p-3 text-white border-white focus:text-slate-800 focus:bg-white"
           type="button"
-          onClick={() => (setDefaultTime(5 * 60 * 1000), setMinute(5))}
+          onClick={() => (setDefaultTime(5 * 60 * 1000), setMinute(5), setGifVid('https://i.gifer.com/4Cb2.gif'))}
         >
           Short Break
         </button>
         <button
           className="border-2 rounded-full p-3 text-white border-white focus:text-slate-800 focus:bg-white"
           type="button"
-          onClick={() => (setDefaultTime(10 * 60 * 1000), setMinute(10))}
+          onClick={() => (setDefaultTime(10 * 60 * 1000), setMinute(10), setGifVid('https://i.gifer.com/YIfM.gif'))}
         >
           Long Break
         </button>

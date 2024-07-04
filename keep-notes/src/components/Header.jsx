@@ -3,7 +3,7 @@ import ViewStreamRoundedIcon from "@mui/icons-material/ViewStreamRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 import IconButton from "./IconButton";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 function Header({
   setIsListView,
@@ -11,7 +11,7 @@ function Header({
   searchText,
   setSearchText,
   isFocus,
-  setIsFocus
+  
 })
 {
 
@@ -32,7 +32,7 @@ function Header({
               alt=""
             />
             <p className="text-2xl hover:cursor-pointer text-pink-200 hidden md:block font-bold font-['Calibri']">
-              Note.om
+              FocusNoted
             </p>
           </div>
         </div>

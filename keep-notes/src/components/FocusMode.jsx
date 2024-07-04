@@ -10,20 +10,26 @@ function FocusMode() {
   const { setIsFocus } = useOutletContext();
 
   const[isTimerRunning, setIsTimerRunning] = useState(false);
+
+  const [gifVid, setGifVid] = useState('https://i.gifer.com/61I.gif')
+
+  
+  
+  
   
 
   return (
     <>
       {setIsFocus(true)}
       <div className="focusMode overflow-y-auto ">
-        <div className="focusContents flex justify-center items-center bg-[url('https://i.gifer.com/8B7.gif')] bg-no-repeat bg-cover w-screen fixed h-screen">
+        <div style={{backgroundImage: `url(${gifVid})`}} className={"focusContents flex justify-center items-center  bg-no-repeat bg-cover w-screen fixed h-screen "}>
           <div className="focusElement p-5 justify-center flex-col h-fit w-fit">
             
 
 
 
             
-                <Timer setIsTimerRunning={setIsTimerRunning}  isTimerRunning={isTimerRunning}  />
+                <Timer setGifVid={setGifVid} setIsTimerRunning={setIsTimerRunning}  isTimerRunning={isTimerRunning}  />
 
 
 

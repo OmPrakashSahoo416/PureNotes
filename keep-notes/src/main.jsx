@@ -11,6 +11,7 @@ import "../node_modules/tailwindcss/tailwind.css";
 import MainBody from "./components/MainBody.jsx";
 import ReminderRoute from "./components/ReminderRoute.jsx";
 import FocusMode from "./components/FocusMode.jsx";
+import Login from "./components/Login.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,10 +21,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/notes",
-        index:true,
+        
         element: <MainBody />,
         errorElement: <ErrorPage />,
       },
+      
       {
         path: "/reminder",
         element: <ReminderRoute />,
@@ -35,6 +37,12 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
     ],
+  },
+  {
+    path: "/login",
+    
+    element: <Login />,
+    errorElement: <ErrorPage />,
   },
 ]);
 

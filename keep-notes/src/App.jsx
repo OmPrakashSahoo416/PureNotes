@@ -6,6 +6,8 @@ import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 function App() {
+  // const navigate = useNavigate();
+  // navigate('/notes');
   // this location helps to track the re routing
   const location = useLocation();
   // console.log(location);
@@ -46,7 +48,7 @@ function App() {
           isListView={isListView}
           setIsListView={setIsListView}
           isFocus={isFocus}
-          setIsFocus={setIsFocus}
+          
         ></Header>
 
         {location.pathname.startsWith("/focus") && (
@@ -63,6 +65,7 @@ function App() {
           <SideBar hidden={hidden} setHidden={setHidden}></SideBar>
 
           {/* app main body with creating notes reminders etc.. and displaying them in a grid  */}
+          
 
           {/* added logic to show certain page on condition of routing  */}
           {location.pathname.startsWith("/notes") && (
@@ -99,6 +102,7 @@ function App() {
               }}
             ></Outlet>
           )}
+          
         </div>
       </div>
     </>
