@@ -19,20 +19,23 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
+      
       {
-        path: "/notes",
-        
-        element: <MainBody />,
+        path:"/notes",
+        element: < MainBody />,
         errorElement: <ErrorPage />,
       },
       
+      
       {
-        path: "/reminder",
+        path: "reminder",
+        index:false,
         element: <ReminderRoute />,
         errorElement: <ErrorPage />,
       },
       {
-        path: "/focus",
+        path: "focus",
+        index:false,
         element: <FocusMode />,
         errorElement: <ErrorPage />,
       },
@@ -40,7 +43,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    
+    index:true,
     element: <Login />,
     errorElement: <ErrorPage />,
   },
@@ -48,9 +51,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <App /> */}
+    
     <DndProvider backend={HTML5Backend}>
     <RouterProvider router={router}></RouterProvider>
     </DndProvider>
+    
   </React.StrictMode>
 );

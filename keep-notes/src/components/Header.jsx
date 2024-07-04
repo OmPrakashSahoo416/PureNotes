@@ -11,6 +11,7 @@ function Header({
   searchText,
   setSearchText,
   isFocus,
+  userDetails,
   
 })
 {
@@ -18,6 +19,7 @@ function Header({
 
   return (
     <>
+    {userDetails && 
       <div className={(isFocus && " hidden ") + "header sticky top-0 z-[1000] bg-gradient-to-l from-amber-500 to-pink-500 flex items-center justify-between drop-shadow-2xl p-3"}>
         {/* header left section  */}
         <div className="headerLeft flex items-center">
@@ -79,10 +81,10 @@ function Header({
             </button>
 
             <IconButton Icon={SettingsRoundedIcon} />
-            <IconButton avatar={"https://shorturl.at/V20Ev"} />
+            <IconButton avatar={userDetails.photoURL} />
           </div>
         </div>
-      </div>
+      </div> }
     </>
   );
 }

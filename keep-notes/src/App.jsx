@@ -1,11 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
 import PopUpScreen from "./components/PopUpScreen";
 import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { auth } from "./Firebase";
+
 
 function App() {
+
+  const [userDetails, setUserDetails] = useState(null);
+  
+  function fetchUserData() {
+
+    
+    
+      auth.onAuthStateChanged((user) => {
+        if(!user) {
+          window.location.href = "/login";
+        } else {
+          if (auth.currentUser) {
+
+            setUserDetails(user);
+          }
+  
+        }
+       }
+      )
+    
+
+    //  window.location.href = "/notes";
+  }
+
+  async function userLogOut() {
+    await auth.signOut().then(() => console.log("User Logged Out!")) ;
+    window.location.href = "/login";
+  }
+
+  useEffect(() => {
+    fetchUserData();
+  },[])
+
+
   // const navigate = useNavigate();
   // navigate('/notes');
   // this location helps to track the re routing
@@ -48,6 +84,7 @@ function App() {
           isListView={isListView}
           setIsListView={setIsListView}
           isFocus={isFocus}
+          userDetails={userDetails}
           
         ></Header>
 
@@ -103,6 +140,10 @@ function App() {
             ></Outlet>
           )}
           
+        </div>
+        <div>
+
+        <button onClick={userLogOut} className="bg-black text-white p-3">LogOut</button>
         </div>
       </div>
     </>
