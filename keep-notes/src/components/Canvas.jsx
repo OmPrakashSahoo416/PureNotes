@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { db, storage } from "../Firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
-function Canvas({ isPopUp, docId}) {
+function Canvas({ isPopUp, docId, userDetails}) {
   const [isDrawing, setIsDrawing] = useState(false);
   const canvasRef = useRef(null);
 
@@ -82,13 +82,15 @@ function Canvas({ isPopUp, docId}) {
             // console.log('File available at', downloadURL);
             // setImgLink(downloadURL);
             // setCanvasLink(downloadURL);
+        (userDetails && 
         db
-        .collection("notes")
+        .collection(userDetails.uid)
         .doc(docId)
         .update({
           canvasUrl: downloadURL,
         })
-        .catch(console.log("Error updating the value"));
+        .catch(console.log("Error updating the value")));
+        
           });
         }
       );

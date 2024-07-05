@@ -35,6 +35,7 @@ function MainBody() {
     setIndexMaxCount,
     indexMaxCount,
     setIsFocus,
+    userDetails,
     
   } = useOutletContext();
 
@@ -71,7 +72,7 @@ function MainBody() {
   const [checkListItems, setCheckListItems] = useState([]);
 
   useEffect(() => {
-    db.collection("notes").orderBy("timestamp", "desc")
+    (userDetails && db.collection(userDetails.uid).orderBy("timestamp", "desc")
       .onSnapshot((snap) =>
         setNote(
           snap.docs.map((doc) => ({
@@ -79,16 +80,16 @@ function MainBody() {
             data: doc.data(),
           }))
         )
-      );
+      ));
       
-  }, []);
+  }, );
 
 
   function onSubmitNoteHandler(e) {
     // preventdefault is necessary to avoid a re render which would reset the contents of states
     e.preventDefault();
 
-    db.collection("notes").add({
+    (userDetails && db.collection(userDetails.uid).add({
       title: newTitle,
       content: inpTextNote,
       imgUrl: ImgLink,
@@ -98,7 +99,7 @@ function MainBody() {
       canvasUrl: "",
       index:indexMaxCount,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    }));
     setIndexMaxCount(indexMaxCount + 1);
     // const updatedNote = [...note,{title:newTitle,inpText:inpTextNote}] === previous code ===
     // setNote(updatedNote);
@@ -177,6 +178,7 @@ function MainBody() {
                       setListChecked={setListChecked}
                       listContent={listContent}
                       listChecked={listChecked}
+                      userDetails ={userDetails}
                       listContentVal={
                         checkListItems.length > 0
                           ? checkListItems[index].text
@@ -196,6 +198,7 @@ function MainBody() {
                       setCheckListItems={setCheckListItems}
                       checkListItems={checkListItems}
                       setListChecked={setListChecked}
+                      userDetails ={userDetails}
                       listContent={listContent}
                       listChecked={listChecked}
                       listContentVal={"Add your label ..."}
@@ -287,6 +290,7 @@ function MainBody() {
                   textBody={eachNote.data.content}
                   canvasUrl={eachNote.data.canvasUrl}
                   index={eachNote.data.index}
+                  userDetails ={userDetails}
                  
                 />
               )
@@ -333,6 +337,7 @@ function MainBody() {
                   textBody={eachNote.data.content}
                   canvasUrl={eachNote.data.canvasUrl}
                   index={eachNote.data.index}
+                  userDetails ={userDetails}
                   
                 />
               )

@@ -6,10 +6,10 @@ function ErrorPage() {
 
     return(
         <>
-        <div className="flex flex-col text-center items-center">
+        <div className="flex flex-col text-center drop-shadow-lg border-2 items-center">
             <p>Oops! Something went wrong.</p>
             <p>Of course! You are the <span  className="text-red-500 block font-bold">REASON.</span></p>
-            <p className="text-red-500">{error.message}</p>
+            <p className="">{error.message}</p>
         </div>
         </>
     )

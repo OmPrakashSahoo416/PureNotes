@@ -93,7 +93,7 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid }) {
         <button
           className="border-2 rounded-full p-3 text-white border-white focus:text-slate-800 focus:bg-white"
           type="button"
-          onClick={() => (setDefaultTime(10 * 60 * 1000), setMinute(10), setGifVid('https://i.gifer.com/YIfM.gif'))}
+          onClick={() => (setDefaultTime(10 * 60 * 1000), setMinute(10), setGifVid('https://i.gifer.com/xK.gif'))}
         >
           Long Break
         </button>

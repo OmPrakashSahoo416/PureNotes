@@ -4,22 +4,22 @@ import CheckedListItem from "./CheckListItem";
 // import CheckList from "./CheckList";
 // import UploadImage from "./UploadImage";
 
-function ZoomedNote({ title, textBody, imgUrl, docId, isPopUp, tasks,setListContent, setListChecked, canvasUrl }) {
+function ZoomedNote({ title, textBody, imgUrl, docId, isPopUp, tasks,setListContent, setListChecked, canvasUrl, userDetails }) {
   function handleOnChangeText(e) {
     // target inner text gives only the text and not html tags and whitespace no wrap dont add spaces if
     // we change lines it just preserves those
-    db.collection("notes")
+   ( userDetails && db.collection(userDetails.uid)
       .doc(docId)
       .update({
         content: e.target.innerText,
       })
-      .catch(console.log("Error updating the value"));
+      .catch(console.log("Error updating the value")));
   }
 
   function handleOnChangeTitle(e) {
     // target inner text gives only the text and not html tags and whitespace no wrap dont add spaces if
     // we change lines it just preserves those
-    db.collection("notes")
+    userDetails && db.collection(userDetails.uid)
       .doc(docId)
       .update({
         title: e.target.innerText,
@@ -61,13 +61,14 @@ function ZoomedNote({ title, textBody, imgUrl, docId, isPopUp, tasks,setListCont
                 docId={docId}
                 index={index}
                 tasks={tasks}
+                userDetails={userDetails}
               />
             ))}
         </div>
 
         <img src={imgUrl} alt="" className="overflow-auto mb-5" />
         <img src={canvasUrl} alt="" className="overflow-auto mb-5" />
-        <Canvas isPopUp={isPopUp} docId={docId} />
+        <Canvas isPopUp={isPopUp} docId={docId} userDetails={userDetails} />
         {/* <UploadImage /> */}
       </div>
     </>

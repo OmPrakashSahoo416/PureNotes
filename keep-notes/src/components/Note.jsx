@@ -87,7 +87,8 @@ function Note({
   tasks,
   isPinned,
   canvasUrl,
-  index,
+  
+  userDetails,
 
 }) {
 
@@ -147,13 +148,14 @@ function Note({
     // preventdefault is necessary to avoid a re render which would reset the contents of states
     e.preventDefault();
     !isReminder &&
+    (userDetails &&
       db
-        .collection("notes")
+        .collection(userDetails.uid)
         .doc(docId)
         .update({
           isReminder: true,
         })
-        .catch(console.log("Error updating the value"));
+        .catch(console.log("Error updating the value")));
 
     // BUG:extra reminder remains after adding and it just breaks the code
 
@@ -224,10 +226,10 @@ function Note({
 
   function onCloseNoteHandler() {
     if (location.pathname.startsWith("/notes")) {
-      db.collection("notes").doc(docId).delete();
+      (userDetails && db.collection(userDetails.uid).doc(docId).delete());
       // updateIndexes();
     } else {
-      db.collection("notes").doc(docId).update({
+      userDetails && db.collection(userDetails.uid).doc(docId).update({
         isReminder: false,
       });
     }

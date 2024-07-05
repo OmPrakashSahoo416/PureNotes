@@ -20,8 +20,9 @@ function App() {
           window.location.href = "/login";
         } else {
           if (auth.currentUser) {
-
+            
             setUserDetails(user);
+            console.log(user);
           }
   
         }
@@ -32,24 +33,25 @@ function App() {
     //  window.location.href = "/notes";
   }
 
+  
   async function userLogOut() {
     await auth.signOut().then(() => console.log("User Logged Out!")) ;
     window.location.href = "/login";
   }
-
+  
   useEffect(() => {
     fetchUserData();
   },[])
 
-
+  
   // const navigate = useNavigate();
   // navigate('/notes');
   // this location helps to track the re routing
   const location = useLocation();
   // console.log(location);
-
+  
   // the state variables
-
+  
   const [hidden, setHidden] = useState(true);
   const [isInputActive, setIsInputActive] = useState(false);
   const [isPopUp, setIsPopUp] = useState(false);
@@ -60,10 +62,10 @@ function App() {
   const [listChecked, setListChecked] = useState(false);
   const [indexMaxCount, setIndexMaxCount] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
-
+  
   // states for the timer
   
-
+  
   return (
     <>
       <div className="app bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-cyan-500">
@@ -75,6 +77,7 @@ function App() {
           setIsPopUp={setIsPopUp}
           setListContent={setListContent}
           setListChecked={setListChecked}
+          userDetails ={userDetails}
         />
 
         {/* header section   */}
@@ -115,7 +118,7 @@ function App() {
                 setListChecked,
                 indexMaxCount,
                 setIndexMaxCount,
-
+                userDetails,
                 setSelectedNote,
                 setIsInputActive,
                 isPopUp,
@@ -131,6 +134,7 @@ function App() {
             <Outlet
               context={{
                 setSelectedNote,
+                userDetails,
                 isPopUp,
                 setIsPopUp,
                 isListView,

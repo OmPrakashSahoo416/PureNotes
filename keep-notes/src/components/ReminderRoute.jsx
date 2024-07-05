@@ -5,13 +5,13 @@ import { db } from "../Firebase";
 import { useOutletContext } from "react-router-dom";
 
 function ReminderRoute() {
-  const { setSelectedNote, isPopUp, setIsPopUp, isListView, searchText,setIsFocus } =
+  const { setSelectedNote, isPopUp, setIsPopUp, isListView, searchText,setIsFocus,userDetails } =
     useOutletContext();
 
   const [note, setNote] = useState([]);
 
   useEffect(() => {
-    db.collection("notes")
+    {userDetails && db.collection(userDetails.uid)
       .orderBy("timestamp", "desc")
       .onSnapshot((snap) =>
         setNote(
@@ -20,8 +20,8 @@ function ReminderRoute() {
             data: doc.data(),
           }))
         )
-      );
-  }, []);
+      )}
+  }, [userDetails]);
 
   return (
     <>
@@ -61,6 +61,7 @@ function ReminderRoute() {
                   isPinned={eachNote.data.isPinned}
                   tasks={eachNote.data.tasks}
                   canvasUrl={eachNote.data.canvasUrl}
+                  userDetails ={userDetails}
                 />
               )
           )}

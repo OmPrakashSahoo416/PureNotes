@@ -22,6 +22,7 @@ const router = createBrowserRouter([
       
       {
         path:"/notes",
+        index:true,
         element: < MainBody />,
         errorElement: <ErrorPage />,
       },

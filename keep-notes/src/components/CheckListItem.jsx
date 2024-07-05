@@ -2,7 +2,7 @@
 import { db } from "../Firebase";
 import firebase from 'firebase/compat/app';
 
-function CheckedListItem({setListContent, setListChecked, listContentVal, checkListItems, isInput, listCheckedVal, listContent, listChecked, setCheckListItems, docId, index, tasks}) {
+function CheckedListItem({setListContent, setListChecked, listContentVal, checkListItems, isInput, listCheckedVal, listContent, listChecked, setCheckListItems, docId, index, tasks, userDetails}) {
 
   function setCheckListItemsHandler(e) {
     e.preventDefault();
@@ -15,32 +15,37 @@ function CheckedListItem({setListContent, setListChecked, listContentVal, checkL
     setListChecked(e.target.checked);
     tasks[index] = {text:listContentVal, checked:e.target.checked};
 
-    db.collection("notes")
+
+    (userDetails && 
+
+    db.collection(userDetails.uid)
       .doc(docId)
       .update({
         tasks : tasks,
       })
-      .catch(console.log("Error updating the value"));
+      .catch(console.log("Error updating the value")));
     
   }
 
   function handleOnChangeLabel(e) {
     // console.log("ec");
-    setListContent(e.target.innerText)
+    setListContent(e.target.innerText);
     
-
-    db.collection("notes")
+    (userDetails &&
+    db.collection(userDetails.uid)
       .doc(docId)
       .update({
         tasks : [{text:e.target.innerText, checked:listCheckedVal}, ...tasks],
       })
-      .catch(console.log("Error updating the value"));
-    db.collection("notes")
+      .catch(console.log("Error updating the value")));
+
+      (userDetails && 
+    db.collection(userDetails.uid)
       .doc(docId)
       .update({
         tasks : firebase.firestore.FieldValue.arrayRemove({text:listContentVal, checked:listCheckedVal}),
       })
-      .catch(console.log("Error updating the value"));
+      .catch(console.log("Error updating the value")));
 
   }
   

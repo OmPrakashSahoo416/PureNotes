@@ -8,7 +8,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 // bg-gradient-to-r from-teal-400 to-yellow-200 ==> crazy color scheme ...
 
-function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote, setListContent, setListChecked
+function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote, setListContent, setListChecked, userDetails
 }) {
   return (
     <>
@@ -32,6 +32,7 @@ function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote, setLi
               setListContent={setListContent}
               setListChecked={setListChecked}
               canvasUrl={selectedNote.canvasUrl}
+              userDetails ={userDetails}
               
             />
           </div>
