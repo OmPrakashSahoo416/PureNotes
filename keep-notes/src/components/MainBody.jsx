@@ -81,6 +81,7 @@ function MainBody() {
           }))
         )
       ));
+    // (userDetails && db.collection(userDetails.uid).do 
       
   }, );
 

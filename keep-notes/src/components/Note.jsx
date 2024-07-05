@@ -205,21 +205,23 @@ function Note({
       return;
     }
     !isPinned &&
+    (userDetails &&
       db
-        .collection("notes")
+        .collection(userDetails.uid)
         .doc(docId)
         .update({
           isPinned: true,
         })
-        .catch(console.log("Error updating the value"));
-    isPinned &&
+        .catch(console.log("Error updating the value")));
+    isPinned && 
+    (userDetails &&
       db
-        .collection("notes")
+        .collection(userDetails.uid)
         .doc(docId)
         .update({
           isPinned: false,
         })
-        .catch(console.log("Error updating the value"));
+        .catch(console.log("Error updating the value")));
 
     // isPinned = !isPinned;
   }
