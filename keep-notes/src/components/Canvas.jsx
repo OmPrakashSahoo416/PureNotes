@@ -4,6 +4,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 function Canvas({ isPopUp, docId, userDetails}) {
   const [isDrawing, setIsDrawing] = useState(false);
+  const [progressVal, setProgressVal] = useState(0);
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -71,6 +72,7 @@ function Canvas({ isPopUp, docId, userDetails}) {
         'state_changed',
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setProgressVal(Math.round(progress))
           // setProgress(Math.round (progress));
           console.log('Upload is ' + progress + '% done');
         },
@@ -115,7 +117,7 @@ function Canvas({ isPopUp, docId, userDetails}) {
           onMouseLeave={endDrawing}
         />
 
-        <div className="canvasButtons flex">
+        <div className="canvasButtons flex items-center">
           {/* download the canvas button  */}
           <button
             type="button"
@@ -143,6 +145,7 @@ function Canvas({ isPopUp, docId, userDetails}) {
           >
             Save
           </button>
+          <p className="ml-5">{progressVal}%</p>
         </div>
       </div>
     </>

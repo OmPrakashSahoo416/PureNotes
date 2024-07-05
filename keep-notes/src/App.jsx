@@ -5,21 +5,54 @@ import PopUpScreen from "./components/PopUpScreen";
 import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { db,auth } from "./Firebase";
+import LeaderBoard from "./components/LeaderBoard";
+// import { getAuth } from 'firebase/auth';
 
 function App() {
   const [userDetails, setUserDetails] = useState(null);
 
-  function fetchUserData() {
-    auth.onAuthStateChanged((user) => {
+  // userDetails &&
+  // auth()
+  // .getUser(userDetails.uid)
+  // .then((userRecord) => {
+  //   // See the UserRecord reference doc for the contents of userRecord.
+  //   console.log(userRecord);
+  // })
+  // .catch((error) => {
+  //   console.log('Error fetching user data:', error);
+  // });
+
+
+  // function leaderBoardStats() {
+  //   db.collection("focus").onSnapshot((snap) =>
+      
+  //       snap.docs.map((doc) => {
+  //         let id = doc.id;
+  //         let focusTime = doc.data().focusTime;
+          
+  //       })
+    
+  // )
+  // }
+
+   function fetchUserData() {
+     auth.onAuthStateChanged(async (user) => {
       if (!user) {
         window.location.href = "/login";
       } else {
         if (auth.currentUser) {
           setUserDetails(user);
           console.log(user);
-          user && (db.collection("focus").doc(user.uid) === null && db.collection("focus").doc(user.uid).set({
-            focusTime: 0,
-        }))
+          const userRef = db.collection("focus").doc(user.uid);
+          const docExists = await userRef.get();
+          if (!docExists.exists) {
+            await userRef.set({
+              focusTime: 0,
+              name: user.displayName,
+              profilePic: user.photoURL,
+            });
+          }
+          
         }
       }
     });
@@ -31,7 +64,7 @@ function App() {
 
   useEffect(() => {
     fetchUserData();
-  }, []);
+  }, [userDetails]);
 
   // const navigate = useNavigate();
   // navigate('/notes');
@@ -51,6 +84,7 @@ function App() {
   const [listChecked, setListChecked] = useState(false);
   const [indexMaxCount, setIndexMaxCount] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   // states for the timer
 
@@ -68,6 +102,8 @@ function App() {
           userDetails={userDetails}
         />
 
+        <LeaderBoard showLeaderboard={showLeaderboard} setShowLeaderboard={setShowLeaderboard} />
+
         {/* header section   */}
         <Header
           searchText={searchText}
@@ -76,6 +112,8 @@ function App() {
           setIsListView={setIsListView}
           isFocus={isFocus}
           userDetails={userDetails}
+          setShowLeaderboard={setShowLeaderboard}
+          showLeaderboard={showLeaderboard}
         ></Header>
 
         {location.pathname.startsWith("/focus") && (

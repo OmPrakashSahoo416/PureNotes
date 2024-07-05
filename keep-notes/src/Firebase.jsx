@@ -3,6 +3,9 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { getStorage } from "firebase/storage";
 
+
+
+
 const firebaseConfig = {
     apiKey: "AIzaSyAueAJFpHeMLbDttxibG-QlTNGXka1op9s",
     authDomain: "notes-app-185ca.firebaseapp.com",
@@ -14,9 +17,14 @@ const firebaseConfig = {
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+// firebase.auth().getAuth()
+
 const db = firebaseApp.firestore();
 const auth = firebase.auth();
 const storage = getStorage(firebaseApp);
+
+
+
 
 export {db, auth, storage};
 

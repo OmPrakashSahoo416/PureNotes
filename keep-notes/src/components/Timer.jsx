@@ -70,8 +70,9 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
       clearInterval(timerRef.current);
       setDefaultTime(50 * 60 * 1000);
       setIsTimerRunning(false);
+      resetTimer();
     }
-  }, [defaultTime, setDefaultTime, setIsTimerRunning, totalFocusTime]);
+  }, [defaultTime, setDefaultTime, setIsTimerRunning, totalFocusTime, resetTimer]);
 
   useEffect(() => {
     userDetails &&
@@ -105,6 +106,7 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
           className="border-2 mr-5 rounded-full p-3 text-white border-white focus:text-slate-800 focus:bg-white"
           type="button"
           onClick={() => (
+            resetTimer(),
             setDefaultTime(5 * 60 * 1000),
             setMinute(5),
             setGifVid("https://i.gifer.com/4Cb2.gif")
@@ -116,6 +118,7 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
           className="border-2 rounded-full p-3 text-white border-white focus:text-slate-800 focus:bg-white"
           type="button"
           onClick={() => (
+            resetTimer(),
             setDefaultTime(10 * 60 * 1000),
             setMinute(10),
             setGifVid("https://i.gifer.com/xK.gif")

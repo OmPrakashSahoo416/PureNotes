@@ -29,13 +29,13 @@ function ReminderRoute() {
       <div
         className={
           (isListView ? "w-full " : " ") +
-          "reminderRoute flex  m-auto mt-[200px] mb-[200px]"
+          "reminderRoute flex w-full m-auto mt-[200px] mb-[200px]"
         }
       >
         <div
           className={
-            (isListView ? "min-w-[100%] " : "min-w-[25%] overflow-auto  ") +
-            "flex flex-wrap justify-center p-5 gap-y-5"
+            (isListView ? "min-w-[100%] " : " min-w-[100%] overflow-auto  ") +
+            "flex flex-wrap justify-center md:justify-start p-5 gap-y-5"
           }
         >
           {note.map(
