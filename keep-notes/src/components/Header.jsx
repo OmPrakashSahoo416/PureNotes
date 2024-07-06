@@ -54,7 +54,7 @@ function Header({
                 alt=""
               />
               <p className="text-2xl hover:cursor-pointer text-pink-200 hidden md:block font-bold font-['Calibri']">
-                FocusNoted
+                Zenotes
               </p>
             </div>
           </div>

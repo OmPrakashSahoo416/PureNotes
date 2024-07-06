@@ -70,9 +70,9 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
       clearInterval(timerRef.current);
       setDefaultTime(50 * 60 * 1000);
       setIsTimerRunning(false);
-      resetTimer();
+      // resetTimer();
     }
-  }, [defaultTime, setDefaultTime, setIsTimerRunning, totalFocusTime, resetTimer]);
+  }, [defaultTime, setDefaultTime, setIsTimerRunning, totalFocusTime]);
 
   useEffect(() => {
     userDetails &&
@@ -86,6 +86,25 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
           )
         );
   }, [userDetails]);
+
+  useEffect(() => {
+    if (defaultTime === 0) {
+      userDetails &&
+      db
+        .collection("focus")
+        .doc(userDetails.uid)
+        .update({ focusTime: totalFocusTime.filter((num) => num !== -1)[0] })
+        .catch();
+    setDefaultTime(50 * 60 * 1000);
+
+    setSecond(0);
+    setMinute(50);
+    setIsTimerRunning(false);
+    clearInterval(timerRef.current);
+
+    }
+
+  }, [setDefaultTime,setIsTimerRunning, defaultTime, userDetails, totalFocusTime])
   
 
   return (
