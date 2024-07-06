@@ -16,6 +16,8 @@ import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setSelectedNote } from "../states/selectedNote/selectedNote";
 // import firebase from "firebase/compat/app";
 
 // import { useDrag, useDrop } from "react-dnd";
@@ -79,8 +81,7 @@ function Note({
   textBody,
   isPopUp,
   setIsPopUp,
-  setSelectedNote,
-  isListView,
+  
   docId,
   isReminder,
   imgUrl,
@@ -91,6 +92,11 @@ function Note({
   userDetails,
 
 }) {
+
+  const isListView = useSelector((state) => state.isListView.isListView);
+  const dispatch = useDispatch();
+  // const selectedNote = useSelector((state) => state.selectedNote.selectedNote);
+
 
   
 
@@ -252,14 +258,14 @@ function Note({
         <div
           onClick={() => {
             setIsPopUp(!isPopUp);
-            setSelectedNote({
+            dispatch(setSelectedNote({
               title: title,
               text: textBody,
               imgUrl: imgUrl,
               docId: docId,
               tasks: tasks,
               canvasUrl: canvasUrl,
-            });
+            }));
           }}
           className=" overflow-hidden w-full h-full "
         >

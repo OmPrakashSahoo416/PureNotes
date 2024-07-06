@@ -3,10 +3,16 @@ import Note from "./Note";
 import { db } from "../Firebase";
 
 import { useOutletContext } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsFocus } from "../states/isFocus/isFocus";
 
 function ReminderRoute() {
-  const { setSelectedNote, isPopUp, setIsPopUp, isListView, searchText,setIsFocus,userDetails } =
+  const { isPopUp, setIsPopUp, userDetails } =
     useOutletContext();
+
+    const searchText = useSelector((state) => state.searchText.searchText);
+    const isListView = useSelector((state) => state.isListView.isListView);
+    const dispatch = useDispatch()
 
   const [note, setNote] = useState([]);
 
@@ -23,9 +29,15 @@ function ReminderRoute() {
       )}
   }, [userDetails]);
 
+
+  function handleFocus() {
+    dispatch(setIsFocus(false));
+  }
+
   return (
     <>
-    {setIsFocus(false)}
+          {handleFocus()}
+
       <div
         className={
           (isListView ? "w-full " : " ") +
@@ -49,7 +61,7 @@ function ReminderRoute() {
                   .indexOf(searchText.toLowerCase()) !== -1) && (
                 <Note
                   isListView={isListView}
-                  setSelectedNote={setSelectedNote}
+                  
                   isPopUp={isPopUp}
                   setIsPopUp={setIsPopUp}
                   key={eachNote.id}

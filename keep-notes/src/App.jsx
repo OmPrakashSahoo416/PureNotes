@@ -74,17 +74,15 @@ function App() {
 
   // the state variables
 
-  const [hidden, setHidden] = useState(true);
+  // const [hidden, setHidden] = useState(true);
   const [isInputActive, setIsInputActive] = useState(false);
   const [isPopUp, setIsPopUp] = useState(false);
-  const [selectedNote, setSelectedNote] = useState({});
-  const [isListView, setIsListView] = useState(false);
-  const [searchText, setSearchText] = useState("");
+  // const [selectedNote, setSelectedNote] = useState({});
   const [listContent, setListContent] = useState("Add your label ...");
   const [listChecked, setListChecked] = useState(false);
   const [indexMaxCount, setIndexMaxCount] = useState(0);
-  const [isFocus, setIsFocus] = useState(false);
-  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  // const [isFocus, setIsFocus] = useState(false);
+  // const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   // states for the timer
 
@@ -93,8 +91,7 @@ function App() {
       <div className="app bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-cyan-500">
         {/* screen that will appear on click of note to show its zoomed version on fullscreen  */}
         <PopUpScreen
-          selectedNote={selectedNote}
-          setSelectedNote={setSelectedNote}
+          
           isPopUp={isPopUp}
           setIsPopUp={setIsPopUp}
           setListContent={setListContent}
@@ -102,24 +99,25 @@ function App() {
           userDetails={userDetails}
         />
 
-        <LeaderBoard showLeaderboard={showLeaderboard} setShowLeaderboard={setShowLeaderboard} />
+        <LeaderBoard
+        //  showLeaderboard={showLeaderboard} 
+        //  setShowLeaderboard={setShowLeaderboard} 
+         />
 
         {/* header section   */}
         <Header
-          searchText={searchText}
-          setSearchText={setSearchText}
-          isListView={isListView}
-          setIsListView={setIsListView}
-          isFocus={isFocus}
+          
+          
+          
           userDetails={userDetails}
-          setShowLeaderboard={setShowLeaderboard}
-          showLeaderboard={showLeaderboard}
+          // setShowLeaderboard={setShowLeaderboard}
+          // showLeaderboard={showLeaderboard}
         ></Header>
 
         {location.pathname.startsWith("/focus") && (
           <Outlet
             context={{
-              setIsFocus,
+              
               userDetails,
             }}
           ></Outlet>
@@ -127,7 +125,7 @@ function App() {
 
         <div className="appbody !h-[100%] flex flex-col md:flex-row items-center md:items-start">
           {/* sidebar section  */}
-          <SideBar hidden={hidden} setHidden={setHidden}></SideBar>
+          <SideBar></SideBar>
 
           {/* app main body with creating notes reminders etc.. and displaying them in a grid  */}
 
@@ -143,13 +141,12 @@ function App() {
                 indexMaxCount,
                 setIndexMaxCount,
                 userDetails,
-                setSelectedNote,
                 setIsInputActive,
                 isPopUp,
                 setIsPopUp,
-                isListView,
-                searchText,
-                setIsFocus,
+                
+                
+              
               }}
             ></Outlet>
           )}
@@ -157,13 +154,11 @@ function App() {
           {location.pathname.startsWith("/reminder") && (
             <Outlet
               context={{
-                setSelectedNote,
                 userDetails,
                 isPopUp,
                 setIsPopUp,
-                isListView,
-                searchText,
-                setIsFocus,
+                
+                
               }}
             ></Outlet>
           )}

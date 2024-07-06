@@ -1,22 +1,30 @@
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ViewStreamRoundedIcon from "@mui/icons-material/ViewStreamRounded";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
+// import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import IconButton from "./IconButton";
+import { displayLeaderboard } from "../states/leaderboard/leaderboardSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsListView } from "../states/isListView/isListView";
+import { setSearchText } from "../states/searchText/searchText";
+
+
 // import {  useState } from "react";
 // import { useEffect } from "react";
 
 function Header({
-  setIsListView,
-  isListView,
-  searchText,
-  setSearchText,
-  isFocus,
+  
+  
   userDetails,
-  setShowLeaderboard,
-  showLeaderboard,
+  
 }) {
+
+  const isFocus = useSelector((state) => state.isFocus.isFocus);
+
+
+  const searchText = useSelector((state) => state.searchText.searchText);
+  const dispatch = useDispatch();
   // function showLeaderBoard() {
 
   //   db.collection("focus").orderBy("focusTime", "desc")
@@ -76,7 +84,7 @@ function Header({
                 placeholder="Search..."
                 id=""
                 value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
+                onChange={(e) => dispatch(setSearchText(e.target.value))}
               />
               {/* </form> */}
             </div>
@@ -85,7 +93,7 @@ function Header({
           {/* header right section  */}
           <div className="headerRight">
             <div className="headerRightLinks flex items-center">
-              <button onClick={() => setShowLeaderboard(!showLeaderboard)} type="button" className="rounded-full">
+              <button onClick={() => dispatch(displayLeaderboard())} type="button" className="rounded-full">
                 <IconButton Icon={MilitaryTechIcon} />
               </button>
               <button
@@ -98,12 +106,11 @@ function Header({
               <button
                 type="button"
                 className="rounded-full"
-                onClick={() => setIsListView(!isListView)}
+                onClick={() => dispatch(setIsListView())}
               >
                 <IconButton Icon={ViewStreamRoundedIcon} />
               </button>
 
-              <IconButton Icon={SettingsRoundedIcon} />
               <IconButton avatar={userDetails.photoURL} />
             </div>
           </div>

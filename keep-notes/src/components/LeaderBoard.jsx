@@ -1,8 +1,15 @@
+import { useDispatch, useSelector } from "react-redux";
 import { db } from "../Firebase";
 import { useEffect, useState } from "react";
+import { displayLeaderboard } from "../states/leaderboard/leaderboardSlice";
 
-function LeaderBoard({showLeaderboard, setShowLeaderboard}) {
+function LeaderBoard() {
   const [leaderboard, setLeaderboard] = useState([]);
+
+  //====================================
+  const showLeaderboard = useSelector((state) => state.leaderboard.showLeaderBoard);
+  const dispatch = useDispatch();
+  //====================================
 
   useEffect(() => {
     db.collection("focus")
@@ -43,7 +50,7 @@ function LeaderBoard({showLeaderboard, setShowLeaderboard}) {
           </div>
         ))
       }
-      <button className="border-t-2 border-red-600 absolute bottom-0 p-4 w-full hover:bg-red-600 hover:text-slate-100 rounded-b-lg" type="button" onClick={() => setShowLeaderboard(false)}>Close</button>
+      <button className="border-t-2 border-red-600 absolute bottom-0 p-4 w-full hover:bg-red-600 hover:text-slate-100 rounded-b-lg" type="button" onClick={() => dispatch(displayLeaderboard())}>Close</button>
     </div>
 
   </div>}

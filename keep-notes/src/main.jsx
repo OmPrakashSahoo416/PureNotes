@@ -13,6 +13,9 @@ import ReminderRoute from "./components/ReminderRoute.jsx";
 import FocusMode from "./components/FocusMode.jsx";
 import Login from "./components/Login.jsx";
 
+import { Provider } from "react-redux";
+import store from "./store/store.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -52,10 +55,13 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+
+    <Provider store={store}>
     
     <DndProvider backend={HTML5Backend}>
     <RouterProvider router={router}></RouterProvider>
     </DndProvider>
+    </Provider>
     
   </React.StrictMode>
 );

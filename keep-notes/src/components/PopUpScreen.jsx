@@ -4,12 +4,18 @@
 import IconButton from "./IconButton";
 import ZoomedNote from "./ZoomedNote";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { setSelectedNote } from "../states/selectedNote/selectedNote";
+import { useDispatch, useSelector } from "react-redux";
 // import { db } from "../Firebase";
 
 // bg-gradient-to-r from-teal-400 to-yellow-200 ==> crazy color scheme ...
 
-function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote, setListContent, setListChecked, userDetails
+function PopUpScreen({ isPopUp, setIsPopUp, setListContent, setListChecked, userDetails
 }) {
+
+  const dispatch = useDispatch();
+  const selectedNote = useSelector((state) => state.selectedNote.selectedNote);
+
   return (
     <>
       <div
@@ -40,7 +46,7 @@ function PopUpScreen({ isPopUp, setIsPopUp, setSelectedNote, selectedNote, setLi
           <button
             onClick={() => {
               setIsPopUp(!isPopUp);
-              setSelectedNote({});
+              dispatch(setSelectedNote({}));
               setListContent("Add your label ...");
               setListChecked(false);
               

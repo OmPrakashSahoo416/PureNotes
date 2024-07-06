@@ -3,13 +3,20 @@ import CircleNotificationsRoundedIcon from "@mui/icons-material/CircleNotificati
 import PlayCircleFilledRoundedIcon from "@mui/icons-material/PlayCircleFilledRounded";
 import IconButton from "./IconButton";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setHidden } from "../states/hidden/hiddenSlice";
 
-function SideBar({ hidden, setHidden }) {
+function SideBar() {
+
+
+  const hidden = useSelector((state) => state.hidden.hidden);
+  const dispatch = useDispatch();
+
   return (
     <>
       <div
-        onMouseEnter={() => setHidden(!hidden)}
-        onMouseLeave={() => setHidden(!hidden)}
+        onMouseEnter={() => dispatch(setHidden())}
+        onMouseLeave={() => dispatch(setHidden())}
         className="sideBar p-3 md:flex-col flex items-center fixed z-[1000] w-fit h-fit bg-gradient-to-r from-amber-500 to-pink-500"
       >
         <Link to={"/notes"}>

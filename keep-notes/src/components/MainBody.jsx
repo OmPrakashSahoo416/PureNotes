@@ -5,6 +5,10 @@ import firebase from "firebase/compat/app";
 import { useOutletContext } from "react-router-dom";
 import UploadImage from "./UploadImage";
 import CheckedListItem from "./CheckListItem";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsFocus } from "../states/isFocus/isFocus";
+
+// import { useSelector } from "react-redux";
 // import Canvas from "./Canvas";
 // import Canvas from "./Canvas";
 // import { Outlet } from "react-router-dom";
@@ -22,22 +26,29 @@ import CheckedListItem from "./CheckListItem";
 function MainBody() {
   const {
     isInputActive,
-    setSelectedNote,
+    
     setIsInputActive,
     isPopUp,
     setIsPopUp,
-    isListView,
-    searchText,
+    
     listContent,
     setListContent,
     listChecked,
     setListChecked,
     setIndexMaxCount,
     indexMaxCount,
-    setIsFocus,
     userDetails,
     
   } = useOutletContext();
+
+  const searchText = useSelector((state) => state.searchText.searchText);
+  const dispatch = useDispatch();
+
+  // const selectedNote = useSelector((state) => state.selectedNote.selectedNote);
+
+
+  
+  
 
   // function onDropHandler({title, textBody, imgUrl, tasks, isPinned, canvasUrl, isReminder, timestamp}) {
   //   console.log(title)
@@ -121,10 +132,14 @@ function MainBody() {
     setListContent("Add your label ...");
   }
 
+  function handleFocus() {
+    dispatch(setIsFocus(false));
+  }
+
   return (
     <>
       {/* <Canvas></Canvas> */}
-      {setIsFocus(false)}
+      {handleFocus()}
       <div className="mainBody rounded-md flex justify-center flex-col  w-full mr-2 ml-2 p-5 ">
         <div className="mainBodyInp rounded-md flex justify-center flex-col items-center  w-full mb-16 ">
           <div className="noteCreater drop-shadow-lg w-[50%] z-[950] rounded-md mt-24 md:mt-0  bg-gradient-to-r from-amber-200 to-yellow-400 p-3 mb-16 ">
@@ -277,8 +292,8 @@ function MainBody() {
                   .toLowerCase()
                   .indexOf(searchText.toLowerCase()) !== -1) && (
                 <Note
-                  isListView={isListView}
-                  setSelectedNote={setSelectedNote}
+                  
+                 
                   isPopUp={isPopUp}
                   setIsPopUp={setIsPopUp}
                   key={eachNote.id}
@@ -324,8 +339,8 @@ function MainBody() {
                   .toLowerCase()
                   .indexOf(searchText.toLowerCase()) !== -1) && (
                 <Note
-                  isListView={isListView}
-                  setSelectedNote={setSelectedNote}
+                  
+                  
                   isPopUp={isPopUp}
                   setIsPopUp={setIsPopUp}
                   key={eachNote.id}
