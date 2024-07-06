@@ -9,19 +9,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsListView } from "../states/isListView/isListView";
 import { setSearchText } from "../states/searchText/searchText";
 
-
 // import {  useState } from "react";
 // import { useEffect } from "react";
 
-function Header({
-  
-  
-  userDetails,
-  
-}) {
-
+function Header({ userDetails }) {
   const isFocus = useSelector((state) => state.isFocus.isFocus);
-
 
   const searchText = useSelector((state) => state.searchText.searchText);
   const dispatch = useDispatch();
@@ -93,7 +85,11 @@ function Header({
           {/* header right section  */}
           <div className="headerRight">
             <div className="headerRightLinks flex items-center">
-              <button onClick={() => dispatch(displayLeaderboard())} type="button" className="rounded-full">
+              <button
+                onClick={() => dispatch(displayLeaderboard())}
+                type="button"
+                className="rounded-full"
+              >
                 <IconButton Icon={MilitaryTechIcon} />
               </button>
               <button

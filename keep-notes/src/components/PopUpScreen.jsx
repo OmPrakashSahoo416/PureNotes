@@ -6,21 +6,21 @@ import ZoomedNote from "./ZoomedNote";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { setSelectedNote } from "../states/selectedNote/selectedNote";
 import { useDispatch, useSelector } from "react-redux";
+import { setIsPopUp } from "../store/isPopUp/isPopUp";
 // import { db } from "../Firebase";
 
 // bg-gradient-to-r from-teal-400 to-yellow-200 ==> crazy color scheme ...
 
-function PopUpScreen({ isPopUp, setIsPopUp, setListContent, setListChecked, userDetails
-}) {
-
+function PopUpScreen({ setListContent, setListChecked, userDetails }) {
   const dispatch = useDispatch();
   const selectedNote = useSelector((state) => state.selectedNote.selectedNote);
+  const isPopUp = useSelector((state) => state.isPopUp.isPopUp);
 
   return (
     <>
       <div
         className={
-          (!isPopUp && "hidden ") +
+          (isPopUp === false && "hidden ") +
           "popUpScreen bg-opacity-80  bg-slate-800 flex items-center justify-center fixed top-0 inset-0 z-[1100] h-[100vh]"
         }
       >
@@ -34,22 +34,19 @@ function PopUpScreen({ isPopUp, setIsPopUp, setListContent, setListChecked, user
               imgUrl={selectedNote.imgUrl}
               docId={selectedNote.docId}
               tasks={selectedNote.tasks}
-              isPopUp={isPopUp}
               setListContent={setListContent}
               setListChecked={setListChecked}
               canvasUrl={selectedNote.canvasUrl}
-              userDetails ={userDetails}
-              
+              userDetails={userDetails}
             />
           </div>
 
           <button
             onClick={() => {
-              setIsPopUp(!isPopUp);
+              dispatch(setIsPopUp());
               dispatch(setSelectedNote({}));
               setListContent("Add your label ...");
               setListChecked(false);
-              
             }}
             type="button"
             className="rounded-full group-hover:block md:hidden absolute top-[-25px] m-auto bg-red-600 text-slate-800  hover:text-slate-100 border-red-600 border-2"

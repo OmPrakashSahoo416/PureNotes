@@ -7,28 +7,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsFocus } from "../states/isFocus/isFocus";
 
 function ReminderRoute() {
-  const { isPopUp, setIsPopUp, userDetails } =
-    useOutletContext();
+  const { userDetails } = useOutletContext();
 
-    const searchText = useSelector((state) => state.searchText.searchText);
-    const isListView = useSelector((state) => state.isListView.isListView);
-    const dispatch = useDispatch()
+  const searchText = useSelector((state) => state.searchText.searchText);
+  const isListView = useSelector((state) => state.isListView.isListView);
+  const dispatch = useDispatch();
 
   const [note, setNote] = useState([]);
 
   useEffect(() => {
-    {userDetails && db.collection(userDetails.uid)
-      .orderBy("timestamp", "desc")
-      .onSnapshot((snap) =>
-        setNote(
-          snap.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        )
-      )}
+    {
+      userDetails &&
+        db
+          .collection(userDetails.uid)
+          .orderBy("timestamp", "desc")
+          .onSnapshot((snap) =>
+            setNote(
+              snap.docs.map((doc) => ({
+                id: doc.id,
+                data: doc.data(),
+              }))
+            )
+          );
+    }
   }, [userDetails]);
-
 
   function handleFocus() {
     dispatch(setIsFocus(false));
@@ -36,7 +38,7 @@ function ReminderRoute() {
 
   return (
     <>
-          {handleFocus()}
+      {handleFocus()}
 
       <div
         className={
@@ -61,9 +63,6 @@ function ReminderRoute() {
                   .indexOf(searchText.toLowerCase()) !== -1) && (
                 <Note
                   isListView={isListView}
-                  
-                  isPopUp={isPopUp}
-                  setIsPopUp={setIsPopUp}
                   key={eachNote.id}
                   docId={eachNote.id}
                   title={eachNote.data.title}
@@ -73,7 +72,7 @@ function ReminderRoute() {
                   isPinned={eachNote.data.isPinned}
                   tasks={eachNote.data.tasks}
                   canvasUrl={eachNote.data.canvasUrl}
-                  userDetails ={userDetails}
+                  userDetails={userDetails}
                 />
               )
           )}

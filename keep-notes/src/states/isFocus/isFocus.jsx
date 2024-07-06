@@ -1,24 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 // import { useState } from "react";
 
-
 const initialState = {
-  isFocus: false
-}
+  isFocus: false,
+};
 
 const isFocusSlice = createSlice({
-  name:"isFocus",
+  name: "isFocus",
   initialState,
-  reducers:{
-    setIsFocus:(state, action) => {
-      state.isFocus = action.payload
-    }
-    
+  reducers: {
+    setIsFocus: (state, action) => {
+      state.isFocus = action.payload;
+    },
+  },
+});
 
-  }
-})
-
-export const {setIsFocus} = isFocusSlice.actions;
-
+export const { setIsFocus } = isFocusSlice.actions;
 
 export const isFocusReducer = isFocusSlice.reducer;

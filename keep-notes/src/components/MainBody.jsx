@@ -7,7 +7,7 @@ import UploadImage from "./UploadImage";
 import CheckedListItem from "./CheckListItem";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsFocus } from "../states/isFocus/isFocus";
-
+import { setIsInputActive } from "../states/isInputActive/isInputActive";
 // import { useSelector } from "react-redux";
 // import Canvas from "./Canvas";
 // import Canvas from "./Canvas";
@@ -15,8 +15,7 @@ import { setIsFocus } from "../states/isFocus/isFocus";
 
 // import { DndContext } from "@dnd-kit/core";
 
-
-// drag and drop requirements 
+// drag and drop requirements
 // import { DndProvider } from "react-dnd";
 // import { HTML5Backend } from "react-dnd-html5-backend";
 // import { useDrop } from "react-dnd";
@@ -25,30 +24,22 @@ import { setIsFocus } from "../states/isFocus/isFocus";
 
 function MainBody() {
   const {
-    isInputActive,
-    
-    setIsInputActive,
-    isPopUp,
-    setIsPopUp,
-    
     listContent,
     setListContent,
     listChecked,
     setListChecked,
-    setIndexMaxCount,
-    indexMaxCount,
+
     userDetails,
-    
   } = useOutletContext();
 
   const searchText = useSelector((state) => state.searchText.searchText);
+  const isInputActive = useSelector(
+    (state) => state.isInputActive.isInputActive
+  );
+  // console.log(isInputActive);
   const dispatch = useDispatch();
 
   // const selectedNote = useSelector((state) => state.selectedNote.selectedNote);
-
-
-  
-  
 
   // function onDropHandler({title, textBody, imgUrl, tasks, isPinned, canvasUrl, isReminder, timestamp}) {
   //   console.log(title)
@@ -72,57 +63,59 @@ function MainBody() {
   //   }),
   // }));
 
-
-
   const [note, setNote] = useState([]);
   const [newTitle, setNewTitle] = useState("");
   const [inpTextNote, setInpTextNote] = useState("");
   const [ImgLink, setImgLink] = useState("");
-  
+
   const [isImgInpTypeLink, setIsImgInpTypeLink] = useState(false);
   const [checkListItems, setCheckListItems] = useState([]);
 
   useEffect(() => {
-    (userDetails && db.collection(userDetails.uid).orderBy("timestamp", "desc")
-      .onSnapshot((snap) =>
-        setNote(
-          snap.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        )
-      ));
-    // (userDetails && db.collection(userDetails.uid).do 
-      
-  }, );
+    userDetails &&
+      db
+        .collection(userDetails.uid)
+        .orderBy("timestamp", "desc")
+        .onSnapshot((snap) =>
+          setNote(
+            snap.docs.map((doc) => ({
+              id: doc.id,
+              data: doc.data(),
+            }))
+          )
+        );
+    // (userDetails && db.collection(userDetails.uid).do
+  });
 
+  useEffect(() => {}, [isInputActive]);
 
   function onSubmitNoteHandler(e) {
     // preventdefault is necessary to avoid a re render which would reset the contents of states
     e.preventDefault();
 
-    (userDetails && db.collection(userDetails.uid).add({
-      title: newTitle,
-      content: inpTextNote,
-      imgUrl: ImgLink,
-      isReminder: false,
-      isPinned: false,
-      tasks: checkListItems,
-      canvasUrl: "",
-      index:indexMaxCount,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    }));
-    setIndexMaxCount(indexMaxCount + 1);
+    userDetails &&
+      db.collection(userDetails.uid).add({
+        title: newTitle,
+        content: inpTextNote,
+        imgUrl: ImgLink,
+        isReminder: false,
+        isPinned: false,
+        tasks: checkListItems,
+        canvasUrl: "",
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    // setIndexMaxCount(indexMaxCount + 1);
     // const updatedNote = [...note,{title:newTitle,inpText:inpTextNote}] === previous code ===
     // setNote(updatedNote);
     onCloseNoteHandler(e);
   }
 
   function onCloseNoteHandler(e) {
-    setIsInputActive(!isInputActive);
     e.preventDefault();
 
     // resetting the note contents on close
+    // handleInputActive();
+    handleInputActive(false);
     setNewTitle("");
     setInpTextNote("");
     setImgLink("");
@@ -135,6 +128,10 @@ function MainBody() {
   function handleFocus() {
     dispatch(setIsFocus(false));
   }
+  function handleInputActive(b) {
+    dispatch(setIsInputActive(b));
+    // console.log(isInputActive);
+  }
 
   return (
     <>
@@ -144,9 +141,9 @@ function MainBody() {
         <div className="mainBodyInp rounded-md flex justify-center flex-col items-center  w-full mb-16 ">
           <div className="noteCreater drop-shadow-lg w-[50%] z-[950] rounded-md mt-24 md:mt-0  bg-gradient-to-r from-amber-200 to-yellow-400 p-3 mb-16 ">
             {/* <form action="" className="w-[100%] z-[950]"> */}
-            {!isInputActive ? (
+            {isInputActive === false ? (
               <input
-                onClick={() => setIsInputActive(!isInputActive)}
+                onClick={() => handleInputActive(true)}
                 type="text"
                 className="w-[100%] outline-none bg-gradient-to-r from-amber-200 to-yellow-400 text-amber-900 placeholder:text-amber-900 "
                 placeholder="Take a note ..."
@@ -194,7 +191,7 @@ function MainBody() {
                       setListChecked={setListChecked}
                       listContent={listContent}
                       listChecked={listChecked}
-                      userDetails ={userDetails}
+                      userDetails={userDetails}
                       listContentVal={
                         checkListItems.length > 0
                           ? checkListItems[index].text
@@ -214,7 +211,7 @@ function MainBody() {
                       setCheckListItems={setCheckListItems}
                       checkListItems={checkListItems}
                       setListChecked={setListChecked}
-                      userDetails ={userDetails}
+                      userDetails={userDetails}
                       listContent={listContent}
                       listChecked={listChecked}
                       listContentVal={"Add your label ..."}
@@ -248,8 +245,6 @@ function MainBody() {
                   <UploadImage setImgLink={setImgLink} />
                 )}
                 <img src={ImgLink} alt="" className="overflow-auto mb-5" />
-
-
 
                 {/* submit note  */}
                 <div className="flex justify-center">
@@ -292,10 +287,6 @@ function MainBody() {
                   .toLowerCase()
                   .indexOf(searchText.toLowerCase()) !== -1) && (
                 <Note
-                  
-                 
-                  isPopUp={isPopUp}
-                  setIsPopUp={setIsPopUp}
                   key={eachNote.id}
                   imgUrl={eachNote.data.imgUrl}
                   docId={eachNote.id}
@@ -306,8 +297,7 @@ function MainBody() {
                   textBody={eachNote.data.content}
                   canvasUrl={eachNote.data.canvasUrl}
                   index={eachNote.data.index}
-                  userDetails ={userDetails}
-                 
+                  userDetails={userDetails}
                 />
               )
           )}
@@ -319,16 +309,15 @@ function MainBody() {
         </div>
         <hr className="w-full mb-2" />
 
-
-
-
-
-        
         {/* may be using display grid will be a better option here to try  */}
         {/* General all notes display here  */}
         {/* <DragDropContext> */}
         {/* <DndProvider backend={HTML5Backend}> */}
-        <div className={"notesGeneralList flex mb-[200px] lg:ml-12 flex-wrap lg:justify-start justify-center gap-y-5 "}>
+        <div
+          className={
+            "notesGeneralList flex mb-[200px] lg:ml-12 flex-wrap lg:justify-start justify-center gap-y-5 "
+          }
+        >
           {note.map(
             (eachNote) =>
               !eachNote.data.isPinned &&
@@ -339,10 +328,6 @@ function MainBody() {
                   .toLowerCase()
                   .indexOf(searchText.toLowerCase()) !== -1) && (
                 <Note
-                  
-                  
-                  isPopUp={isPopUp}
-                  setIsPopUp={setIsPopUp}
                   key={eachNote.id}
                   imgUrl={eachNote.data.imgUrl}
                   isPinned={eachNote.data.isPinned}
@@ -353,8 +338,7 @@ function MainBody() {
                   textBody={eachNote.data.content}
                   canvasUrl={eachNote.data.canvasUrl}
                   index={eachNote.data.index}
-                  userDetails ={userDetails}
-                  
+                  userDetails={userDetails}
                 />
               )
           )}

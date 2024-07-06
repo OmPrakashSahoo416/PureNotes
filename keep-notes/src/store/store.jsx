@@ -5,6 +5,8 @@ import { isListViewReducer } from "../states/isListView/isListView";
 import { searchTextReducer } from "../states/searchText/searchText";
 import { selectedNoteReducer } from "../states/selectedNote/selectedNote";
 import { isFocusReducer } from "../states/isFocus/isFocus";
+import { isInputActiveReducer } from "../states/isInputActive/isInputActive";
+import { isPopUpReducer } from "./isPopUp/isPopUp";
 
 
 
@@ -19,6 +21,8 @@ const store = configureStore({
     searchText:searchTextReducer,
     selectedNote:selectedNoteReducer,
     isFocus:isFocusReducer,
+    isInputActive:isInputActiveReducer,
+    isPopUp:isPopUpReducer,
   }
 })
 

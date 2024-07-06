@@ -1,30 +1,47 @@
 import { db } from "../Firebase";
 import Canvas from "./Canvas";
 import CheckedListItem from "./CheckListItem";
+import { useSelector } from "react-redux";
 // import CheckList from "./CheckList";
 // import UploadImage from "./UploadImage";
 
-function ZoomedNote({ title, textBody, imgUrl, docId, isPopUp, tasks,setListContent, setListChecked, canvasUrl, userDetails }) {
+function ZoomedNote({
+  title,
+  textBody,
+  imgUrl,
+  docId,
+  tasks,
+  setListContent,
+  setListChecked,
+  canvasUrl,
+  userDetails,
+}) {
+  const isPopUp = useSelector((state) => state.isPopUp.isPopUp);
+
   function handleOnChangeText(e) {
     // target inner text gives only the text and not html tags and whitespace no wrap dont add spaces if
     // we change lines it just preserves those
-   ( userDetails && db.collection(userDetails.uid)
-      .doc(docId)
-      .update({
-        content: e.target.innerText,
-      })
-      .catch(console.log("Error updating the value")));
+    userDetails &&
+      db
+        .collection(userDetails.uid)
+        .doc(docId)
+        .update({
+          content: e.target.innerText,
+        })
+        .catch(console.log("Error updating the value"));
   }
 
   function handleOnChangeTitle(e) {
     // target inner text gives only the text and not html tags and whitespace no wrap dont add spaces if
     // we change lines it just preserves those
-    userDetails && db.collection(userDetails.uid)
-      .doc(docId)
-      .update({
-        title: e.target.innerText,
-      })
-      .catch(console.log("Error updating the value"));
+    userDetails &&
+      db
+        .collection(userDetails.uid)
+        .doc(docId)
+        .update({
+          title: e.target.innerText,
+        })
+        .catch(console.log("Error updating the value"));
   }
 
   return (

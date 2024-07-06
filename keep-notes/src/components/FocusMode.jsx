@@ -9,12 +9,9 @@ import { setIsFocus } from "../states/isFocus/isFocus";
 // import IconButton from "./IconButton";
 
 function FocusMode() {
-  
   const { userDetails } = useOutletContext();
 
   const dispatch = useDispatch();
-
-
 
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 

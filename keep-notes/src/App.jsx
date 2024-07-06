@@ -4,7 +4,7 @@ import SideBar from "./components/SideBar";
 import PopUpScreen from "./components/PopUpScreen";
 import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { db,auth } from "./Firebase";
+import { db, auth } from "./Firebase";
 import LeaderBoard from "./components/LeaderBoard";
 // import { getAuth } from 'firebase/auth';
 
@@ -22,21 +22,20 @@ function App() {
   //   console.log('Error fetching user data:', error);
   // });
 
-
   // function leaderBoardStats() {
   //   db.collection("focus").onSnapshot((snap) =>
-      
+
   //       snap.docs.map((doc) => {
   //         let id = doc.id;
   //         let focusTime = doc.data().focusTime;
-          
+
   //       })
-    
+
   // )
   // }
 
-   function fetchUserData() {
-     auth.onAuthStateChanged(async (user) => {
+  function fetchUserData() {
+    auth.onAuthStateChanged(async (user) => {
       if (!user) {
         window.location.href = "/login";
       } else {
@@ -52,15 +51,12 @@ function App() {
               profilePic: user.photoURL,
             });
           }
-          
         }
       }
     });
 
     //  window.location.href = "/notes";
   }
-
-
 
   useEffect(() => {
     fetchUserData();
@@ -74,15 +70,8 @@ function App() {
 
   // the state variables
 
-  // const [hidden, setHidden] = useState(true);
-  const [isInputActive, setIsInputActive] = useState(false);
-  const [isPopUp, setIsPopUp] = useState(false);
-  // const [selectedNote, setSelectedNote] = useState({});
   const [listContent, setListContent] = useState("Add your label ...");
   const [listChecked, setListChecked] = useState(false);
-  const [indexMaxCount, setIndexMaxCount] = useState(0);
-  // const [isFocus, setIsFocus] = useState(false);
-  // const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   // states for the timer
 
@@ -91,33 +80,19 @@ function App() {
       <div className="app bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-cyan-500">
         {/* screen that will appear on click of note to show its zoomed version on fullscreen  */}
         <PopUpScreen
-          
-          isPopUp={isPopUp}
-          setIsPopUp={setIsPopUp}
           setListContent={setListContent}
           setListChecked={setListChecked}
           userDetails={userDetails}
         />
 
-        <LeaderBoard
-        //  showLeaderboard={showLeaderboard} 
-        //  setShowLeaderboard={setShowLeaderboard} 
-         />
+        <LeaderBoard />
 
         {/* header section   */}
-        <Header
-          
-          
-          
-          userDetails={userDetails}
-          // setShowLeaderboard={setShowLeaderboard}
-          // showLeaderboard={showLeaderboard}
-        ></Header>
+        <Header userDetails={userDetails}></Header>
 
         {location.pathname.startsWith("/focus") && (
           <Outlet
             context={{
-              
               userDetails,
             }}
           ></Outlet>
@@ -133,20 +108,12 @@ function App() {
           {location.pathname.startsWith("/notes") && (
             <Outlet
               context={{
-                isInputActive,
                 listContent,
                 setListContent,
                 listChecked,
                 setListChecked,
-                indexMaxCount,
-                setIndexMaxCount,
+
                 userDetails,
-                setIsInputActive,
-                isPopUp,
-                setIsPopUp,
-                
-                
-              
               }}
             ></Outlet>
           )}
@@ -155,16 +122,10 @@ function App() {
             <Outlet
               context={{
                 userDetails,
-                isPopUp,
-                setIsPopUp,
-                
-                
               }}
             ></Outlet>
           )}
-          
         </div>
-        
       </div>
     </>
   );

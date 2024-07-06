@@ -18,6 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedNote } from "../states/selectedNote/selectedNote";
+import { setIsPopUp } from "../store/isPopUp/isPopUp";
 // import firebase from "firebase/compat/app";
 
 // import { useDrag, useDrop } from "react-dnd";
@@ -26,13 +27,11 @@ import { setSelectedNote } from "../states/selectedNote/selectedNote";
 // import { getStorage, ref } from "firebase/storage";
 // import { useState } from "react";
 
-
-
 // const updateIndexes = async () => {
 //   try {
 //     // Step 1: Fetch all documents in the collection
 //     const snapshot = await db.collection('notes').orderBy('index').get();
-    
+
 //     // Step 2: Start a batch
 //     const batch = db.batch();
 
@@ -54,7 +53,7 @@ import { setSelectedNote } from "../states/selectedNote/selectedNote";
 //   try {
 //     // Step 1: Fetch all documents in the collection
 //     const snapshot = await db.collection('notes').orderBy('index',"desc").get();
-    
+
 //     // Step 2: Start a batch
 //     const batch = db.batch();
 
@@ -75,43 +74,33 @@ import { setSelectedNote } from "../states/selectedNote/selectedNote";
 
 // Call the function to update indexes
 
-
 function Note({
   title,
   textBody,
-  isPopUp,
-  setIsPopUp,
-  
+
   docId,
   isReminder,
   imgUrl,
   tasks,
   isPinned,
   canvasUrl,
-  
+
   userDetails,
-
 }) {
-
   const isListView = useSelector((state) => state.isListView.isListView);
+  // const isPopUp = useSelector((state) => state.isPopUp.isPopUp);
+
   const dispatch = useDispatch();
   // const selectedNote = useSelector((state) => state.selectedNote.selectedNote);
-
-
-  
-
 
   // function moveNote(fromIndex, toIndex) {
 
   //   const updatedNotes = [...note];
 
-  //   // i got the notes list and updated in on hover and dnd functionality then extracted the updated notes index order 
-  //   // then accordingly updated the db with the note order then useeffect on main body re render the new list according to 
+  //   // i got the notes list and updated in on hover and dnd functionality then extracted the updated notes index order
+  //   // then accordingly updated the db with the note order then useeffect on main body re render the new list according to
   //   // decreasing index value of note
 
-    
-    
-    
   //   const [movedNote] = updatedNotes.splice(fromIndex, 1);
   //   updatedNotes.splice(toIndex, 0, movedNote);
   //   setNote(updatedNotes);
@@ -123,18 +112,16 @@ function Note({
   //   console.log(updatedNotes);
   // }
 
-
   // const [{ isDragging }, drag] = useDrag(() => ({
   //   type: "note",
-    
+
   //   item: {
   //     index,
   //   },
   //   collect: (monitor) => ({
   //     isDragging: !!monitor.isDragging(),
   //   }),
-    
-    
+
   // }));
 
   // const [, drop] = useDrop(() =>({
@@ -145,7 +132,7 @@ function Note({
 
   //     }
   //   }
-    
+
   // }));
 
   const location = useLocation();
@@ -154,14 +141,14 @@ function Note({
     // preventdefault is necessary to avoid a re render which would reset the contents of states
     e.preventDefault();
     !isReminder &&
-    (userDetails &&
+      userDetails &&
       db
         .collection(userDetails.uid)
         .doc(docId)
         .update({
           isReminder: true,
         })
-        .catch(console.log("Error updating the value")));
+        .catch(console.log("Error updating the value"));
 
     // BUG:extra reminder remains after adding and it just breaks the code
 
@@ -211,35 +198,36 @@ function Note({
       return;
     }
     !isPinned &&
-    (userDetails &&
+      userDetails &&
       db
         .collection(userDetails.uid)
         .doc(docId)
         .update({
           isPinned: true,
         })
-        .catch(console.log("Error updating the value")));
-    isPinned && 
-    (userDetails &&
+        .catch(console.log("Error updating the value"));
+    isPinned &&
+      userDetails &&
       db
         .collection(userDetails.uid)
         .doc(docId)
         .update({
           isPinned: false,
         })
-        .catch(console.log("Error updating the value")));
+        .catch(console.log("Error updating the value"));
 
     // isPinned = !isPinned;
   }
 
   function onCloseNoteHandler() {
     if (location.pathname.startsWith("/notes")) {
-      (userDetails && db.collection(userDetails.uid).doc(docId).delete());
+      userDetails && db.collection(userDetails.uid).doc(docId).delete();
       // updateIndexes();
     } else {
-      userDetails && db.collection(userDetails.uid).doc(docId).update({
-        isReminder: false,
-      });
+      userDetails &&
+        db.collection(userDetails.uid).doc(docId).update({
+          isReminder: false,
+        });
     }
   }
   // ref={(node) => (!isPinned && drag(drop(node)))}
@@ -247,25 +235,24 @@ function Note({
     // next implement the on click zoom of note on a pop up screen
     <>
       <div
-        
-        
         className={
           (isListView ? "min-w-[100%] " : "min-w-[18%] ") +
-          "note  border-[1px] mr-5 bg-amber-100 drop-shadow-xl  border-gray-800 rounded-lg p-4  max-w-[200px] group max-h-[250px] " 
-          
+          "note  border-[1px] mr-5 bg-amber-100 drop-shadow-xl  border-gray-800 rounded-lg p-4  max-w-[200px] group max-h-[250px] "
         }
       >
         <div
           onClick={() => {
-            setIsPopUp(!isPopUp);
-            dispatch(setSelectedNote({
-              title: title,
-              text: textBody,
-              imgUrl: imgUrl,
-              docId: docId,
-              tasks: tasks,
-              canvasUrl: canvasUrl,
-            }));
+            dispatch(setIsPopUp());
+            dispatch(
+              setSelectedNote({
+                title: title,
+                text: textBody,
+                imgUrl: imgUrl,
+                docId: docId,
+                tasks: tasks,
+                canvasUrl: canvasUrl,
+              })
+            );
           }}
           className=" overflow-hidden w-full h-full "
         >
