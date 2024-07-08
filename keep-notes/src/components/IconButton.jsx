@@ -19,13 +19,13 @@ function IconButton({
     <>
       <div
         className={
-          "iconBtn flex p-3 rounded-full w-fit hover:bg-amber-500 text-gray-100"
+          "iconBtn flex p-3 rounded-full w-fit hover:bg-slate-300 text-slate-600"
         }
       >
         {/* when there is a functionality this is specifically for the left header menu show and unshow feature  */}
         {hideHandler && Icon && (
           <button type="button" onClick={() => setHidden(!hidden)}>
-            <Icon className="text-amber-100" />
+            <Icon className="text-slate-500" />
           </button>
         )}
 
@@ -40,7 +40,7 @@ function IconButton({
               className="max-h-[36px] hover:animate-bounce drop-shadow-xl border-2 max-w-[36px] rounded-full object-contain bg-white"
             />
 
-            <div className="hidden group-hover:block absolute top-12">
+            <div className="hidden group-hover:block absolute top-[85px]">
               <button onClick={userLogOut} className="bg-black rounded-lg text-white p-2 ">
                 LogOut
               </button>

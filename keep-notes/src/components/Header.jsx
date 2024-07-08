@@ -39,7 +39,7 @@ function Header({ userDetails }) {
         <div
           className={
             (isFocus && " hidden ") +
-            "header sticky top-0 z-[1000] bg-gradient-to-l from-amber-500 to-pink-500 flex items-center justify-between drop-shadow-2xl p-3"
+            "header sticky top-0 z-[1000] bg-slate-100  flex items-center justify-between drop-shadow-2xl p-3"
           }
         >
           {/* header left section  */}
@@ -47,14 +47,14 @@ function Header({ userDetails }) {
             {/* sidebar visibility button  */}
 
             {/* logo of app  */}
-            <div className="flex items-end">
+            <div className="flex items-center">
               <img
-                src="https://shorturl.at/sXRcm"
-                className="!h-[36px] mr-2 ml-3 hover:cursor-pointer object-contain"
+                src="./public/logo.png "
+                className="!h-[40px] ml-[100px] mr-5 rounded-md hover:cursor-pointer object-contain"
                 alt=""
               />
-              <p className="text-2xl hover:cursor-pointer text-pink-200 hidden md:block font-bold font-['Calibri']">
-                Zenotes
+              <p className="text-lg hover:cursor-pointer text-slate-700  hidden md:block  font-['Inter']">
+                PureNotes
               </p>
             </div>
           </div>
@@ -62,16 +62,16 @@ function Header({ userDetails }) {
           {/* header center section  */}
           <div className="headerCenter">
             {/* search bar */}
-            <div className="searchBar drop-shadow-lg items-center p-2 flex rounded-md bg-gradient-to-r from-amber-200 to-yellow-400 ">
+            <div className="searchBar drop-shadow-sm items-center p-2 flex rounded-md  bg-slate-200 ">
               {/* search icon  */}
-              <SearchRoundedIcon className="text-amber-700 mr-3" />
+              <SearchRoundedIcon className="text-slate-600 mr-3" />
 
               {/* creating a form so that it could submit on enter ==> removed enter so that state dont reload on enter
              and we lost the search text  */}
               {/* <form action="" className="w-[100%]"> */}
               <input
                 type="text"
-                className="p-1 bg-transparent placeholder:text-amber-700 text-amber-700 w-[100%] outline-none"
+                className="p-1 bg-transparent placeholder:text-slate-600 text-slate-600 w-[100%] outline-none"
                 name=""
                 placeholder="Search..."
                 id=""
