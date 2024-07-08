@@ -28,7 +28,7 @@ function FocusMode() {
         <div
           style={{ backgroundImage: `url(${gifVid})` }}
           className={
-            "focusContents flex justify-center items-center  bg-no-repeat bg-cover w-screen fixed h-screen "
+            "focusContents overflow-auto bg-center flex justify-center items-center  bg-no-repeat bg-cover w-screen fixed h-screen "
           }
         >
           <div className="focusElement p-5 justify-center flex-col h-fit w-fit">
@@ -40,7 +40,7 @@ function FocusMode() {
             />
           </div>
         </div>
-        <div className="fullScreenBtn text-slate-800 rounded-md fixed bottom-10 right-10">
+        <div className="fullScreenBtn  rounded-md fixed bottom-10 right-10">
           <button
             onClick={() =>
               !document.fullscreenElement
@@ -49,7 +49,7 @@ function FocusMode() {
             }
             type="button"
           >
-            <IconButton Icon={FullscreenRounded} color="white" /> :
+            <IconButton Icon={FullscreenRounded} color="text-slate-100" /> :
           </button>
         </div>
       </div>

@@ -88,17 +88,17 @@ async function type() {
     <>
       <div className="loginPage bg-slate-100">
 
-        <div className="loginHeader flex items-center font-['Inter']  p-5">
+        <div className="loginHeader flex items-center sm:justify-start justify-center font-['Inter']  p-5">
             <div className="logo p-2">
-              <img src="./public/logo.png" className="h-[40px] rounded-md hover:cursor-pointer  mr-5 ml-[100px]" alt="" />
+              <img src="./public/logo.png" className="h-[40px] rounded-md hover:cursor-pointer  mr-5 sm:ml-[100px]" alt="" />
             </div>
             <p className="text-lg text-slate-600">PureNotes</p>
             
         </div>
-        <div className="loginBody flex items-center justify-between p-5 h-[600px] w-full">
-          <div className="loginText font-['Inter'] text-[50px] font-extralight p-2   ml-[100px] w-[40%]">
-            <div className="">
-              <p id="loginHeading" className="min-h-[250px] text-slate-700"></p> 
+        <div className="loginBody sm:flex items-center justify-between p-5 h-[600px] w-full">
+          <div className="loginText flex  font-['Inter'] text-[50px] font-extralight p-2   sm:ml-[100px] sm:w-[40%]">
+            <div className="w-full flex flex-col items-center sm:block ">
+              <p id="loginHeading" className="sm:min-h-[250px] min-h-[450px] text-slate-700"></p> 
             <button
             type="button"
             className="bg-slate-100 rounded-md  text-sm p-3 flex items-center justify-between hover:drop-shadow-md border border-slate-200 drop-shadow-sm mt-10"
@@ -115,7 +115,7 @@ async function type() {
             
             </div>
           </div>
-          <div className="loginImage w-[60%] ">
+          <div className="loginImage sm:w-[60%] hidden sm:block ">
             <img src="./public/loginImage.png" className="!h-[750px] object-contain" alt="" />
           </div>
         </div>

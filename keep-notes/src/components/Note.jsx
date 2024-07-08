@@ -236,8 +236,8 @@ function Note({
     <>
       <div
         className={
-          (isListView ? "min-w-[100%] " : "min-w-[18%] ") +
-          "note  border-[1px] mr-5 bg-amber-100 drop-shadow-xl  border-gray-800 rounded-lg p-4  max-w-[200px] group max-h-[250px] "
+          (isListView ? "min-w-[100%] " : " ") +
+          "note  border-[1px] mr-5 sm:min-w-[200px] min-w-full bg-slate-200 drop-shadow-xl font-['Inter'] rounded-lg p-4  max-w-[200px] group max-h-[250px] "
         }
       >
         <div
@@ -257,12 +257,12 @@ function Note({
           className=" overflow-hidden w-full h-full "
         >
           {/* title of note  */}
-          <p className="mb-3 rounded-md outline-none text-lg font-['Calibri'] border-[1px] border-amber-800 font-semibold text-amber-800">
+          <p className="mb-3 rounded-md outline-none text-lg font-['Inter'] font-semibold text-slate-600">
             {title}
           </p>
 
           {/* paragraph of note  */}
-          <p className=" mb-3 leading-9 border-[1px] border-amber-800 rounded-md text-md outline-none font-['Calibri'] text-slate-800">
+          <p className=" mb-3 leading-9  rounded-md text-md font-['Inter'] outline-none text-slate-600">
             {textBody}
           </p>
 
@@ -276,14 +276,14 @@ function Note({
           <button
             onClick={(e) => onSubmitPinHandler(e)}
             className={
-              (!isPinned ? " bg-fuchsia-600  " : " bg-white ") +
-              " absolute top-[100px] group-hover:block md:hidden z-[1100] rounded-full right-1  "
+              (!isPinned ? " bg-slate-500  " : " bg-slate-100 ") +
+              " absolute sm:top-[100px] right-[100px] top-[0px] group-hover:block md:hidden z-[1100] rounded-full sm:right-1  "
             }
             type="button"
           >
             <IconButton
               Icon={!isPinned ? PushPinRoundedIcon : PushPinOutlined}
-              color={"text-black"}
+              color={!isPinned ? "text-slate-100": "text-slate-600"}
             ></IconButton>
           </button>
 
@@ -291,8 +291,8 @@ function Note({
           <button
             onClick={(e) => onSubmitReminderHandler(e)}
             className={
-              (!isReminder ? " bg-blue-600  " : " bg-green-800 ") +
-              " absolute top-[50px] group-hover:block md:hidden z-[1100] rounded-full right-1  "
+              (!isReminder ? " bg-blue-500  " : " bg-green-500 ") +
+              " absolute sm:top-[50px] top-[0px] right-[50px] group-hover:block md:hidden z-[1100] rounded-full sm:right-1  "
             }
             type="button"
           >
@@ -310,9 +310,9 @@ function Note({
           <button
             onClick={onCloseNoteHandler}
             type="button"
-            className="rounded-full group-hover:block md:hidden absolute top-0 bg-red-500 z-[1100] right-1 text-slate-800"
+            className="rounded-full group-hover:block md:hidden absolute top-0 bg-red-500 z-[1100] right-1 text-slate-100"
           >
-            <IconButton Icon={CloseRoundedIcon} />
+            <IconButton Icon={CloseRoundedIcon}color={"text-slate-100"} />
           </button>
         </div>
       </div>

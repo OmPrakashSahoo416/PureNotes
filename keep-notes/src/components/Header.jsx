@@ -50,7 +50,7 @@ function Header({ userDetails }) {
             <div className="flex items-center">
               <img
                 src="./public/logo.png "
-                className="!h-[40px] ml-[100px] mr-5 rounded-md hover:cursor-pointer object-contain"
+                className="h-[40px] sm:ml-[100px] mr-5 rounded-md hover:cursor-pointer object-contain"
                 alt=""
               />
               <p className="text-lg hover:cursor-pointer text-slate-700  hidden md:block  font-['Inter']">

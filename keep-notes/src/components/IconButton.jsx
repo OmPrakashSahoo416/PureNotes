@@ -7,7 +7,7 @@ function IconButton({
   hidden,
   setHidden,
   hideHandler,
-  color = "text-amber-100",
+  color = "text-slate-500",
 }) {
 
 
@@ -19,7 +19,7 @@ function IconButton({
     <>
       <div
         className={
-          "iconBtn flex p-3 rounded-full w-fit hover:bg-slate-300 text-slate-600"
+          "iconBtn flex p-2 rounded-full w-fit hover:bg-slate-300 text-slate-600"
         }
       >
         {/* when there is a functionality this is specifically for the left header menu show and unshow feature  */}
@@ -30,18 +30,18 @@ function IconButton({
         )}
 
         {/* normal icon no functionality button below */}
-        {!hideHandler && Icon && <Icon className={color} />}
+        {!hideHandler && Icon && <Icon className={color } />}
 
         {/* profile or any other image is given  */}
         {avatar && (
           <div className="group flex flex-col items-center">
             <img
               src={avatar}
-              className="max-h-[36px] hover:animate-bounce drop-shadow-xl border-2 max-w-[36px] rounded-full object-contain bg-white"
+              className="max-h-[40px] hover:animate-bounce sm:animate-none animate-bounce drop-shadow-xl ring-2 ring-slate-700 ring-offset-2 max-w-[36px] rounded-full object-contain bg-white"
             />
 
-            <div className="hidden group-hover:block absolute top-[85px]">
-              <button onClick={userLogOut} className="bg-black rounded-lg text-white p-2 ">
+            <div className="sm:hidden group-hover:block absolute top-[80px] sm:top-[50px]">
+              <button onClick={userLogOut} className="bg-slate-100 rounded-lg text-slate-600 p-2 ">
                 LogOut
               </button>
             </div>

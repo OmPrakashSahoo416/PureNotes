@@ -77,7 +77,8 @@ function App() {
 
   return (
     <>
-      <div className="app bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-cyan-500">
+    
+      <div className="app bg-slate-100">
         {/* screen that will appear on click of note to show its zoomed version on fullscreen  */}
         <PopUpScreen
           setListContent={setListContent}
@@ -127,6 +128,11 @@ function App() {
           )}
         </div>
       </div>
+      <div className={location.pathname.startsWith("/notes") || location.pathname.startsWith("/reminder") || location.pathname.startsWith("/focus") ? " hidden ": "  " + "sm:w-[500px] w-[250px]  m-auto h-full text-center mt-20 font-extralight  text-[50px] font-['Inter']"}>
+      Welcome to PureNote.
+      <p className="font-['Inter'] font-light text-sm ">Welcome to Pure Note, the ultimate tool for all your note-taking needs. Designed with simplicity and functionality in mind, Pure Note offers a seamless experience to help you capture, organize, and focus on your tasks effortlessly. Whether you are a student, professional, or someone who loves to keep things organized, PureNote is here to support your productivity journey.</p>
+      <button className="text-sm rounded-full p-2 hover:bg-slate-300 bg-slate-200" onClick={() => window.location.href = '/notes'}>Get Started</button>
+    </div>
     </>
   );
 }

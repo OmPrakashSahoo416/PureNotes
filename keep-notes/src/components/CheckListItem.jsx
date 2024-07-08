@@ -54,17 +54,17 @@ function CheckedListItem({setListContent, setListChecked, listContentVal, checkL
 
   return (
     <>
-    <div className="flex items-center justify-between overflow-auto p-2 rounded-sm drop-shadow-lg mb-3 w-fit bg-yellow-800">
+    <div className="flex items-center font-['Inter'] justify-between overflow-auto p-2 rounded-sm drop-shadow-lg mb-3 w-fit bg-slate-200">
 
       {isInput && 
-        <input type="checkbox" defaultChecked={(listCheckedVal)}  onChange={handleOnChangeChecked} className="mr-3 w-fit peer" />}
+        <input type="checkbox" defaultChecked={(listCheckedVal)}  onChange={handleOnChangeChecked} className="mr-3 w-fit peer text-slate-500" />}
 
 
 
-        <p onInput={handleOnChangeLabel} contentEditable suppressContentEditableWarning className={(isInput?"peer-checked:line-through  ":((listCheckedVal)?" line-through  ": " ")) +  " rounded-sm whitespace-pre-wrap outline-none w-fit  text-amber-200"}>{listContentVal}</p>
+        <p onInput={handleOnChangeLabel} contentEditable suppressContentEditableWarning className={(isInput?"peer-checked:line-through  ":((listCheckedVal) ? " line-through  ": " ")) +  " rounded-sm whitespace-pre-wrap outline-none w-fit  text-slate-600"}>{listContentVal}</p>
 
 
-        {isInput && <button onClick={setCheckListItemsHandler} type="button" className="tickSubmit bg-green-100 ml-5 outline-none rounded-sm w-fit p-2">✔</button>}
+        {isInput && <button onClick={setCheckListItemsHandler} type="button" className="tickSubmit bg-slate-100 ml-5 outline-none rounded-sm w-[30px] h-[30px] text-center text-green-600 ">➡️</button>}
     </div>
     </>
   );

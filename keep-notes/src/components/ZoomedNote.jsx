@@ -51,7 +51,7 @@ function ZoomedNote({
           onInput={handleOnChangeTitle}
           contentEditable
           suppressContentEditableWarning
-          className="mb-3 font-['Calibri'] border-[1px] border-amber-800 rounded-md focus:border-[1px] focus:border-slate-900 p-1 whitespace-pre-wrap outline-none text-lg font-semibold text-amber-700"
+          className="mb-3 border-[1px] bg-slate-300 font-['Inter']  rounded-md  p-2 whitespace-pre-wrap outline-none text-lg font-semibold text-slate-700"
         >
           {title}
         </p>
@@ -59,13 +59,13 @@ function ZoomedNote({
           onInput={handleOnChangeText}
           contentEditable
           suppressContentEditableWarning
-          className="leading-relaxed border-[1px] border-amber-800 rounded-md whitespace-pre-wrap focus:border-[1px] focus:border-slate-900 p-1 font-['Calibri'] overflow-x-hidden text-md mb-3 outline-none  text-slate-800"
+          className="leading-relaxed border-[1px] rounded-md whitespace-pre-wrap focus:border-[1px] p-2 font-['Inter'] overflow-x-hidden text-md mb-3 outline-none bg-slate-300  text-slate-700"
         >
           {textBody}
         </p>
         {/* TASKS LIST */}
-        <div className="rounded-md font-semibold border-2 mb-3 border-amber-900 p-3">
-          TASKS :
+        <div className="rounded-md font-semibold border-2 mb-3 bg-slate-300 p-3">
+          CHECKLIST :
           {tasks &&
             tasks.map((eachItem, index) => (
               <CheckedListItem

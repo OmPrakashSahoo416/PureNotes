@@ -43,7 +43,7 @@ function ReminderRoute() {
       <div
         className={
           (isListView ? "w-full " : " ") +
-          "reminderRoute flex w-full m-auto mt-[200px] mb-[200px]"
+          "reminderRoute flex w-full m-auto mt-[200px] sm:ml-[100px] mb-[200px]"
         }
       >
         <div

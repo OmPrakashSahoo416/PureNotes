@@ -109,9 +109,9 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
 
   return (
     <>
-      <div className="focusTypes flex  justify-evenly items-center">
+      <div className="focusTypes font-['Inter'] flex  justify-evenly items-center">
         <button
-          className="border-2  focus:bg-white mr-5 rounded-full p-3 text-white border-white focus:text-slate-800"
+          className="border-2  focus:bg-slate-100 mr-5 rounded-full p-3 text-slate-100 border-white focus:text-slate-800"
           type="button"
           onClick={() => (
             setDefaultTime(50 * 60 * 1000),
@@ -122,7 +122,7 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
           Pomodoro
         </button>
         <button
-          className="border-2 mr-5 rounded-full p-3 text-white border-white focus:text-slate-800 focus:bg-white"
+          className="border-2 mr-5 rounded-full p-3 text-slate-100 border-white focus:text-slate-800 focus:bg-slate-100"
           type="button"
           onClick={() => (
             resetTimer(),
@@ -134,19 +134,19 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
           Short Break
         </button>
         <button
-          className="border-2 rounded-full p-3 text-white border-white focus:text-slate-800 focus:bg-white"
+          className="border-2 rounded-full p-3  text-slate-100 border-white focus:text-slate-800 focus:bg-slate-100"
           type="button"
           onClick={() => (
             resetTimer(),
             setDefaultTime(10 * 60 * 1000),
             setMinute(10),
-            setGifVid("https://i.gifer.com/xK.gif")
+            setGifVid("https://i.gifer.com/8B7.gif")
           )}
         >
           Long Break
         </button>
       </div>
-      <div className="focusWatch text-white text-center font-bold font-['Calibri'] text-[150px]">
+      <div className="focusWatch text-white text-center font-bold font-['Inter'] text-[150px]">
         {/* toString(10) means decimal representation 2 for binary similarly  */}
         {minute < 10 ? "0" + minute.toString(10) : minute.toString()}:
         {second < 10 ? "0" + second.toString(10) : second.toString()}
@@ -154,13 +154,13 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
       <div className="focusButtons flex items-center justify-center">
         <button
           onClick={() => (!isTimerRunning ? startTimer() : pauseTimer())}
-          className="border-2 mr-5 rounded-full text-white border-white hover:bg-white hover:text-slate-800"
+          className="border-2 mr-5 rounded-full text-slate-100 border-slate-100 focus:text-slate-800 focus:bg-slate-100"
           type="button"
         >
           {!isTimerRunning ? (
-            <IconButton Icon={PlayCircleFilledRounded} color="white" />
+            <IconButton Icon={PlayCircleFilledRounded} color="text-slate-400" />
           ) : (
-            <IconButton Icon={PauseCircleFilledRounded} color="white" />
+            <IconButton Icon={PauseCircleFilledRounded} color="text-slate-400" />
           )}
         </button>
         <button
@@ -168,7 +168,7 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
           onClick={() => resetTimer()}
           className="rounded-full mr-5 border-2 border-white hover:bg-white"
         >
-          <IconButton Icon={RefreshRoundedIcon} color="white" />
+          <IconButton Icon={RefreshRoundedIcon} color="text-slate-100" />
         </button>
       </div>
       <div className="text-white flex font-semibold m-5 text-center justify-center">

@@ -40,7 +40,7 @@ const UploadImage = ({setImgLink}) => {
 
 
   return (
-    <div className='uploadImage rounded-sm flex p-1 justify-between items-center m-3'>
+    <div className='uploadImage font-["Inter"] text-slate-600 rounded-sm flex p-1 justify-between items-center m-3'>
       <input type="file" className='' onChange={(e) => handleFileChange(e)} />
       <p className='mr-2 font-["Calibri"] ml-2 text-slate-800'>{progress}%</p>
     </div>

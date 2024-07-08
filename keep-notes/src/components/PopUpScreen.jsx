@@ -1,9 +1,7 @@
 // import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 // import IconButton from "./IconButton"
 // import Note from "./Note"
-import IconButton from "./IconButton";
 import ZoomedNote from "./ZoomedNote";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { setSelectedNote } from "../states/selectedNote/selectedNote";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsPopUp } from "../store/isPopUp/isPopUp";
@@ -21,10 +19,10 @@ function PopUpScreen({ setListContent, setListChecked, userDetails }) {
       <div
         className={
           (isPopUp === false && "hidden ") +
-          "popUpScreen bg-opacity-80  bg-slate-800 flex items-center justify-center fixed top-0 inset-0 z-[1100] h-[100vh]"
+          "popUpScreen bg-opacity-80  bg-slate-700 flex items-center justify-center fixed top-0 inset-0 z-[1100] h-[100vh]"
         }
       >
-        <div className="w-[600px] drop-shadow-2xl flex group items-center rounded-lg flex-col p-5 justify-between h-[600px] bg-slate-100 z-[1000]">
+        <div className="w-[600px] drop-shadow-2xl flex group items-center rounded-lg flex-col p-5 justify-between h-[600px] bg-slate-200 z-[1000]">
           {/* change this to one which is clicked on main page to show !!! TODO  */}
 
           <div className="w-full overflow-auto h-full">
@@ -49,9 +47,9 @@ function PopUpScreen({ setListContent, setListChecked, userDetails }) {
               setListChecked(false);
             }}
             type="button"
-            className="rounded-full group-hover:block md:hidden absolute top-[-25px] m-auto bg-red-600 text-slate-800  hover:text-slate-100 border-red-600 border-2"
+            className="  absolute bottom-0 p-4 w-full bg-red-600 text-slate-100 rounded-b-lg"
           >
-            <IconButton Icon={CloseRoundedIcon} />
+            Close
           </button>
         </div>
       </div>
