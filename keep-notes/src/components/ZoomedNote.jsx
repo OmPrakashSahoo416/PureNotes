@@ -83,8 +83,8 @@ function ZoomedNote({
             tasks.map((eachItem, index) => (
               <CheckedListItem
                 key={index}
-                listContentVal={tasks.length > 0 ? eachItem.text : ""}
-                listCheckedVal={tasks.length > 0 ? eachItem.checked : false}
+                listContentVal={eachItem.text}
+                listCheckedVal={eachItem.checked}
                 isInput={true}
                 setListContent={setListContent}
                 setListChecked={setListChecked}

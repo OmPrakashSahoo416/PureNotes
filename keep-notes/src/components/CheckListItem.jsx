@@ -12,48 +12,49 @@ function CheckedListItem({setListContent, setListChecked, listContentVal, checkL
 
   function handleOnChangeChecked(e) {
     
-    // setListChecked(e.target.checked);
-    console.log(index);
-    let newTasks = [...tasks,{text:listContentVal, checked:e.target.checked}];
-    // tasks[index] = {text:listContentVal, checked:e.target.checked};
+    const isChecked = e.target.checked;
 
+  // Assuming tasks and index are properly set in your component state
+  // Create a new array to ensure immutability
+  const updatedTasks = tasks.map((task, idx) => {
+    if (idx === index) {
+      return { ...task, checked: isChecked };
+    }
+    return task;
+  });
 
-    (
+  // Update the local state with the new array
+  // setTasks(updatedTasks);
+  setListChecked(isChecked);
 
-    db.collection(userDetails.uid)
-      .doc(docId)
-      .update({
-        tasks : newTasks,
-      })
-      .catch(console.log("Error updating the value")));
-
-
-      // (userDetails && 
-        db.collection(userDetails.uid)
-          .doc(docId)
-          .update({
-            tasks : firebase.firestore.FieldValue.arrayRemove({text:listContentVal, checked:listCheckedVal}),
-          })
-          .catch(console.log("Error updating the value"));
+  // Update Firestore document
+  db.collection(userDetails.uid)
+    .doc(docId)
+    .update({
+      tasks: updatedTasks,
+    })
+    .then(() => {
+      console.log("Tasks updated successfully");
+    })
+    .catch((error) => {
+      console.error("Error updating tasks: ", error);
+    });
     
   }
 
   function handleOnChangeLabel(e) {
     // console.log("ec");
-    // setListContent(e.target.innerText);
-
-    let newTasks = [...tasks,{text:e.target.innerText, checked:listCheckedVal}];
-
+    setListContent(e.target.innerText);
     
-    (
+    (userDetails &&
     db.collection(userDetails.uid)
       .doc(docId)
       .update({
-        tasks : newTasks,
+        tasks : [{text:e.target.innerText, checked:listCheckedVal}, ...tasks],
       })
       .catch(console.log("Error updating the value")));
 
-      (
+      (userDetails && 
     db.collection(userDetails.uid)
       .doc(docId)
       .update({
@@ -75,10 +76,10 @@ function CheckedListItem({setListContent, setListChecked, listContentVal, checkL
 
 
 
-        <p onInput={handleOnChangeLabel} contentEditable suppressContentEditableWarning className={(isInput?"peer-checked:line-through  ":((listCheckedVal) ? " line-through  ": " ")) +  " rounded-sm whitespace-pre-wrap outline-none w-fit  text-slate-600"}>{listContentVal}</p>
+        <p onInput={handleOnChangeLabel} contentEditable suppressContentEditableWarning className={(isInput?"peer-checked:line-through  ":((listCheckedVal)?" line-through  ": " ")) +  " rounded-sm whitespace-pre-wrap outline-none w-fit  text-slate-600"}>{listContentVal}</p>
 
 
-        {isInput && <button onClick={setCheckListItemsHandler} type="button" className="tickSubmit bg-slate-100 ml-5 outline-none rounded-sm w-[30px] h-[30px] text-center text-green-600 ">➡️</button>}
+        {isInput && <button onClick={setCheckListItemsHandler} type="button" className="tickSubmit bg-slate-100 ml-5 outline-none rounded-sm w-fit p-2">➡️</button>}
     </div>
     </>
   );

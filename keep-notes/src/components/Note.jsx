@@ -240,12 +240,15 @@ function Note({
           (isListView ? "min-w-[100%] " : " sm:min-w-[200px] ") +
           "note  border-[1px] mr-5  min-w-full bg-slate-200 drop-shadow-xl font-['Inter'] rounded-lg p-4  max-w-[200px] group max-h-[250px] "
         }
-        initial={{opacity:0, scale:0.5}}
-        animate={{opacity:1, scale:1, transition:{duration:0.8, ease:"easeOut"}}}
-
-        whileHover={{scale:1.1, repeatCount:Infinity}}
-  onHoverStart={e => {}}
-  onHoverEnd={e => {}}
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          transition: { duration: 0.8, ease: "easeOut" },
+        }}
+        whileHover={{ scale: 1.1, repeatCount: Infinity }}
+        onHoverStart={(e) => {}}
+        onHoverEnd={(e) => {}}
       >
         <div
           onClick={() => {
@@ -290,7 +293,7 @@ function Note({
           >
             <IconButton
               Icon={!isPinned ? PushPinRoundedIcon : PushPinOutlined}
-              color={!isPinned ? "text-slate-100": "text-slate-600"}
+              color={!isPinned ? "text-slate-100" : "text-slate-600"}
             ></IconButton>
           </button>
 
@@ -319,7 +322,7 @@ function Note({
             type="button"
             className="rounded-full group-hover:block md:hidden absolute top-0 bg-red-500 z-[1100] right-1 text-slate-100"
           >
-            <IconButton Icon={CloseRoundedIcon}color={"text-slate-100"} />
+            <IconButton Icon={CloseRoundedIcon} color={"text-slate-100"} />
           </button>
         </div>
       </motion.div>

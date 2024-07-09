@@ -140,32 +140,30 @@ function MainBody() {
       {handleFocus()}
       <motion.div
         className="absolute z-[2003] w-full flex justify-center items-center bg-black"
-        initial={{height:"100vh", top:0}}
-        animate={{height:0, bottom:0,
+        initial={{ height: "100vh", top: 0 }}
+        animate={{
+          height: 0,
+          bottom: 0,
           transition: {
             duration: 1.5,
-            ease: [0.80, 0, 0.20, 1],
-          }}}
-          
-          >
-	      
-      <motion.p
-                
-                className="text-slate-100 font-thin font-['Inter'] text-2xl p-2   z-[2001]"
-                initial= {
-                  {opacity:1}
-                }
-                animate= {
-                  {opacity: 0,
-                    
-                  transition: {
-                    duration: 1.5,
-                    
-                  }}
-                }
-                
-      > Entering Notes
-      </motion.p>      
+            ease: [0.8, 0, 0.2, 1],
+          },
+        }}
+      >
+        <motion.p
+          className="text-slate-100 font-thin font-['Inter'] text-2xl p-2   z-[2001]"
+          initial={{ opacity: 1 }}
+          animate={{
+            opacity: 0,
+
+            transition: {
+              duration: 1.5,
+            },
+          }}
+        >
+          {" "}
+          Notes
+        </motion.p>
       </motion.div>
       <div className="mainBody rounded-md flex justify-center flex-col  w-full mr-2 ml-2 p-5 ">
         <div className="mainBodyInp rounded-md flex justify-center flex-col items-center  w-full mb-16 ">
@@ -251,20 +249,20 @@ function MainBody() {
                   </div>
                 </div>
 
-
                 <div className="flex items-center">
-
                   <input
                     type="checkbox"
                     className="mr-3"
                     value={isImgInpTypeLink}
                     onChange={(e) => setIsImgInpTypeLink(e.target.checked)}
                   />
-                <label htmlFor="" className="text-sm block font-['Inter'] text-slate-600">
-                  Check this if you want to upload an image via link
-                </label>
+                  <label
+                    htmlFor=""
+                    className="text-sm block font-['Inter'] text-slate-600"
+                  >
+                    Check this if you want to upload an image via link
+                  </label>
                 </div>
-
 
                 {isImgInpTypeLink ? (
                   <input

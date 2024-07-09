@@ -43,32 +43,30 @@ function ReminderRoute() {
 
       <motion.div
         className="absolute z-[2003] w-full flex justify-center items-center bg-black"
-        initial={{height:"100vh", top:0}}
-        animate={{height:0, bottom:0,
+        initial={{ height: "100vh", top: 0 }}
+        animate={{
+          height: 0,
+          bottom: 0,
           transition: {
             duration: 1.5,
-            ease: [0.80, 0, 0.20, 1],
-          }}}
-          
-          >
-	      
-      <motion.p
-                
-                className="text-slate-100 font-thin font-['Inter'] text-2xl p-2   z-[2001]"
-                initial= {
-                  {opacity:1}
-                }
-                animate= {
-                  {opacity: 0,
-                    
-                  transition: {
-                    duration: 1.5,
-                    
-                  }}
-                }
-                
-      > Entering Reminders
-      </motion.p>      
+            ease: [0.8, 0, 0.2, 1],
+          },
+        }}
+      >
+        <motion.p
+          className="text-slate-100 font-thin font-['Inter'] text-2xl p-2   z-[2001]"
+          initial={{ opacity: 1 }}
+          animate={{
+            opacity: 0,
+
+            transition: {
+              duration: 1.5,
+            },
+          }}
+        >
+          {" "}
+          Reminders
+        </motion.p>
       </motion.div>
 
       <div
