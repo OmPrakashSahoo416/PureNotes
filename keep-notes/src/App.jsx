@@ -199,6 +199,11 @@ function App() {
           Get Notes
         </button>
       </motion.div>
+      <div className=" text-center text-[10px] bottom-0 fixed w-full p-1 z-[4000]  text-slate-100 font-['Inter']">
+
+        <footer>PureNotes: Simplifying your thoughts, one note at a time.     Made with love ❤️
+             Contact: omprakashsahoo1234@gmail.com </footer>
+      </div>
     </>
   );
 }
