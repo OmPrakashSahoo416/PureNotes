@@ -17,7 +17,7 @@ function SideBar() {
       <div
         onMouseEnter={() => dispatch(setHidden())}
         onMouseLeave={() => dispatch(setHidden())}
-        className="sideBar p-3 md:flex-col flex items-center font-['Inter'] rounded-b-md md:rounded-none fixed z-[1000] w-fit h-fit bg-slate-100"
+        className="sideBar p-3 md:flex-col  md:items-start flex items-center font-['Inter'] rounded-b-md md:rounded-none fixed z-[1000] max-w-screen h-fit bg-slate-100"
       >
         <Link to={"/notes"}>
           <IconButton

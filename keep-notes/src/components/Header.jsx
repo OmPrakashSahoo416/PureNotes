@@ -64,7 +64,7 @@ function Header({ userDetails }) {
             {/* logo of app  */}
             <div className="flex items-center">
               <img
-                src="./public/logo.png "
+                src="https://firebasestorage.googleapis.com/v0/b/notes-app-185ca.appspot.com/o/images%2Flogo.png?alt=media&token=7e697867-3a7e-463c-87bd-39474b903026 "
                 className="h-[40px] sm:ml-[100px] mr-5 rounded-sm hover:cursor-pointer object-contain"
                 alt=""
                 onClick={() => (window.location.href = "/")}

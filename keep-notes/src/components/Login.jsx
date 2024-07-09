@@ -93,7 +93,7 @@ async function type() {
 
         <div className="loginHeader flex items-center sm:justify-start justify-center font-['Inter']  p-5">
             <div className="logo p-2">
-              <img src="./public/logo.png" className="h-[40px] rounded-md hover:cursor-pointer  mr-5 sm:ml-[100px]" alt="" />
+              <img src="https://firebasestorage.googleapis.com/v0/b/notes-app-185ca.appspot.com/o/images%2Flogo.png?alt=media&token=7e697867-3a7e-463c-87bd-39474b903026" className="h-[40px] rounded-md hover:cursor-pointer  mr-5 sm:ml-[100px]" alt="" />
             </div>
             <p className="text-lg text-slate-600">PureNotes</p>
             
@@ -136,7 +136,7 @@ async function type() {
           
           transition={{duration: 3, ease:"linear", repeat:Infinity}}
            className="loginImage sm:w-[60%] hidden sm:block ">
-            <img src="./public/loginImage.png" className="!h-[750px] object-contain" alt="" />
+            <img src="https://firebasestorage.googleapis.com/v0/b/notes-app-185ca.appspot.com/o/images%2FloginImage.png?alt=media&token=00a09ead-d578-4af8-85c6-8e7afd5afaeb" className="!h-[750px] object-contain" alt="" />
           </motion.div>
         </div>
         
@@ -144,10 +144,10 @@ async function type() {
         
       </div>
 
-      <div className="fixed text-center text-[10px] bottom-0 w-full p-1 z-[4000]  text-slate-100 font-['Inter']">
+      <div className="fixed text-center text-[10px] bottom-0 w-full p-1 z-[4000]  text-slate-600 font-['Inter']">
 
         <footer>PureNotes: Simplifying your thoughts, one note at a time.     Made with love ❤️
-             Contact: omprakashsahoo1234@gmail.com </footer>
+             Contact: <a  href="mailto: omprakashsahoo1234@gmail.com">omprakashsahoo1234@gmail.com</a> </footer>
       </div>
     </>
   );

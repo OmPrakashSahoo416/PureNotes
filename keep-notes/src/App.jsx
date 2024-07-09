@@ -100,7 +100,7 @@ function App() {
           exit={{ height: 0, top: 0 }}
         >
           <motion.img
-            src="./public/logo.png "
+            src="https://firebasestorage.googleapis.com/v0/b/notes-app-185ca.appspot.com/o/images%2Flogo.png?alt=media&token=7e697867-3a7e-463c-87bd-39474b903026"
             className="h-[40px] p-2 bg-slate-50  z-[2001]"
             initial={{ opacity: 1 }}
             animate={{
@@ -199,10 +199,10 @@ function App() {
           Get Notes
         </button>
       </motion.div>
-      <div className=" text-center text-[10px] bottom-0 fixed w-full p-1 z-[4000]  text-slate-100 font-['Inter']">
+      <div className=" text-center text-[10px] bottom-0 fixed w-full p-1 z-[4000]  text-slate-600 font-['Inter']">
 
         <footer>PureNotes: Simplifying your thoughts, one note at a time.     Made with love ❤️
-             Contact: omprakashsahoo1234@gmail.com </footer>
+             Contact: <a  href="mailto: omprakashsahoo1234@gmail.com">omprakashsahoo1234@gmail.com</a> </footer>
       </div>
     </>
   );

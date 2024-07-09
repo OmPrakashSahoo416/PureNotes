@@ -54,7 +54,8 @@ function IconButton({
         )}
         {/* {!collapsed} */}
 
-        {text && !hidden && <p className="ml-5 w-[150px]">{text}</p>}
+        {text && !hidden && <p className="ml-5 w-[100px] ">{text}</p>}
+        
         {/* {hidden} */}
       </motion.div>
     </>

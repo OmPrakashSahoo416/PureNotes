@@ -7,7 +7,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 import "./index.css";
-import "../node_modules/tailwindcss/tailwind.css";
+import "tailwindcss/tailwind.css";
 import MainBody from "./components/MainBody.jsx";
 import ReminderRoute from "./components/ReminderRoute.jsx";
 import FocusMode from "./components/FocusMode.jsx";
