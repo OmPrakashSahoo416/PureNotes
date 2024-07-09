@@ -6,6 +6,8 @@ import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { db, auth } from "./Firebase";
 import LeaderBoard from "./components/LeaderBoard";
+import { motion } from "framer-motion";
+// import LoadingScreen from "./components/LoadingScreen";
 // import { getAuth } from 'firebase/auth';
 
 function App() {
@@ -77,6 +79,41 @@ function App() {
 
   return (
     <>
+
+<div className="relative inset-0">
+  
+      <motion.div
+        className="absolute z-[2000] w-full flex justify-center items-center bg-black"
+        initial={{height:"100vh", top:0}}
+        animate={{height:0, bottom:0,
+          transition: {
+            duration: 1.5,
+            ease: [0.80, 0, 0.20, 1],
+          }}}
+          exit={{height:0, top:0}}
+          
+          >
+	      
+      <motion.img
+                src="./public/logo.png "
+                className="h-[40px] p-2 bg-slate-50  z-[2001]"
+                initial= {
+                  {opacity:1}
+                }
+                animate= {
+                  {opacity: 0,
+                    rotate:360,
+                  transition: {
+                    duration: 1.5,
+                    
+                  }}
+                }
+                
+      >
+      </motion.img>      
+      </motion.div>
+
+    </div>
     
       <div className="app bg-slate-300">
         {/* screen that will appear on click of note to show its zoomed version on fullscreen  */}
@@ -128,11 +165,17 @@ function App() {
           )}
         </div>
       </div>
-      <div className={location.pathname.startsWith("/notes") || location.pathname.startsWith("/reminder") || location.pathname.startsWith("/focus") ? " hidden ": "  " + "sm:w-[500px] w-[250px]  m-auto h-full text-center mt-20 font-extralight  text-[50px] font-['Inter']"}>
+      <motion.div
+      initial={{opacity:0, y:-100}}
+      animate={{opacity:1, y:0, transition:{
+        duration:1,delay:1
+      }}}
+      
+      className={location.pathname.startsWith("/notes") || location.pathname.startsWith("/reminder") || location.pathname.startsWith("/focus") ? " hidden ": "  " + "sm:w-[500px] w-[250px]  m-auto h-full text-center mt-20 font-extralight text-[50px] font-['Inter']"}>
       Welcome to PureNote.
-      <p className="font-['Inter'] font-light text-sm ">Welcome to Pure Note, the ultimate tool for all your note-taking needs. Designed with simplicity and functionality in mind, Pure Note offers a seamless experience to help you capture, organize, and focus on your tasks effortlessly. Whether you are a student, professional, or someone who loves to keep things organized, PureNote is here to support your productivity journey.</p>
+      <p className="font-['Inter'] font-light text-sm ">Welcome to PureNote, the ultimate tool for all your note-taking needs. Designed with simplicity and functionality in mind, Pure Note offers a seamless experience to help you capture, organize, and focus on your tasks effortlessly. Whether you are a student, professional, or someone who loves to keep things organized, PureNote is here to support your productivity journey.</p>
       <button className="text-sm rounded-full p-2 hover:bg-slate-300 bg-slate-200" onClick={() => window.location.href = '/notes'}>Get Notes</button>
-    </div>
+    </motion.div>
     </>
   );
 }

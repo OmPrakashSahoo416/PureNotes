@@ -5,6 +5,8 @@ import ZoomedNote from "./ZoomedNote";
 import { setSelectedNote } from "../states/selectedNote/selectedNote";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsPopUp } from "../store/isPopUp/isPopUp";
+
+// import { motion } from "framer-motion";
 // import { db } from "../Firebase";
 
 // bg-gradient-to-r from-teal-400 to-yellow-200 ==> crazy color scheme ...
@@ -21,8 +23,15 @@ function PopUpScreen({ setListContent, setListChecked, userDetails }) {
           (isPopUp === false && "hidden ") +
           "popUpScreen bg-opacity-80  bg-slate-700 flex items-center justify-center fixed top-0 inset-0 z-[1100] h-[100vh]"
         }
+
+        
       >
-        <div className="w-[600px] drop-shadow-2xl flex group items-center rounded-lg flex-col p-5 justify-between h-[600px] bg-slate-200 z-[1000]">
+        <div className="w-[600px] drop-shadow-2xl flex group items-center rounded-lg flex-col p-5 justify-between h-[600px] bg-slate-200 z-[1000]"
+        
+        
+        
+        
+        >
           {/* change this to one which is clicked on main page to show !!! TODO  */}
 
           <div className="w-full overflow-auto h-full">
@@ -51,8 +60,8 @@ function PopUpScreen({ setListContent, setListChecked, userDetails }) {
           >
             Close
           </button>
-        </div>
       </div>
+        </div>
     </>
   );
 }

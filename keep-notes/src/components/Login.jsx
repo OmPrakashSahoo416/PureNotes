@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { auth } from "../Firebase";
 import firebase from "firebase/compat/app";
 import GoogleIcon from "@mui/icons-material/Google";
+
+import { motion } from "framer-motion";
 // import IconButton from "./IconButton";
 
 function Login() {
@@ -86,7 +88,7 @@ async function type() {
 
   return (
     <>
-      <div className="loginPage bg-slate-100">
+      <div className="loginPage h-screen bg-slate-100">
 
         <div className="loginHeader flex items-center sm:justify-start justify-center font-['Inter']  p-5">
             <div className="logo p-2">
@@ -115,9 +117,14 @@ async function type() {
             
             </div>
           </div>
-          <div className="loginImage sm:w-[60%] hidden sm:block ">
+          <motion.div
+          initial={{y:[0, 20, 0]}}
+          animate={{y:[20,0, 20]}}
+          
+          transition={{duration: 3, ease:"linear", repeat:Infinity}}
+           className="loginImage sm:w-[60%] hidden sm:block ">
             <img src="./public/loginImage.png" className="!h-[750px] object-contain" alt="" />
-          </div>
+          </motion.div>
         </div>
         
           

@@ -8,6 +8,7 @@ import { displayLeaderboard } from "../states/leaderboard/leaderboardSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsListView } from "../states/isListView/isListView";
 import { setSearchText } from "../states/searchText/searchText";
+import { motion } from "framer-motion";
 
 // import {  useState } from "react";
 // import { useEffect } from "react";
@@ -41,26 +42,46 @@ function Header({ userDetails }) {
             (isFocus && " hidden ") +
             "header sticky top-0 z-[1000] bg-slate-100  flex items-center justify-between drop-shadow-2xl p-3"
           }
+          
         >
           {/* header left section  */}
-          <div className="headerLeft flex items-center">
+          <motion.div className="headerLeft flex items-center" initial= { {y: -20, opacity: 0} }
+  animate= {
+   { y: 0,
+    opacity: 1,
+    transition: {
+      duration: 2,
+      delay:0.5,
+      ease: [0.6, -0.05, 0.01, 0.99],
+    }}
+  }>
             {/* sidebar visibility button  */}
 
             {/* logo of app  */}
             <div className="flex items-center">
               <img
                 src="./public/logo.png "
-                className="h-[40px] sm:ml-[100px] mr-5 rounded-md hover:cursor-pointer object-contain"
+                className="h-[40px] sm:ml-[100px] mr-5 rounded-sm hover:cursor-pointer object-contain"
                 alt=""
+                onClick={() => window.location.href = "/"}
               />
-              <p className="text-lg hover:cursor-pointer text-slate-700  hidden md:block  font-['Inter']">
+              <p className="text-lg text-slate-700  hidden md:block  font-['Inter']">
                 PureNotes
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* header center section  */}
-          <div className="headerCenter">
+          <motion.div className="headerCenter " initial= { {y: -20, opacity: 0} }
+  animate= {
+   { y: 0,
+    opacity: 1,
+    transition: {
+      duration: 2,
+      delay:0.5,
+      ease: [0.6, -0.05, 0.01, 0.99],
+    }}
+  }>
             {/* search bar */}
             <div className="searchBar drop-shadow-sm items-center p-2 flex rounded-md  bg-slate-200 ">
               {/* search icon  */}
@@ -80,10 +101,19 @@ function Header({ userDetails }) {
               />
               {/* </form> */}
             </div>
-          </div>
+          </motion.div>
 
           {/* header right section  */}
-          <div className="headerRight">
+          <motion.div className="headerRight sm:mr-[100px]" initial= { {y: -20, opacity: 0} }
+  animate= {
+   { y: 0,
+    opacity: 1,
+    transition: {
+      duration: 2,
+      delay:0.5,
+      ease: [0.6, -0.05, 0.01, 0.99],
+    }}
+  }>
             <div className="headerRightLinks flex items-center">
               <button
                 onClick={() => dispatch(displayLeaderboard())}
@@ -109,7 +139,7 @@ function Header({ userDetails }) {
 
               <IconButton avatar={userDetails.photoURL} />
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
     </>

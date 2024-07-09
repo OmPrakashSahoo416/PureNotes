@@ -1,5 +1,6 @@
 
 import { auth } from "../Firebase";
+import { motion } from "framer-motion";
 function IconButton({
   Icon,
   avatar,
@@ -17,10 +18,14 @@ function IconButton({
   }
   return (
     <>
-      <div
+      <motion.div
         className={
-          "iconBtn flex p-2 rounded-full w-fit hover:bg-slate-300 text-slate-600"
+          "iconBtn flex p-2 rounded-full w-fit  text-slate-600"
+
         }
+        whileHover={{ scale: 0.9 }}
+  onHoverStart={e => {}}
+  onHoverEnd={e => {}}
       >
         {/* when there is a functionality this is specifically for the left header menu show and unshow feature  */}
         {hideHandler && Icon && (
@@ -40,7 +45,7 @@ function IconButton({
               className="max-h-[40px] hover:animate-bounce sm:animate-none animate-bounce drop-shadow-xl ring-2 ring-slate-700 ring-offset-2 max-w-[36px] rounded-full object-contain bg-white"
             />
 
-            <div className="sm:hidden group-hover:block absolute top-[80px] sm:top-[50px]">
+            <div className="sm:hidden group-hover:block absolute top-[80px] sm:top-[40px]">
               <button onClick={userLogOut} className="bg-slate-100 rounded-lg text-slate-600 p-2 ">
                 LogOut
               </button>
@@ -51,7 +56,7 @@ function IconButton({
 
         {text && !hidden && <p className="ml-5 w-[150px]">{text}</p>}
         {/* {hidden} */}
-      </div>
+      </motion.div>
     </>
   );
 }

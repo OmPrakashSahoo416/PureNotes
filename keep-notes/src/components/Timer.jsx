@@ -5,6 +5,7 @@ import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 import { PlayCircleFilledRounded } from "@mui/icons-material";
 import { PauseCircleFilledRounded } from "@mui/icons-material";
 import { db } from "../Firebase";
+import { motion } from "framer-motion";
 
 function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
   const timerRef = useRef(null);
@@ -109,7 +110,18 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
 
   return (
     <>
-      <div className="focusTypes font-['Inter'] flex  justify-evenly items-center">
+      <motion.div className="focusTypes font-['Inter'] flex  justify-evenly items-center"
+      initial={{y:-100, opacity:0}}
+      animate={{ y: 0,
+        opacity: 1,
+        transition: {
+          duration: 2,
+          
+          ease: [0.6, -0.05, 0.01, 0.99],
+        }}}
+      
+      
+      >
         <button
           className="border-2  focus:bg-slate-100 mr-5 rounded-full p-3 text-slate-100 border-white focus:text-slate-800"
           type="button"
@@ -145,13 +157,27 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
         >
           Long Break
         </button>
-      </div>
-      <div className="focusWatch text-white text-center font-bold font-['Inter'] text-[150px]">
+      </motion.div>
+      <motion.div className="focusWatch text-white text-center font-bold font-['Inter'] text-[150px]" initial={{y:-100, opacity:0}}
+      animate={{ y: 0,
+        opacity: 1,
+        transition: {
+          duration: 2,
+          
+          ease: [0.6, -0.05, 0.01, 0.99],
+        }}}>
         {/* toString(10) means decimal representation 2 for binary similarly  */}
         {minute < 10 ? "0" + minute.toString(10) : minute.toString()}:
         {second < 10 ? "0" + second.toString(10) : second.toString()}
-      </div>
-      <div className="focusButtons flex items-center justify-center">
+      </motion.div>
+      <motion.div className="focusButtons flex items-center justify-center" initial={{y:-100, opacity:0}}
+      animate={{ y: 0,
+        opacity: 1,
+        transition: {
+          duration: 2,
+          
+          ease: [0.6, -0.05, 0.01, 0.99],
+        }}}>
         <button
           onClick={() => (!isTimerRunning ? startTimer() : pauseTimer())}
           className="border-2 mr-5 rounded-full text-slate-100 border-slate-100 focus:text-slate-800 focus:bg-slate-100"
@@ -170,15 +196,22 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
         >
           <IconButton Icon={RefreshRoundedIcon} color="text-slate-100" />
         </button>
-      </div>
-      <div className="text-white flex font-semibold m-5 text-center justify-center">
+      </motion.div>
+      <motion.div className="text-white flex font-semibold m-5 text-center justify-center" initial={{y:-100, opacity:0}}
+      animate={{ y: 0,
+        opacity: 1,
+        transition: {
+          duration: 2,
+          
+          ease: [0.6, -0.05, 0.01, 0.99],
+        }}}>
         {/* keeping it divided by 120 because for some reason it is incrementing by 2 each time 
         may be because of more number of instances but clearing interval on useeffect just breaks everything */}
         <span className="text-slate-100 font-semibold text-center text-xl">
           {Math.floor(totalFocusTime.filter((num) => num !== -1)[0] / 120) +
             " min."}{" "}
         </span>
-      </div>
+      </motion.div>
     </>
   );
 }

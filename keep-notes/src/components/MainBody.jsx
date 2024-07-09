@@ -8,6 +8,7 @@ import CheckedListItem from "./CheckListItem";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsFocus } from "../states/isFocus/isFocus";
 import { setIsInputActive } from "../states/isInputActive/isInputActive";
+import { motion } from "framer-motion";
 // import { useSelector } from "react-redux";
 // import Canvas from "./Canvas";
 // import Canvas from "./Canvas";
@@ -137,6 +138,35 @@ function MainBody() {
     <>
       {/* <Canvas></Canvas> */}
       {handleFocus()}
+      <motion.div
+        className="absolute z-[2003] w-full flex justify-center items-center bg-black"
+        initial={{height:"100vh", top:0}}
+        animate={{height:0, bottom:0,
+          transition: {
+            duration: 1.5,
+            ease: [0.80, 0, 0.20, 1],
+          }}}
+          
+          >
+	      
+      <motion.p
+                
+                className="text-slate-100 font-thin font-['Inter'] text-2xl p-2   z-[2001]"
+                initial= {
+                  {opacity:1}
+                }
+                animate= {
+                  {opacity: 0,
+                    
+                  transition: {
+                    duration: 1.5,
+                    
+                  }}
+                }
+                
+      > Entering Notes
+      </motion.p>      
+      </motion.div>
       <div className="mainBody rounded-md flex justify-center flex-col  w-full mr-2 ml-2 p-5 ">
         <div className="mainBodyInp rounded-md flex justify-center flex-col items-center  w-full mb-16 ">
           <div className="noteCreater w-full drop-shadow-lg sm:w-[50%] z-[950] rounded-md mt-24 md:mt-0 bg-slate-100  p-3 mb-16 ">

@@ -84,7 +84,7 @@ function Canvas({ isPopUp, docId, userDetails}) {
             // console.log('File available at', downloadURL);
             // setImgLink(downloadURL);
             // setCanvasLink(downloadURL);
-        (userDetails && 
+        (
         db
         .collection(userDetails.uid)
         .doc(docId)

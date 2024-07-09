@@ -19,6 +19,7 @@ import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedNote } from "../states/selectedNote/selectedNote";
 import { setIsPopUp } from "../store/isPopUp/isPopUp";
+import { motion } from "framer-motion";
 // import firebase from "firebase/compat/app";
 
 // import { useDrag, useDrop } from "react-dnd";
@@ -234,11 +235,17 @@ function Note({
   return (
     // next implement the on click zoom of note on a pop up screen
     <>
-      <div
+      <motion.div
         className={
           (isListView ? "min-w-[100%] " : " sm:min-w-[200px] ") +
           "note  border-[1px] mr-5  min-w-full bg-slate-200 drop-shadow-xl font-['Inter'] rounded-lg p-4  max-w-[200px] group max-h-[250px] "
         }
+        initial={{opacity:0, scale:0.5}}
+        animate={{opacity:1, scale:1, transition:{duration:0.8, ease:"easeOut"}}}
+
+        whileHover={{scale:1.1, repeatCount:Infinity}}
+  onHoverStart={e => {}}
+  onHoverEnd={e => {}}
       >
         <div
           onClick={() => {
@@ -315,7 +322,7 @@ function Note({
             <IconButton Icon={CloseRoundedIcon}color={"text-slate-100"} />
           </button>
         </div>
-      </div>
+      </motion.div>
       <ToastContainer
         position="bottom-right"
         autoClose={2000}

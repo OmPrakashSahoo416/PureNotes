@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { db } from "../Firebase";
 import { useEffect, useState } from "react";
 import { displayLeaderboard } from "../states/leaderboard/leaderboardSlice";
+import { motion } from "framer-motion";
 
 function LeaderBoard() {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -31,9 +32,24 @@ function LeaderBoard() {
   return (
     <>
       {showLeaderboard && (
-        <div className="leaderboard bg-opacity-80  bg-slate-700 font-['Inter'] flex items-center justify-center fixed top-0 inset-0 z-[1100] h-[100vh]">
-          <div className="w-[600px] drop-shadow-2xl flex group items-center rounded-lg flex-col p-5 h-[600px] bg-slate-100 z-[1000]">
-            <p className="text-2xl text-slate-600 font-thin  font-['Inter'] mb-10">
+        <div className="leaderboard bg-opacity-80  bg-slate-700 font-['Inter'] flex items-center justify-center fixed top-0 inset-0 z-[1100] h-[100vh]"
+        
+        
+        >
+          <motion.div className="w-[600px] drop-shadow-2xl flex group items-center rounded-lg flex-col p-5 h-[600px] bg-slate-100 z-[1000]" 
+          initial={{scale:0.5}}
+          animate={{scale:1,
+            transition: {
+              duration: 1,
+              ease: [0.3,0.6,0.4,1],
+            }}}
+            exit={{scale:1}}
+          
+          
+          >
+          
+          
+            <p className="text-2xl text-slate-600 font-light  font-['Inter'] mb-10">
               {" "}
               Focus Time Ranking{" "}
             </p>
@@ -63,7 +79,7 @@ function LeaderBoard() {
             >
               Close
             </button>
-          </div>
+          </motion.div>
         </div>
       )}
     </>

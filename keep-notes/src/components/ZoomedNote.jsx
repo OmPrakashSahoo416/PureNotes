@@ -2,6 +2,8 @@ import { db } from "../Firebase";
 import Canvas from "./Canvas";
 import CheckedListItem from "./CheckListItem";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 // import CheckList from "./CheckList";
 // import UploadImage from "./UploadImage";
 
@@ -21,7 +23,7 @@ function ZoomedNote({
   function handleOnChangeText(e) {
     // target inner text gives only the text and not html tags and whitespace no wrap dont add spaces if
     // we change lines it just preserves those
-    userDetails &&
+    
       db
         .collection(userDetails.uid)
         .doc(docId)
@@ -34,7 +36,7 @@ function ZoomedNote({
   function handleOnChangeTitle(e) {
     // target inner text gives only the text and not html tags and whitespace no wrap dont add spaces if
     // we change lines it just preserves those
-    userDetails &&
+    
       db
         .collection(userDetails.uid)
         .doc(docId)
@@ -46,9 +48,20 @@ function ZoomedNote({
 
   return (
     <>
-      <div className="zoomedNote overflow-y-scroll w-full h-full">
+      <motion.div className="zoomedNote overflow-y-scroll w-full h-full" 
+      
+      initial={{scale:0.5}}
+        animate={{scale:1,
+          transition: {
+            duration: 2,
+            ease: [0.3,0.6,0.4,1],
+          }}}
+          exit={{scale:0.5}}
+      
+      >
         <p
           onInput={handleOnChangeTitle}
+          
           contentEditable
           suppressContentEditableWarning
           className="mb-3 border-[1px] bg-slate-300 font-['Inter']  rounded-md  p-2 whitespace-pre-wrap outline-none text-lg font-medium text-slate-700"
@@ -87,7 +100,7 @@ function ZoomedNote({
         <img src={canvasUrl} alt="" className="overflow-auto mb-5" />
         <Canvas isPopUp={isPopUp} docId={docId} userDetails={userDetails} />
         {/* <UploadImage /> */}
-      </div>
+      </motion.div>
     </>
   );
 }
