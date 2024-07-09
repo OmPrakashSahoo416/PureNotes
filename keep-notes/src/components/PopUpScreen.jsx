@@ -47,7 +47,7 @@ function PopUpScreen({ setListContent, setListChecked, userDetails }) {
               setListChecked(false);
             }}
             type="button"
-            className="  absolute bottom-0 p-4 w-full bg-red-600 text-slate-100 rounded-b-lg"
+            className=" block sm:hidden group-hover:block  absolute bottom-0 p-4 w-full bg-red-600 text-slate-100 rounded-b-lg"
           >
             Close
           </button>

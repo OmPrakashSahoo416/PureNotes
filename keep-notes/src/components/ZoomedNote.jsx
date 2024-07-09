@@ -51,7 +51,7 @@ function ZoomedNote({
           onInput={handleOnChangeTitle}
           contentEditable
           suppressContentEditableWarning
-          className="mb-3 border-[1px] bg-slate-300 font-['Inter']  rounded-md  p-2 whitespace-pre-wrap outline-none text-lg font-semibold text-slate-700"
+          className="mb-3 border-[1px] bg-slate-300 font-['Inter']  rounded-md  p-2 whitespace-pre-wrap outline-none text-lg font-medium text-slate-700"
         >
           {title}
         </p>
@@ -64,7 +64,7 @@ function ZoomedNote({
           {textBody}
         </p>
         {/* TASKS LIST */}
-        <div className="rounded-md font-semibold border-2 mb-3 bg-slate-300 p-3">
+        <div className="rounded-md font-medium border-2 mb-3 bg-slate-300 p-3">
           CHECKLIST :
           {tasks &&
             tasks.map((eachItem, index) => (

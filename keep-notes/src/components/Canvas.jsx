@@ -117,11 +117,11 @@ function Canvas({ isPopUp, docId, userDetails}) {
           onMouseLeave={endDrawing}
         />
 
-        <div className="canvasButtons flex items-center">
+        <div className="canvasButtons flex  items-center">
           {/* download the canvas button  */}
           <button
             type="button"
-            className=" mt-1 p-2 bg-blue-500 text-slate-100 hover:drop-shadow-xl rounded-md "
+            className=" mt-1 p-2 bg-blue-500 mb-[100px] text-slate-100 hover:drop-shadow-xl rounded-md "
           >
             <a onClick={(e) => downloadCanvas(e)} href="downloadImg">
               Download
@@ -132,7 +132,7 @@ function Canvas({ isPopUp, docId, userDetails}) {
           <button
             onClick={(e) => clearCanvas(e)}
             type="button"
-            className=" mt-1 p-2 ml-5 bg-blue-500 text-slate-100 hover:drop-shadow-xl rounded-md "
+            className=" mt-1 p-2 ml-5 bg-blue-500 mb-[100px] text-slate-100 hover:drop-shadow-xl rounded-md "
           >
             Clear
           </button>
@@ -141,11 +141,11 @@ function Canvas({ isPopUp, docId, userDetails}) {
           <button
             onClick={(e) => saveCanvas(e)}
             type="button"
-            className=" mt-1 p-2 ml-5 bg-blue-500 text-slate-100 hover:drop-shadow-xl rounded-md "
+            className=" mt-1 p-2 ml-5 bg-blue-500 mb-[100px] text-slate-100 hover:drop-shadow-xl rounded-md "
           >
             Save
           </button>
-          <p className="ml-5">{progressVal}%</p>
+          <p className="ml-5 mb-[100px]">{progressVal}%</p>
         </div>
       </div>
     </>

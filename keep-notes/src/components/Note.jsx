@@ -236,8 +236,8 @@ function Note({
     <>
       <div
         className={
-          (isListView ? "min-w-[100%] " : " ") +
-          "note  border-[1px] mr-5 sm:min-w-[200px] min-w-full bg-slate-200 drop-shadow-xl font-['Inter'] rounded-lg p-4  max-w-[200px] group max-h-[250px] "
+          (isListView ? "min-w-[100%] " : " sm:min-w-[200px] ") +
+          "note  border-[1px] mr-5  min-w-full bg-slate-200 drop-shadow-xl font-['Inter'] rounded-lg p-4  max-w-[200px] group max-h-[250px] "
         }
       >
         <div
@@ -257,7 +257,7 @@ function Note({
           className=" overflow-hidden w-full h-full "
         >
           {/* title of note  */}
-          <p className="mb-3 rounded-md outline-none text-lg font-['Inter'] font-semibold text-slate-600">
+          <p className="mb-3 rounded-md outline-none text-lg font-['Inter'] font-medium text-slate-600">
             {title}
           </p>
 
