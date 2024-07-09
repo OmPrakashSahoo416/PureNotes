@@ -1,6 +1,7 @@
 // import { useEffect } from "react";
 import { db } from "../Firebase";
 import firebase from 'firebase/compat/app';
+import LoadingScreen from "./LoadingScreen";
 
 function CheckedListItem({setListContent, setListChecked, listContentVal, checkListItems, isInput, listCheckedVal, listContent, listChecked, setCheckListItems, docId, index, tasks, userDetails}) {
 
@@ -69,6 +70,7 @@ function CheckedListItem({setListContent, setListChecked, listContentVal, checkL
 
   return (
     <>
+    {(userDetails === null && <LoadingScreen />)}
     <div className="flex items-center font-['Inter'] justify-between overflow-auto p-2 rounded-sm drop-shadow-lg mb-3 w-fit bg-slate-200">
 
       {isInput && 

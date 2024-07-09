@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsFocus } from "../states/isFocus/isFocus";
 import { setIsInputActive } from "../states/isInputActive/isInputActive";
 import { motion } from "framer-motion";
+import LoadingScreen from "./LoadingScreen";
 // import { useSelector } from "react-redux";
 // import Canvas from "./Canvas";
 // import Canvas from "./Canvas";
@@ -137,6 +138,7 @@ function MainBody() {
   return (
     <>
       {/* <Canvas></Canvas> */}
+      {(userDetails === null && <LoadingScreen />)}
       {handleFocus()}
       <motion.div
         className="absolute z-[2003] w-full flex justify-center items-center bg-black"

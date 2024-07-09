@@ -5,6 +5,7 @@ import ZoomedNote from "./ZoomedNote";
 import { setSelectedNote } from "../states/selectedNote/selectedNote";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsPopUp } from "../store/isPopUp/isPopUp";
+import LoadingScreen from "./LoadingScreen";
 
 // import { motion } from "framer-motion";
 // import { db } from "../Firebase";
@@ -18,6 +19,7 @@ function PopUpScreen({ setListContent, setListChecked, userDetails }) {
 
   return (
     <>
+    {(userDetails === null && <LoadingScreen />)}
       <div
         className={
           (isPopUp === false && "hidden ") +

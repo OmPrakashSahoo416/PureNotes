@@ -7,11 +7,13 @@ import { useLocation } from "react-router-dom";
 import { db, auth } from "./Firebase";
 import LeaderBoard from "./components/LeaderBoard";
 import { motion } from "framer-motion";
+import LoadingScreen from "./components/LoadingScreen";
 // import LoadingScreen from "./components/LoadingScreen";
 // import { getAuth } from 'firebase/auth';
 
 function App() {
   const [userDetails, setUserDetails] = useState(null);
+  
 
   // userDetails &&
   // auth()
@@ -46,7 +48,9 @@ function App() {
           console.log(user);
           const userRef = db.collection("focus").doc(user.uid);
           const docExists = await userRef.get();
+          
           if (!docExists.exists) {
+            
             await userRef.set({
               focusTime: 0,
               name: user.displayName,
@@ -54,6 +58,7 @@ function App() {
             });
           }
         }
+         
       }
     });
 
@@ -79,6 +84,7 @@ function App() {
 
   return (
     <>
+    {(userDetails === null && <LoadingScreen />)}
       <div className="relative inset-0">
         <motion.div
           className="absolute z-[2000] w-full flex justify-center items-center bg-black"

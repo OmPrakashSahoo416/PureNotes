@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsFocus } from "../states/isFocus/isFocus";
 import { motion } from "framer-motion";
 
+import LoadingScreen from "./LoadingScreen";
+
 function ReminderRoute() {
   const { userDetails } = useOutletContext();
 
@@ -40,6 +42,7 @@ function ReminderRoute() {
   return (
     <>
       {handleFocus()}
+      {(userDetails === null && <LoadingScreen />)}
 
       <motion.div
         className="absolute z-[2003] w-full flex justify-center items-center bg-black"
@@ -107,6 +110,7 @@ function ReminderRoute() {
           )}
         </div>
       </div>
+      
     </>
   );
 }

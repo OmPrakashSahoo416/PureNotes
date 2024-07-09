@@ -3,6 +3,7 @@ import Canvas from "./Canvas";
 import CheckedListItem from "./CheckListItem";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import LoadingScreen from "./LoadingScreen";
 // import { motion } from "framer-motion";
 // import CheckList from "./CheckList";
 // import UploadImage from "./UploadImage";
@@ -48,6 +49,7 @@ function ZoomedNote({
 
   return (
     <>
+    {(userDetails === null && <LoadingScreen />)}
       <motion.div className="zoomedNote overflow-y-scroll w-full h-full" 
       
       initial={{scale:0.5}}

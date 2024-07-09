@@ -5,6 +5,7 @@ import firebase from "firebase/compat/app";
 import GoogleIcon from "@mui/icons-material/Google";
 
 import { motion } from "framer-motion";
+// import LoadingScreen from "./LoadingScreen";
 // import IconButton from "./IconButton";
 
 function Login() {
@@ -12,7 +13,7 @@ function Login() {
 
   // navigate("/notes");
 
-  let i = 0;
+
 let j = 0;
 let currentWord = "";
 let isDeleting = false;
@@ -45,7 +46,7 @@ async function type() {
       }
     }
     await sleep(300);
-    await sleep(100);
+    
     // console.log(textGenerated);
   }
   
@@ -82,7 +83,7 @@ async function type() {
       console.log(result.user);
       if (result.user) {
         window.location.href = "/notes";
-      }
+      } 
     });
   }
 
@@ -100,7 +101,19 @@ async function type() {
         <div className="loginBody sm:flex items-center justify-between p-5 h-[600px] w-full">
           <div className="loginText flex  font-['Inter'] text-[50px] font-extralight p-2   sm:ml-[100px] sm:w-[40%]">
             <div className="w-full flex flex-col items-center sm:block ">
-              <p id="loginHeading" className="sm:min-h-[250px] min-h-[450px] text-slate-700"></p> 
+
+
+              <motion.p id="loginHeading" className="sm:min-h-[250px] min-h-[450px] text-slate-700"
+                initial={{opacity:0}}
+                animate={{opacity:1, transition:{
+                  duration:0.5
+                }}}
+              
+              
+              
+              ></motion.p> 
+
+
             <button
             type="button"
             className="bg-slate-100 rounded-md  text-sm p-3 flex items-center justify-between hover:drop-shadow-md border border-slate-200 drop-shadow-sm mt-10"

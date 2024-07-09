@@ -20,6 +20,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSelectedNote } from "../states/selectedNote/selectedNote";
 import { setIsPopUp } from "../store/isPopUp/isPopUp";
 import { motion } from "framer-motion";
+import LoadingScreen from "./LoadingScreen";
 // import firebase from "firebase/compat/app";
 
 // import { useDrag, useDrop } from "react-dnd";
@@ -235,6 +236,7 @@ function Note({
   return (
     // next implement the on click zoom of note on a pop up screen
     <>
+    {(userDetails === null && <LoadingScreen />)}
       <motion.div
         className={
           (isListView ? "min-w-[100%] " : " sm:min-w-[200px] ") +

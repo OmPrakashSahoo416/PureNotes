@@ -6,6 +6,7 @@ import { PlayCircleFilledRounded } from "@mui/icons-material";
 import { PauseCircleFilledRounded } from "@mui/icons-material";
 import { db } from "../Firebase";
 import { motion } from "framer-motion";
+import LoadingScreen from "./LoadingScreen";
 
 function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
   const timerRef = useRef(null);
@@ -110,6 +111,7 @@ function Timer({ setIsTimerRunning, isTimerRunning, setGifVid, userDetails }) {
 
   return (
     <>
+    {(userDetails === null && <LoadingScreen />)}
       <motion.div className="focusTypes font-['Inter'] flex  justify-evenly items-center"
       initial={{y:-100, opacity:0}}
       animate={{ y: 0,
