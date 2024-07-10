@@ -1,1 +1,1 @@
-# React + Redux + Tailwindcss + Firebase + Framer-Motion
+# React + Redux + Tailwindcss + Material-UI + Firebase + Framer-Motion
