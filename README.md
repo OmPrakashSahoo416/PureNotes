@@ -1,6 +1,6 @@
 # PureNotes
 
-PureNotes is a comprehensive notes management web application built with React, Redux, Framer Motion, Firebase, and Tailwind CSS. This app offers a range of features for creating, pinning and managing notes, todos,  setting reminders, drawing on a canvas, uploading and storing local files, and focusing with Pomodoro timers. The app also includes user authentication via Google, a leaderboard for focus time, and seamless page transitions with animations.
+PureNotes is a comprehensive notes management web application built with React, Redux, Framer Motion, Material-UI, Firebase, and Tailwind CSS. This app offers a range of features for creating, pinning and managing notes, todos,  setting reminders, drawing on a canvas, uploading and storing local files, and focusing with Pomodoro timers. The app also includes user authentication via Google, a leaderboard for focus time, and seamless page transitions with animations.
 
 ## Table of Contents
 - [Features](#features)
